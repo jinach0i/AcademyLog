@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>클래스</title>
+    <script>
+	class Display {  // Display 클래스 선언
+		constructor(x, y) {
+			this.x = x;
+			this.y = y;
+		}
+	}
+	
+	class Rect extends Display {  // Display 클래스를 상속받는 Rect 클래스 선언
+		constructor(x, y, width, height) {
+			super(x, y);  // 부모 클래스의 생성자함수 호출
+			this.width = width;
+			this.height = height;
+		}
+	}
+    </script>
+</head>
+<body>
+
+</body>
+</html>

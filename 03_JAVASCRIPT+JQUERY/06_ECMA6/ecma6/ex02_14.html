@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+	function tagged(str, a, b){ // 템플릿 리터럴 구문에 의하여 호출
+	                            // 매개변수 str의 값은 ['A와 B 둘 중']
+								// 매개변수 a의 값은 100
+								// 매개변수 b의 값은 200
+		let bigger;
+		(a > b) ? bigger = 'A' : bigger = 'B';
+		// a의 값이 클 경우 bigger의 값은 문자열 'A'를
+		// 아닐 경우 문자열 'B'가 됨 
+		return str[0] + bigger + '가 더 큽니다.' ;
+	}
+	
+	let a = 100;
+	let b = 200;
+	// tagged 함수 호출
+	let str = tagged `A와 B 둘 중 ${a}, ${b}`; // 홋따옴표('')가 아니라 역따옴표(``)임을 주의
+	console.log(str); // 결과는 'A와 B 둘 중 B가 더 큽니다.'
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

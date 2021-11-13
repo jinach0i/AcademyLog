@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>나머지 매개변수</title>
+    <script>
+		function myFunction(p1, ...args){  // ...args 나머지 매개변수 추가
+			if(arguments[0]){  // 나머지 매개변수가 있을 경우
+				return p1 + args[0];
+			}else{
+				return p1;
+			}
+		}
+		console.log(myFunction(100, 200));
+    </script>
+</head>
+<body>
+
+</body>
+</html>

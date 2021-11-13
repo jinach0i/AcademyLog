@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Promise</title>
+    <style>
+        body h1{font-size: 24px; color:red;}
+    </style>
+    <script type="text/javascript">
+        let req = new XMLHttpRequest();
+        req.open('GET', 'data.html');
+        req.send();
+        req.onreadystatechange = function(){
+            if(req.readyState == req.DONE){
+                if(req.status == 200){
+					// Ajax 호출 성공시 body에 데이터 추가
+                    document.body.innerHTML =  req.response;
+                } else {
+					// Ajax 호출 실패 원인 출력
+                    console.log(req.statusText);
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

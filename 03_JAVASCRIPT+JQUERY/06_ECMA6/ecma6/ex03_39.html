@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Proxy</title>
+    <script type="text/javascript">
+        let obj = {a: 100, b: 200};	
+		let proxy = new Proxy(obj, {
+			// 트랩 설정
+			has:function(target, prop){
+				let result = Reflect.has(target, prop);
+				// 속성 존재 여부 결과를 반환
+				return result;
+			}
+		});		
+		
+		//in 연산자로 객체에 속성 존재 여부 확인
+		let bool = 'a' in proxy;
+		// 결과는 true, 트랩으로부터 전달받음
+		console.log(bool);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>워크셋 add(value) 메서드</title>
+	<script>
+	let obj = {};
+	let weakSet = new WeakSet();
+	
+	weakSet.add(obj);  				// value로 참조 타입을 사용
+	console.log(weakSet.has(obj));  // 결과는 true
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

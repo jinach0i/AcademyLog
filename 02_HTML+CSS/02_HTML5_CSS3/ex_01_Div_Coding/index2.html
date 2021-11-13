@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrap{width: 1200px; height: 400px;}
+        
+        .left{width: 800px; height: 400px; float: left;}
+        .header{width: 800px; height: 100px; background-color: gold; float: left;}
+        .small{width: 600px; height: 300px; float: left;}
+        .small .smallheader{width: 600px; height: 100px; background-color: tomato; float: left;}
+        .small .smallleft{width: 200px; height: 200px; float: left;}
+            .small .smallleft .smalllefttop{width: 200px; height: 100px; background-color:lime;}
+            .small .smallleft .smallleftbottom{width: 200px; height: 100px; background-color: lightskyblue;}
+        .small .smallcenter{width: 200px; height: 200px; background-color:mediumspringgreen; float: left;}
+        .small .smallright{width: 200px; height: 200px; background-color: cornflowerblue; float: left;}
+
+        .leftright{width: 200px; height: 300px; background-color: lightsalmon;float: left;}
+
+        .right{width: 400px; height: 400px; float: left;}
+            .right .righttop{width: 400px; height: 300px; background-color: lightpink; float: left;}
+            .right .rightbottom{width: 400px; height: 100px; background-color:mediumslateblue; float: left;}
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div class="left">
+            <header class="header"></header>
+            <div class="small">
+                <div class="smallheader"></div>
+                <div class="smallleft">
+                    <div class="smalllefttop"></div>
+                    <div class="smallleftbottom"></div>
+                </div>
+                <div class="smallcenter"></div>
+                <div class="smallright"></div>
+            </div>
+            <div class="leftright"></div>
+        </div>
+        <div class="right">
+            <div class="righttop"></div>
+            <div class="rightbottom"></div>
+        </div>
+    </div>
+</body>
+</html>

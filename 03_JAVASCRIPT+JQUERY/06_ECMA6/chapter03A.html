@@ -1,0 +1,1025 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>Chapter 03A ECMAScript6 내장 객체</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+body { margin: 0; color: #000000; font: 14px/1.6  'Courier New', "Malgun Gothic", "맑은 고딕", DotumChe, Verdana, Arial, "Trebuchet MS"; margin: 0px; text-align: justify;}
+table th, table td{font: 14px/1.6  'Courier New', "Malgun Gothic", "맑은 고딕", DotumChe, Verdana, Arial, "Trebuchet MS"; color: #333333; text-align: justify;}
+table th{text-align: center;}
+a:link { color: rgb(0,125,255); text-decoration: none; font-weight: bold;}
+a:hover { color: rgb(255,0,0); text-decoration: none; font-weight: bold;}
+a:visited { color: rgb(0,190,190); text-decoration: none; font-weight: bold;}
+a:active { color: rgb(255,125,0); text-decoration: none; font-weight: bold;}
+.mp{margin: 0; padding: 0; text-align: center;}
+.center{text-align: center;}
+#wrap {	width: 900px; margin: auto;}
+#float{position: fixed; float: left; top: 5px; right: 100px; z-index: 100; border: 1px inset #efefef; font-size: 12px; color: #999999; padding: 5px;}
+#float > ul{margin: 0; padding: 0;}
+#float li{margin: 0; padding: 0; list-style:none; }
+.article {width: 900px; color: #333333;	line-height: 180%;	text-align: left;}
+.article h2 {background: #D0D7DF; border-bottom: 1px solid #C8CACE; border-top: 1px solid #C8CACE; font: 18px/1.6; font-weight: bold; margin: 25px 0px 25px 0px; padding: 10px 49px 10px 50px;}
+h3 {color: #009;}
+h4{font-size: 1.05em;}
+h1, h2, h3, h4{margin-top: 50px;}
+pre {margin: 10px 0px; padding: 0px 5px; border: 1px solid rgb(200, 202, 206);  width: 888px; overflow-x: auto; overflow-y: hidden; font: 16px/1.6  'Courier New', "Malgun Gothic", "맑은 고딕", DotumChe, Verdana, Arial, "Trebuchet MS"; text-align: justify;}
+p{text-align: justify;}
+.box { margin: 10px 0px; padding: 10px; border: 1px solid rgb(200, 202, 206); background-color: rgb(247, 247, 247);}
+
+.clearfix { width: 900px; padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px; background-color: rgb(34, 34, 34);}
+.clearfix:after{ content: ""; display: block; clear: both;}
+* html .clearfix {	height: 1%;}
+* + html .clearfix { display: inline-block;}
+
+.underline { text-decoration: line-through;}
+.blue { color: #000099;}
+.bold_blue { color: #000099; font-weight: bold;}
+.green {
+	color: #558800;
+}
+.bold_red { font-weight: bold; color: #cc0000;}
+.red { color: #cc0000;}
+.gray { color: #888888;}
+.none { color: #000000;}
+.normal{ color: #000000; font-weight: bold;}
+hr{ color: #888888;}
+.bggray{background-color: #efefef;}
+</style>
+</head>
+<body>
+<div id="wrap">
+<div class="article">
+	<h1>Chapter 03A ECMAScript6 내장 객체</h1>
+</div>
+    
+<h2>1. 제너레이터</h2>
+<p class="gray">- 제너레이터(generator)는 이터러블 규약과 이터레이터 규약을 따르는 제너레이터 객 체를 만들어 주는 함수이다 . 위에서 살펴본 것처럼 두 규약을 따르는 객체는 @@iterator 메서드와 next 메서드를 구현해줘야 하는데, 이를 작성하기가 간단하지만은 않다. 이를 좀 더 쉽게 구현하도록 하는 것이 제너레이터 함수다.</p>
+<p class="gray">- 제너레이터 함수는 호출이 되면 바로 실행되는 것이 아니라 제너레이터 객체를 반환하고 멈춰있다. 반환된 제너레이터 객체에 next 메서드를 호출하면 그때 제너레이터 함수의 구문이 실행되며, yield(일드:산출) 표현식을 만나면 실행을 멈추고 해당 표현식이 가리키는 값이 next 메서드가 반환히는 객체의 value 속성값이되며, done 속성값은 false가 된다. 다시 next 메서드 호출 시 이를 반복하다가 yield 표현식이 마지막까지 진행된 뒤에 next 메서드를 호출하면 이터레이터 객체와 마찬가지로 next 메서드가 반환하는 객체의 value 속성값이 undefined가 되고, done 속성값은 true가 된다.</p>
+<p class="gray"><img src="images/lesson03_01.png" alt="yield 표현식" width="855" height="292" border="1" style="display: block; margin: 0 auto;"></p>
+<pre class="gray">function* name(param){
+    statement
+}</pre>
+<table width="80%" border="1" align="center">
+  <tr>
+    <th>function*</th>
+    <td>function 뒤에 *를 붙여 제너레이터 함수를 선언한다.</td>
+  </tr>
+  <tr>
+    <th>name</th>
+    <td>제너레이터 함수의 이름</td>
+  </tr>
+  <tr>
+    <th>param</th>
+    <td>매개변수</td>
+  </tr>
+  <tr>
+    <th>statement</th>
+    <td>제너레이터 함수에 구현될 구문들이 오며, yield 표현식을 쓸 수 있다.</td>
+  </tr>
+</table>
+<p class="gray">- 이터러블 규약과 이터레이터 규약을 따르는 객체로 작성한 코드와 제너레이터 함수로 작성한 코드를 비교해 보자. 먼저 직접 두 규약을 따르는 객체를 작성한 코드를 살펴보면,</p>
+<ul>
+  <li>직접 작성한 코드</li>
+</ul>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex03_01.html" target="_blank">http://127.0.0.1:8887/ex03_01.html</a></p>
+</blockquote>
+<pre class="gray">let iterator = {
+    i:0,
+    [Symbol.iterator]:function(){
+        return this;
+    },
+    next:function(){
+        return (this.i &lt; 3) ? {value:this.i++, done:false} : {value:undefined, done:true}
+    }
+}
+for(let value of iterator){
+    console.log(value);  <span class="green">// 결과는 0, 1, 2</span>
+}</pre>
+<p class="gray">위의 코드는 이전 예제에서 이미 다룬 코드이다. 객체에 직접 @@iterator 메서드와 next 메서드를 구현하여, 이터러블 규약과 이터레이터 규약을 따르도록 하였다.  다음 코드는 제너레이터 함수로 변경하여 같은 동작을 보다 쉽게 구현하였다.</p>
+<ul>
+  <li>제너레이터 함수를 사용한 코드</li>
+</ul>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex03_02.html" target="_blank">http://127.0.0.1:8887/ex03_02.html</a></p>
+</blockquote>
+<pre class="gray">&nbsp;   function* gen(){
+&nbsp;   &nbsp;   for(let i=0; i&lt;3; i++){
+&nbsp;   &nbsp;   &nbsp;   yield i;
+&nbsp;   &nbsp;   }
+&nbsp;   }
+	
+&nbsp;   let generator = gen();
+&nbsp;   for(let value of generator){
+&nbsp;   &nbsp;   console.log(value);  <span class="green">//결과는 0, 1, 2</span>
+&nbsp;   }</pre>
+<p class="gray">- 위의 두 코드를 비교해 보면 제너레이터 함수를 사용하는 쪽이 @@iterator 메서드와 next 메서드를 작성해줄 필요가 없어 코드를 작성하기 쉽고 읽기도 더 수월하다.  제너레이터 함수의 동작 상태를 다시 한 번 살펴보면 다음과 같다.</p>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex03_03.html" target="_blank">http://127.0.0.1:8887/ex03_03.html</a> <span class="bold_red">(실행 : X)</span></p>
+</blockquote>
+<pre class="gray">&nbsp;   function* gen(){
+&nbsp;   &nbsp;   for(let i=0; i&lt;3; i++){
+&nbsp;   &nbsp;   &nbsp;   yield i;
+&nbsp;   &nbsp;   }
+&nbsp;   }
+	
+&nbsp;   let generator = gen();  <span class="green">// 제너레이터 함수를 호출 시 제너레이터 객체가 반환하고 동작을 멈춘다.</span>
+&nbsp;   console.log(iteratorResult); <span class="green">// 결과는 {value: 0, done:false}</span>
+</pre>
+<p class="gray">- 제너레이터 객체는 이터러블 규약과 이터레이터 규약을 따르기 때문에 for...of 문으로 순회하거나, next 메서드를 호출하여 열거가 가능하다. 그래서 위의 문장은 실행되지 않음.</p>
+<pre class="gray">let iteratorResult = generator.next();  <span class="green">//&nbsp;제너레이터 객체에 next 메서드를 호출하면 </span>
+                                        <span class="green">// 제너레이터 함수의 yield 표현식을 만날 때까지 진행한다.</span>
+                                        <span class="green">// yield 표현식 뒤의 값은 next 메서드가 반환하는 객체</span>
+                                        <span class="green">// (iterator result object)의 value 속성값이 된다.</span></pre>
+<p class="gray">&nbsp;</p>
+
+
+<h3>1) 제너레이터 이어붙이기</h3>
+<p class="gray">- 제너레이터 함수의 yield 표현식 사이에 다른 제너레이터 함수의 yield 표현식 이어붙이기를 제공한다. 하나의 제너레이터 함수에서 전체를 처리하기가 복잡하거나 전에 작성하였던 제너레이터 함수를 재사용해야 하는 경우에 유용하다.<br>
+  제너레이터 이어붙이기(yield*)의 사용 방법은 yield 표현식 뒤에 *을 붙이고 뒤에 다른 제너레이터 함수 호출 구문을 넣어 주면 된다.</p>
+<p class="gray">- 다음과 같이 yield 표현식 뒤에 *을 붙여 작성한다.</p>
+<pre class="gray">function* gen(){
+    yield* generator();
+}</pre>
+<p class="gray">- 좀 더 쉽게 이해할 수 있도록 다음 코드의 사용 예를 살펴보면, gen1 제너레이터 함수의 yield 표현식 중간에 gen2의 yield 표현힉을 연결하는 예이다.</p>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex03_04.html" target="_blank">http://127.0.0.1:8887/ex03_04.html</a></p>
+</blockquote>
+<pre class="gray">&nbsp;   function* gen1(n){
+&nbsp;   &nbsp;   yield n + 1;
+&nbsp;   &nbsp;   yield* gen2(n); <span class="green">// gen2 제너레이터 함수률 호출하여 yield 표현식을 이어 붙임 </span>
+&nbsp;   &nbsp;   yield n + 2;
+&nbsp;   }
+	
+&nbsp;   function* gen2(n){
+&nbsp;   &nbsp;   yield n + 100; 
+&nbsp;   &nbsp;   yield n + 200;
+&nbsp;   }
+	
+&nbsp;   let generator = gen1(100);
+&nbsp;   for(let value of generator){
+&nbsp;   &nbsp;   console.log(value); <span class="green">// 결과는 101, 200, 300, 102 </span>
+&nbsp;   }</pre>
+
+<p class="gray">- 위 코드의 동작을 살펴보면 </p>
+<pre class="gray">let generator = gen1(100) <span class="green">// 인자값 100을 전달하고, 반환된 제너레이터 객체를 변수 generator에 할당</span></pre>
+<p class="gray">- generator 객체를 순회하면 yield. 표현식을 순차적으로 실행시킨다. 실행되는 순서를 살펴보면, </p>
+<pre class="gray">n = 100
+gen1 - yield&nbsp;n + 1 = 101
+gen1 - yield* gen2(n) <span class="green">// 여기서 gen2 제너레이터 함수의 yield 표현식을 연결</span>
+
+gen2 - yield n + 100 = 200
+gen2 - yield n + 200 = 300  <span class="green">// gen2 제너레이터 함수의 yield 표현식이 종료되고</span>
+                            <span class="green">// 다시 gen1의 yield 표현식으로 연결된다.</span>
+gen1 - yield n + 2 = 102    <span class="green">// gen1 제너레이터 함수의 yield 표현식도 종료된다.</span></pre>
+<p class="gray">&nbsp;</p>
+<h3>2) 제너레이터 객체의 메서드</h3>
+<p class="gray">- 지금까지 살펴본 제러레이터 객체는 이터레이터 객체와 동일하게 동작함을 볼 수 있다. 이터레이터 객체는 이러테이터 규약을 따르므로 next 메서드가 구현되어 있다. 제너레이터 객체는 next 메서드 이 외 제너레이터 객체의 열거를 종료해주는 return 메서드와 오류를 발생시키는 throw 메서드를 추가 제공한다.</p>
+<table width="100%" border="1">
+  <tr>
+    <th>next</th>
+    <td><p>제너레이터 객체를 순차적으로 열거한다.<br>
+      열거되는 값은 객체이며 속성으로 value의 done을 갖는다.<br>
+      열거 중 value 속성은 yield 표현식 뒤에 오는 값이 할당되어지고<br>
+      done 속성값은 false이다. 열거가 종료되면 value 속성값은 undefined, done 속성값은 true가 할당된다.</p></td>
+  </tr>
+  <tr>
+    <th>return</th>
+    <td>제너레이터 객체의 열거를 종료한다.<br>
+      {value:undefined, done:true}를 반환한다.</td>
+  </tr>
+  <tr>
+    <th>throw</th>
+    <td>제너레이터 객체의 열거 중 강제로 오류를 발생시킨다. <br>
+      {value:undefined, done:true}를 반환한다.</td>
+  </tr>
+</table>
+<ul>
+  <li>return 메서드</li>
+</ul>
+<p class="gray">- 제너레이터 객체의 return 메서드는 제너레이터 객체의 열거를 종료한다. 다음 코드를 통해서 return 메서드를 살펴보자.</p>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex03_05.html" target="_blank">http://127.0.0.1:8887/ex03_05.html</a></p>
+</blockquote>
+<pre class="gray">&nbsp;   function* gen(){
+&nbsp;   &nbsp;   let i = 0; 
+&nbsp;   &nbsp;   while(i&gt;= 0){
+&nbsp;   &nbsp;   &nbsp;   yield i++;
+&nbsp;   &nbsp;   }
+&nbsp;   }	
+&nbsp;   let generator = gen();
+&nbsp;   console.log(generator.next());   <span class="green">// {value:0, done:false}</span>
+&nbsp;   console.log(generator.next());   <span class="green">// {value:1, done:false}</span>
+&nbsp;   console.log(generator.next());   <span class="green">// {value:2, done:false}</span>
+&nbsp;   <span class="green">// return 메서드 호출 후 결과값은 {value:underfined, done:true}</span>
+&nbsp;   console.log(generator.<span class="normal">return()</span>); 
+&nbsp;   console.log(generator.next());   <span class="green">// {value:underfined, done:true}</span></pre>
+<p class="gray">- 제너레이터 함수로 부터 얻은 제너레이터 객체에 next 메서드 호출 시 yield 표현식의 값이 next 메서드의 return 값의 value 속성값이 된다. 위의 결과처럼 value 속성값은 1씩 증가하다가 return 메서드 호출 시 제너레이터 객체의 열거가 종료된다. 종료 후의 value 속성값은 undefined 이며, done 속성값은 true 이다. </p>
+<ul>
+  <li>throw 메서드 </li>
+</ul>
+<p class="gray">- 제너레이터 객체의 throw 메서드는 제너레이터 객체의 열거 중 강제로 오류를 발생시킨다. 다음 코드를 콩해서 throw 메서드를 살펴보자. </p>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex03_06.html" target="_blank">http://127.0.0.1:8887/ex03_06.html</a></p>
+</blockquote>
+<pre class="gray">&nbsp;   function* gen(){
+&nbsp;   &nbsp;   let i = 0; 
+&nbsp;   &nbsp;   while(i&gt;= 0){
+            <span class="normal">try{</span>
+&nbsp;   &nbsp;   &nbsp;       <span class="normal">yield i++;</span>
+            <span class="normal">} catch(e) {</span>
+
+            <span class="normal">}</span>
+&nbsp;   &nbsp;   }
+&nbsp;   }	
+&nbsp;   let generator = gen();
+&nbsp;   console.log(generator.next());   <span class="green">// {value:0, done:false}</span>
+&nbsp;   console.log(generator.next());   <span class="green">// {value:1, done:false}</span>
+&nbsp;   console.log(generator.next());   <span class="green">// {value:2, done:false}</span>
+&nbsp;   <span class="green">// throw 메서드 호출 후 결과값은 'throw errow'</span>
+&nbsp;   generator.<span class="normal">throw()</span>;               <span class="green">// </span><span class="green">'throw errow'</span>
+&nbsp;                                    <span class="green">// {value:3, done:false}</span>
+&nbsp;   console.log(generator.next());   <span class="green">// {value:4, done:false}</span></pre>
+<p class="gray">- 제너레이터 함수로 부터 얻은 제너레이터 객체에 next 메서드 호출 시 yield 표현식의 값이 next 메서드의 return값의 value 속성값이 된다. 위의 결과처럼 value 속성값은 1 씩 증가하다 throw 메서드 호출 시 강제로 오류가 발생하여 catch문의 ‘throw error’를 출력하고 next 메서드와 마찬가지로 value 속성값이 1씩 증가 한다.</p>
+<h3>3) 단원 핵심 정리</h3>
+<p class="gray">- 다음은 제너레이터 객체와 이터레이터 객체를 비교한 표 이다.</p>
+<table width="100%" border="1" align="center">
+  <tr>
+    <td width="16%">&nbsp;</td>
+    <th width="42%">iterration</th>
+    <th width="42%">iteration 종료 또는 오류 발생</th>
+    </tr>
+  <tr>
+    <th>generator</th>
+    <td>yield 표현식을 사용한다</td>
+    <td>iteration을 종료시키는 raturn 메서드와 오류를 발생시키는 throw 메서드를 제공한다</td>
+    </tr>
+  <tr>
+    <th>iterator</th>
+    <td>@@iterator 메서드를 구현한다</td>
+    <td>별도로 제공하는 메서드가 없어 직접 구현해야 한다</td>
+    </tr>
+</table>
+<h3>4) 문제풀면서 복습하기</h3>
+<h4>(1) 단어를 순차적으로 열거해주는 이터레이터 객체를 미리 작성해 두었다. 이와 같은 동작을 하는 제터레이터 함수를 만들어 그 동작을 테스트해 본다.</h4>
+<p class="gray">- 다음 코드는 직접 이터레이터 객체를 구현하고 있다. 이터레이터 객체에 next 메서드를 호출하면 fruits 속성의 배열을 앞에서부터 순차적으로 열거해주고 모두 열거 시 value 속성값은 undefined기 되고 done 속성값은 true가 되어 for...of 문으로 열거 시 종료된다. </p>
+<blockquote>
+  <p><a href="ecma6\example\chapter3\3-1\ex01.html" target="_blank">ecma6\<span class="bold_red">example</span>\chapter3\3-1\ex01.html</a></p>
+</blockquote>
+<pre class="gray">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;for...of문&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+    let iterator = {
+        fruits:['사과', '바나나', '포도', '딸기'],  <span class="green"> // next 메서드가 호출되면 배열의 값을 열거</span>
+            [Symbol.iterator]:function(){       <span class="green"> // @@iterator</span>
+                return this;
+            },
+            next:function(){
+                let value = this.fruits.shift(); <span class="green">  // next 호출시 배열 원소값을 앞에서 잘라 옮</span>
+                let done = (value) ? false : true; <span class="green">// value 값이 긍정이면 done은 false이고,</span>
+                                                   <span class="green">// 배열 원소가 모두 잘라져 value 값이</span> 
+                                                   <span class="green">// 부정이 되면 done은 true</span>
+                return {value:value, done:done};
+            }
+    }
+  
+    for(let value of iterator){
+        console.log(value);  <span class="green">// 결과값은 사과, 바나나, 포도, 딸기</span>
+    }
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<p class="gray">- 위의 이터레이터 객체와 동일한 동작을 하는 제너레이터 함수를 작성해 보자. 다음과 같이 코드를 추가하면 된다.</p>
+<blockquote>
+  <p><a href="ecma6\complete\chapter3\3-1\ex01.html" target="_blank">ecma6\complete\chapter3\3-1\ex01.html</a><a href="../source/02/comment.php" target="_blank"></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://127.0.0.1:8887/chapter3/3-1/ex01.html" target="_blank">http://127.0.0.1:8887\chapter3\3-1/ex01.html</a><a href="http://localhost/02/comment.php" target="_blank"></a></p>
+</blockquote>
+<pre class="gray">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;for...of문&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+    let iterator = {
+        fruits:['사과', '바나나', '포도', '딸기'],  <span class="green"> // next 메서드가 호출되면 배열의 값을 열거</span>
+            [Symbol.iterator]:function(){       <span class="green"> // @@iterator</span>
+                return this;
+            },
+            next:function(){
+                let value = this.fruits.shift(); <span class="green">  // next 호출시 배열 원소값을 앞에서 잘라 옮</span>
+                let done = (value) ? false : true; <span class="green">// value 값이 긍정이면 done은 false이고,</span>
+                                                   <span class="green">// 배열 원소가 모두 잘라져 value 값이</span> 
+                                                   <span class="green">// 부정이 되면 done은 true</span>
+                return {value:value, done:done};
+            }
+    }
+  
+    for(let value of iterator){
+        console.log(value);  <span class="green">// 결과값은 사과, 바나나, 포도, 딸기</span>
+    }
+
+    <span class="normal">function* gen(){</span>  <span class="green">// 제너레이터 함수를 선언하고, yield 표현식 뒤에 배열에 원소를 차례로 넣어 줌</span>
+        <span class="normal">yield '사과';</span>
+        <span class="normal">yield '바나나';</span>
+        <span class="normal">yield '포도';</span>
+        <span class="normal">yield '딸기';</span>
+    <span class="normal">}</span>
+
+    <span class="normal">for(let value of gen()){</span>  <span class="green">// 제너레이터 함수를 호출, 제너레이터 객체를 전달 받고 for..of 순회</span>
+        <span class="normal">console.log(value);</span>   <span class="green">// 결과값은 위와 같은 결과인 사과, 바나나, 포도, 딸기</span>
+    <span class="normal">}</span>
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<p class="gray">- 제너레이터 함수를 사용하니 보다 쉽게 이터레이터 객체가 구현되었다.</p>
+<p class="gray">&nbsp;</p>
+<p class="gray">&nbsp;</p>
+<p class="gray">&nbsp;</p>
+
+
+
+<h2>2. 새로 추가된 컬렉션</h2>
+<h3>1) 맵</h3>
+<p class="gray">- 맵(Map)은 key, value 쌍(pair), 항목(entries)으로 이루어진 컬렉션(collections)이다. 기존에도 key와 value로 이루어진 컬렉션인 객체가 이미 존재하였다. 현재도 객체는 아주 많이 사용되어지고 있지만 몇 가지 불편한 사항들을 맵에서 개선해 주고 있다. 맵과 객체의 차이를 통해서 맵을 살펴보도록 한다.</p>
+
+
+<h3>2) 객체와 맵의 차이점</h3>
+<ul>
+  <li class="normal">객체는 추가된 속성의 수를 정확히 알기 어렵다.</li>
+</ul>
+<p class="gray">- 객체는 추가된 속성의 수를 알려주는 API가 없어 불편하다. 맵은 size 내장 속성으로 추가된 항목의 수를 알기 쉽게 해준다.</p>
+<pre class="gray">map.size  // 맵의 항목 수를 출력</pre>
+<p class="gray">- 객체의 속성 key는 문자열 또는 Symbol만 가능하지만 맵 항목의 key는 모든 값이 될 수 있다. </p>
+<pre class="gray">map.add({}, 100);  // {}를 key로 사용</pre>
+<ul>
+  <li class="normal">객체는 속성 추가 시 내장 속성과 중복으로 사용하지 않도록 주의해야 한다.</li>
+  </ul>
+<p class="gray">- 다음은 객체에 추가된 속성을 읽는 두 가지 방법이다.</p>
+<pre class="gray">obj [ key ]
+obj.key</pre>
+
+<p class="gray">- 이는 내장 속성과 구분이 없기 때문에 자칫 추가하려는 속성이 내장 속성과 일치하여 덮어 씌우는 오류를 범할 수 있다.</p>
+<p class="gray">  - 다음은 객체의 내장 속성을 덮어씌워 보았다.</p>
+<pre class="gray">var obj = {};     <span class="green">// 객체를 선언하고</span>
+obj.toString();   <span class="green">// toString 내장 함수를 호출하면 &quot;[object Object]&quot; 결과가 출력됨</span>
+obj.toString() = function(){}    <span class="green">// 내장 함수와 같은 이름의 toString&nbsp;속성을 추가</span>
+obj.toString();   <span class="green">// 결과는 undefined, 내장 속성이 덮어 씌워짐</span></pre>
+<p class="gray">- 맵은 이와 같은 문제가 발생하지 않도록 set으로 값을 저장하고&nbsp;get으로 읽어 오도록 하여 내장 속성과의 충돌을 방지한다. </p>
+<pre class="gray">map.set(key, value);
+map.get(key);        <span class="green">// 내장 속성과 충돌할 염려가 없다</span></pre>
+<ul>
+  <li class="normal">객체는 이터러블 규약을 따르지 않지만 맵은 이터러블 규약을 따른다.</li>
+  </ul>
+<p class="gray">- 객체는 이터러블 규약을 따르지 않아 for...of 문으로 순회가 되지 않지만 맵은 이터러블 규약을 따르기 때문에 for...of 문으로 순회가 가능하다.</p>
+<pre class="gray">for (let value of map){
+    console.log(value);
+}</pre>
+<p class="gray">- 위는 맵과 객체의 차이점으로 맵에 대해서&nbsp;살펴보았다. 그럼 맵의 사용법에 대해서 좀 더 자세히 알아보도록 하자. </p>
+<p class="gray">- 먼저, 맵을 선언하는 방법이다. new 연산자 뒤에 Map 함수를 호출하여 맵을 선언한다. </p>
+<pre class="gray">let map = new Map([iterable]);</pre>
+<p class="gray">참고) [iterable] : iterable은 배열이거나, element들이 key-value 쌍을 이루는 다른 iterable 객체이고, 각 key-value 쌍은 새로운 Map에 추가된다.</p>
+<h3>3) 맵 속성</h3>
+<p class="gray">- 다음은 맵 속성을 정리한 표이다.</p>
+<table width="100%" border="1">
+  <tr>
+    <th width="15%">size</th>
+    <td>맵에 추가된 항목 수를 알려준다.</td>
+  </tr>
+</table>
+<h3>4) 맵 메서드</h3
+>
+<p class="gray">- 다음은 맵 메서드를 정리한 표이다.</p>
+<table width="100%" border="1">
+  <tr>
+    <th width="15%">set(key, value)</th>
+    <td>맵에 새로운 항목을 추가하고 맵 인스턴스를 반환</td>
+  </tr>
+  <tr>
+    <th>get(key)</th>
+    <td>인자와 같은 key를 갖는 항목의 value 값을 반환</td>
+  </tr>
+  <tr>
+    <th>clear()</th>
+    <td>맵의 항목을 모두 삭제</td>
+  </tr>
+  <tr>
+    <th>delete(key)</th>
+    <td>인자와 같은 key를 갖는 항목을 삭제<br>
+      삭제할 항목이 존재할 경우 true 값을, 존재하지 않는 경우 false를 반환</td>
+  </tr>
+  <tr>
+    <th>entries()</th>
+    <td>추가된 항목을 열거할 수 있는 이터레이터 객체를 반환</td>
+  </tr>
+  <tr>
+    <th>forEach(callbackFn)</th>
+    <td>맵에 추가된 항목을 순회</td>
+  </tr>
+  <tr>
+    <th>has(key)</th>
+    <td>인자와 같은 키를 갖는 항목이 존재하면 true, 존재하지 않으면 false를 반환</td>
+  </tr>
+  <tr>
+    <th>keys()</th>
+    <td>추가된 항목의 key를 열거할 수 있는 이터레이터 객체를 반환</td>
+  </tr>
+  <tr>
+    <th>values()</th>
+    <td>추가된 항목의 value를 열거할 수 있는 이터레이터 객체를 반환</td>
+  </tr>
+  <tr>
+    <th>[@@iterator]()</th>
+    <td>추가된 항목을 열거할 수 있는 이터레이터 객체를 반환한다. entries 메서드와 동일 </td>
+  </tr>
+</table>
+
+<p class="gray">&nbsp;</p>
+<hr/>
+<ul>
+  <li class="normal">set(key, value)</li>
+</ul>
+<p class="gray">- set 메서드는 맵에 새로운 항목을 순서대로 추가해 준다. 인자 key는 항목을 구분하는 역할을 하며, 객체와는 달리 모든 type의 사용이 가능하다. set 메서드의 사용 예를 살펴보자. </p>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex03_07.html" target="_blank">http://127.0.0.1:8887/ex03_07.html</a></p>
+</blockquote>
+<pre class="gray">  let obj = {};
+  let f = function(){};
+  let map = new Map();
+  
+  map.set(obj, 100);         <span class="green">// 객체를 key로 사용</span>
+  console. log (map. size);  <span class="green">// 맵 항목수는 1</span>
+  
+  map.set(f, 200);           <span class="green">// 함수를 key로 사용 </span>
+  console.log(map.size);     <span class="green">// 맵 항목수는 2</span></pre>
+<p class="gray">- set 메서드는 호출 뒤에 맵 인스턴스를 반환하기 때문에 다음과 같은 구문의 사용이 가능하다. </p>
+<pre class="gray">  map.set('a', 100).set('b', 200);</pre>
+<ul>
+  <li class="normal">get(key)</li>
+</ul>
+<p class="gray">- get 메서드는 맵에 추가된 항목 중 key 인자와 일치하는 key를 갖는 항목의 value 값을 반환한다. get 메서드의 예를 살펴보면</p>
+<pre class="gray">let obj = {};
+let map = new Map();
+map.set(obj, 100);
+map.get(obj);  <span class="green">// 결과값은 100</span></pre>
+
+<ul>
+  <li class="normal">clear()</li>
+</ul>
+<p class="gray">- clear 메서드는 맵에 추가된 모든 항목을 삭제한다. clear 메서드의 사용 예를 살펴보면</p>
+<pre class="gray">let map = new Map();
+map.set('a', 100),set('b', 200);  <span class="green">// 항목 두 개를 추가</span>
+console.log(map.size);  <span class="green">          // 결과값은 2</span>
+
+map.clear();             <span class="green">// 항목을 모두 삭제</span>
+console.log(map.size);  <span class="green"> // 결과값은 0</span></pre>
+
+<ul>
+  <li class="normal">delete(key)</li>
+</ul>
+<p class="gray">- delete 메서드는 인자 key와 일치하는 항목을 삭제한다. delete 메서드의  예를 살펴보면</p>
+<pre class="gray">
+let map = new Map();
+map.set('a', 100).set('b', 200);
+
+map.delete('b');  <span class="green">// 'b'를 key로 갖는 항목 삭제</span>
+mpa.get('b');     <span class="green">// 결과값은 undefined</span></pre>
+
+<ul>
+  <li class="normal">entries()</li>
+</ul>
+<p class="gray">- entries 메서드는 맵의 항목을 열거할 수 있는 이터레이터 객체를 반환한다. 이터레이터 객체에 next 메서드 호출 시 반횐되는 객체의 value 속성값은 맵의 항목을 원소로 하는 배열([key, value])이 된다. entries 메서드의 사용 예를 살펴보면</p>
+<pre class="gray">let map = new Map();
+map.set('a', 100).set('b', 200);
+
+let mapIter = map.entries();
+mapIter.next();     <span class="green">// 결과 : {value:['a', 100], done: false}</span>
+mapIter.next();     <span class="green">// 결과 : {value:['b', 200], done: false}</span>
+mapIter.next();     <span class="green">// 결과 : {value:underfined, done: true}</span></pre>
+<p class="gray">- 맵 항목이 [key, value] 형태의 배열이 되어 이터레이터 객체에 next 메서드 호출 시 반환 객체의 value 속성값이 되었음을 볼 수 있다. </p>
+
+<ul>
+  <li class="normal">forEach(callbackFn)</li>
+</ul>
+<p class="gray">- forEach 메서드는 맵 항목을 순회한다. 이때 인수인 콜백 함수로 value와 key 그리고 맵을 전달한다. 여기서 유의할 점은 전달 순서가 value, key, map 순이라는 것이다. forEach 메서드의 사용 예를 살펴보면</p>
+<pre class="gray">let map = new Map();
+map.set('a', 100).set('b', 200);
+
+map.forEach(function(value, key){
+    console.log(value, key);  <span class="green">// 결과는 100, 'a'</span>
+                              <span class="green">//       200, 'b'</span>
+});</pre>
+
+<ul>
+  <li class="normal">has(key)</li>
+</ul>
+<p class="gray">- has 메서드는 맵 항목에 인자 key와 일치하는 항목의 유무를 확인한 후 결과를 true, false로 알려준다. has 메서드의 예를 살펴보면</p>
+<pre class="gray">
+let obj = {};
+let map = new Map();
+
+map.set(obj, 100);
+map.set({a:100}, 200);
+
+map.has(obj);  <span class="green">    // true</span>
+mpa.has({a:100});  <span class="green">// false (속성과 값은 같지만 따로 생성되었으므로 다른 객체)</span></pre>
+
+<ul>
+  <li class="normal">keys()</li>
+</ul>
+<p class="gray">- keys 메서드는 맵 항목 전체의 key를 열거 가능한 이터레이터 객체를 반환한다. keys 메서드이 예를 살펴보면</p>
+<pre class="gray">let map = new Map();
+map.set('a', 100).set('b', 200);
+
+let mapIter = map.keys();  <span class="green">// 맵 항목 key 전체를 항목으로 하는 이터레이터 객체를 반환</span>
+mapIter.next();  <span class="green">// {value: 'a', done:false}</span>
+mapIter.next();  <span class="green">// {value: 'b', done:false}</span>
+mapIter.next();  <span class="green">// {value: underfined, done:true}</span>
+</pre>
+
+<ul>
+  <li class="normal">values()</li>
+</ul>
+<p class="gray">- values 메서드는 맵 항목 전체의 value를 열거 가능한 이터레이터 객체를 반환한다. values 메서드이 예를 살펴보면</p>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex03_08.html" target="_blank">http://127.0.0.1:8887/ex03_08.html</a></p>
+</blockquote>
+<pre class="gray">let map = new Map();
+map.set('a', 100).set('b', 200);
+
+let mapIter = map.values();  <span class="green">// 맵 항목 key 전체를 항목으로 하는 이터레이터 객체를 반환</span>
+console.log(mapIter.next());  <span class="green">// {value: 100, done:false}</span>
+console.log(mapIter.next());  <span class="green">// {value: 200, done:false}</span>
+console.log(mapIter.next());  <span class="green">// {value: underfined, done:true}</span>
+</pre>
+
+<ul>
+  <li class="normal">[@@iterator]()</li>
+</ul>
+<p class="gray">- @@iterator 메서드는 entries 메서드와 동일하게 맵의 항목을 열거할 수 있는 이터레이터 객체를 반환한다. 이터레이터 객체에 next 메서드 호출 시 반환되는 객체의 value 속성값은 맵의 항목을 원소로 하는 배열([key, value])이 된다. @@iterator 메서드의 사용 예를 살펴보면</p>
+<pre class="gray">let map = new Map();
+map.set('a', 100).set('b', 200);
+
+let mapIter = map[Symbol.iterator]();
+mapIter.next();  <span class="green">// 결과 {value:['a', 100], done:false}</span>
+mapIter.next();<span class="green">  // 결과 {value:['b', 100], done:false}</span>
+mapIter.next();<span class="green">  // 결과 {value:undefined, done:true}</span></pre>
+
+
+<p class="gray">&nbsp;</p>
+<h3>5) 셋</h3>
+<p class="gray">- 셋(Set)은 맵과 달리 value들로 이루어진 컬렉션이다. 배열도 value로만 이루어진 컬 렉션 이지만 둘에는 차이가 있다. 셋은 배열처럼 index로 값을 읽어 올 수 없으며, 열거를 통해서만 값을 얻을 수 있다. 먼저, 셋의 선언 방법이다.</p>
+<p class="gray">- new 연산자 뒤에 Set 함수를 호출하여 셋을 선언한다.</p>
+<pre class="gray">let set = new Set(iterable);</pre>
+<p class="gray">참고) 셋은 이터러블 객체를 인자로 하며, 중복된 항목은 저장되지 않는다. </p>
+<ul>
+  <li class="normal">셋은 중복된 값을 저장하지 않는다.</li>
+</ul>
+<p class="gray">- 셋에 저장된 value 값을 다시 저장하려고 하면, 그 값은 저장되지 않는다. 그것은 인자인 이터러블 객체도 마찬가지로 중복된 항목은 한 번만 저장하도록 처리한다. 다음 코드에서 중복된 값의 저장 예를 살펴보면</p>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex03_09.html" target="_blank">http://127.0.0.1:8887/ex03_09.html</a></p>
+</blockquote>
+<pre class="gray">&nbsp; let set = new Set([1,2,3,1,2,3]);  <span class="green">// [1,2,3,1,2,3] 중복된 원소를 갖는 배열을 인자로 할당</span>
+  console.log(set);                  <span class="green">// Set{1,2,3} 중복된 value는 저장되지 않음</span>
+  set.add(2);</pre>
+<ul>
+  <li class="normal">셋 속성</li>
+</ul>
+<p class="gray">- 다음은 셋 속성을 정리한 표이다.</p>
+<table width="100%" border="1">
+  <tr>
+    <th width="16%">size</th>
+    <td>셋에 추가된 항목 수를 알려준다.</td>
+  </tr>
+</table>
+<ul>
+  <li class="normal">셋 메서드</li>
+</ul>
+<p class="gray">- 다음은 셋 메서드를 정리한 표이다.</p>
+<table width="100%" border="1">
+  <tr>
+    <th width="16%">add(value)</th>
+    <td>셋에 새로운 항목을 추가하고 셋 인스턴스를 반환</td>
+  </tr>
+  <tr>
+    <th>clear()</th>
+    <td>셋의 항목을 모두 삭제</td>
+  </tr>
+  <tr>
+    <th>delete(value)</th>
+    <td>인자와 같은 value를 갖는 항목을 삭제 <br>
+      삭제할 항목이 존재할 경우 true 값을, 존재하지 않는 경우 false를 반환</td>
+  </tr>
+  <tr>
+    <th>entries()</th>
+    <td>추가된 항목을 열거할 수 있는 이터레이터 객체를 반환</td>
+  </tr>
+  <tr>
+    <th>forEach(callbackFn)</th>
+    <td>셋에 추가된 항목을 순회</td>
+  </tr>
+  <tr>
+    <th>has(value)</th>
+    <td>인자와 같은 value를 갖는 항목이 존재하면 true, 존재하지 않으면 false를 반환</td>
+  </tr>
+  <tr>
+    <th>keys(),<br>
+      values(),<br>
+      [@@iterator]()</th>
+    <td>keys, values, @@iterator 메스드 모두 셋의 value를 열거할 수 있는 이터레이터 객체를 반환</td>
+  </tr>
+</table>
+<ul>
+  <li class="normal">add(value)</li>
+</ul>
+<p class="gray">- add 메서드는 인자 value를 순서대로 셋 항목을 추가한 뒤 셋 인스턴스를 반환한다. add 메서드의 사용 예를 살펴보면</p>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex03_10.html" target="_blank">http://127.0.0.1:8887/ex03_10.html</a></p>
+</blockquote>
+<pre class="gray">  let set = new Set();
+  set.add(100);
+  set.add(200);
+
+  for(let value of set){
+      console.log(value);  <span class="green">// 결과는 추가된 셋 항목 100, 200</span>
+  }</pre>
+
+<ul>
+  <li class="normal">clear()</li>
+</ul>
+<p class="gray">- clear 메서드는 셋에 추가된 모든 항목을 삭제한다. clear 메서드의 사용 예를 살펴보면</p>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex03_11.html" target="_blank">http://127.0.0.1:8887/ex03_11.html</a></p>
+</blockquote>
+<pre class="gray">  let set = new Set();
+  set.add(100);
+  set.add(200);
+  console.log(set.size);   <span class="green">// 셋 항목수는 2</span>
+
+  set.clear();
+  console.log(set.size);  <span class="green"> // 셋 항목수는 0</span></pre>
+
+<ul>
+  <li class="normal">delete(value)</li>
+</ul>
+<p class="gray">- delete 메서드는 value 인자와 일치하는 셋 항목을 삭제한다. delete 메서드의 사용 예를 살펴보면</p>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex03_12.html" target="_blank">http://127.0.0.1:8887/ex03_12.html</a></p>
+</blockquote>
+<pre class="gray">  let obj = {};
+  let set = new Set();
+  set.add(obj);
+  set.add(100);
+  console.log(set.size);   <span class="green">// 셋 항목수는 2</span>
+  
+  set.delete(obj);         <span class="green">// 변수 obj와 일치하는 셋 항목 삭제 </span>
+  console.log(set.size);   <span class="green">// 셋 항목수는 1</span></pre>
+
+<ul>
+  <li class="normal">entries()</li>
+</ul>
+<p class="gray">- entries 메서드는 셋 항목을 열거할 수 있는 이터레이터 객체를 반환하는데, 이터레이터 객체의 항목은 셋 항목을 [value, value]의 형태로 하는 배열이 된다. entries 메서드의 사용 예를 살펴보면</p>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex03_13.html" target="_blank">http://127.0.0.1:8887/ex03_13.html</a></p>
+</blockquote>
+<pre class="gray">  let set = new Set('abcabc');
+  <span class="green">// let set = new Set('abca'); 이렇게 대입해도 결과는 같음</span>
+  let setIter = set.entries();    <span class="green">// 셋 항목을 열거할 수 있는 이터레이터 객체를 반환</span>
+
+  for(let value of setIter){
+      console.log(value);  <span class="green">       // 결과는 ['a', 'a'], ['b', 'b']</span>, ['c', 'c']
+  }                               <span class="green">// 셋 항목의 value를 첫번째와 두번째 원소로 하는 배열</span></pre>
+
+<ul>
+  <li class="normal">forEach(callbackFn)</li>
+</ul>
+<p class="gray">- forEach 메서드는 셋 항목을 순회한다. 이때 인수인 콜백 함수로 value와 key 그리고 셋을 전달한다. 여기서 유의할 점은 value와 key 둘 다 셋 항목의 value가 할당되어져 있고 전달 순서가 value, key, set 순이라는 것이다. forEach 메서드의 사용 예를 살펴보면</p>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex03_14.html" target="_blank">http://127.0.0.1:8887/ex03_14.html</a></p>
+</blockquote>
+<pre class="gray">  let set = new Set('abab');
+  <span class="green">// let set = new Set('ababcd'); 결과는 a, a, b, b, c, c, d, d</span>
+  set.forEach(function(value, key){
+      console.log(value, key);  <span class="green">// 결과는 'a', 'a'</span>
+                                <span class="green">//       'b', 'b'</span>
+                                <span class="green">//       value, key 모두 셋 항목의 value와 같다 </span> 
+  });</pre>
+
+<ul>
+  <li class="normal">has(value)</li>
+</ul>
+<p class="gray">- has 메서드는 셋 항목에 인자 value와 일치하는 항목의 유무를 확인한 후 결과를 true, false로 알려준다. has 메서드의 사용 예를 살펴보면</p>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex03_15.html" target="_blank">http://127.0.0.1:8887/ex03_15.html</a></p>
+</blockquote>
+<pre class="gray">  let obj = {};
+  let set = new Set();
+  set.add(obj);
+
+  console.log(set.has(obj));  <span class="green">// 결과는 true, 셋 항목에 변수 obj객체가 존재</span>
+</pre>
+
+<ul>
+  <li class="normal">keys(), values(), [@@iterator]()</li>
+</ul>
+<p class="gray">- keys, values, @@iterator 메서드들은 모두 셋 항목을 열거할 수 있는 이터레이터 객체를 반환한다. 먼저 살펴본 entries 메서드도 같은 역할을 하지만 entries 메서드 같은 경우 이터레이터 객체의 열거 항목이 [key, value]와 같은 형태였다면 keys, values, @@iterator 메서드는 value만 열거된다. keys, values, @@iterator 메서드의 사용 예를 살펴보면</p>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex03_16.html" target="_blank">http://127.0.0.1:8887/ex03_16.html</a></p>
+</blockquote>
+<pre class="gray">  let set = new Set('abab');
+  
+  <span class="green">// keys</span>
+  let keys = set.keys();
+  for(let value of keys){
+      console.log(value); <span class="green">// 결과는 'a', 'b'</span>
+  }
+  
+  <span class="green">// values</span>
+  let values = set.values();
+  for(let value of values){
+      console.log(value); <span class="green">// 결과는 'a', 'b'</span>
+  }
+  
+  <span class="green">// @@Iteratro</span>
+  let setIter = set[Symbol.iterator]();
+  for(let value of setIter){
+      console.log(value); <span class="green">// 결과는 'a', 'b'</span>
+  }</pre>
+<p class="gray">- keys, values, @@iterator 메서드 모두 동일한 결과가 출력되었다.</p>
+
+
+<h3>6) 위크맵</h3>
+<p class="gray">- 위크맵(WeakMap)은 맵과 같이 key와 value 쌍으로 이루어진 항목을 갖는 컬렉션이며, 맵과 기능이 거의 동일하다.<br>
+  다만 맵과 위크맵의 차이는 맵 항목 key는 타입 제한이 없는데, 위크맵 항목 key는 <span class="bold_red">*참조 타입</span>만 허가한다. 이는 위크맵의 모든 항목이 삭제되었을 때 가비지 컬렉션의 수거 대상이 되도록 하기 위해서 이다. 그렇기에 위크맵 항목 key는 열거되거나 조회될 수 없다. 조회가 된다는 것은 위크맵 항목에 key를 직접 저장해야만 가능하기 때문이다. 즉, 위크맵은 맵 API와 모두 동일하나 열거 관련 메서드와 목록 수 조회 속성이 존재하지 않는다.</p>
+<p class="gray"><span class="bold_red">* 원시 타입과 참조 타입</span><br>
+  - 자바스크립트에서는 원시 타입(primitive type)과 참조 타입(reference type)이라는 두 가지 자료형이 존재한다. 숫자, 불린값, null과 undefined는 원시 타입이고, 객체, 배열, 함수는 참조 타입에 해당한다.<br>
+  - 원시 타입 데이터는 변수에 할당될 때 메모리상에 고정된 크기로 저장되고 해당 변수가 원시 데이터 값을 보관한다. 참조 타입 데이터는 크기가 정해져 있지 않고 변수에 할당될 때 값이 직접 해당 변수에 저장될 수 없으며, 변수에는 데이터에 대한 참조만 저장된다.</p>
+<p class="gray">- 먼저, 위크맵을 선언하는 방법이다. new 연산자 뒤에 WeakMap 함수를 호출하여 위크맵을 선언한다.</p>
+<pre class="gray">&nbsp; let weakMap = new WeakMap([iterable]);</pre>
+<table width="100%" border="1">
+  <tr>
+    <th width="16%">[iterable]</th>
+    <td>iterable은 배열(key가 될 원소는 반드시 참조 타입)이거나, element들이&nbsp;key, value 쌍을 이루는 다른 iterable 객체이고, 각 key, value 쌍은 새로운 위크맵에 추가된다.</td>
+  </tr>
+</table>
+
+<p class="gray">&nbsp;</p>
+<ul>
+  <li class="normal">위크맵 메서드</li>
+</ul>
+<p class="gray">- 다음은 위크맵 메서드를 정리한 표이다.</p>
+<table width="100%" border="1">
+  <tr>
+    <th width="16%">set(key, value)</th>
+    <td>위크맵에 새로운 항목을 추가하고 위크맵 인스턴스를 반환</td>
+  </tr>
+  <tr>
+    <th>get(key)</th>
+    <td>인자와 같은 key를 갖는 항목의 value 값을 반환</td>
+  </tr>
+  <tr>
+    <th>delete(key)</th>
+    <td>인자와 같은 key를 갖는 항목을 삭제<br>
+      삭제할 항목이 존재할 경우 true 값을, 존재하지 않을 경우 false를 반환</td>
+  </tr>
+  <tr>
+    <th>has(key)</th>
+    <td>인자와 같은 key를 갖는 항목이 존재하면 true, 존재하지 않으면 false를 반환</td>
+  </tr>
+</table>
+<ul>
+  <li class="normal">set(key, value)</li>
+</ul>
+<p class="gray">- set 메서드는 맵의 set 메서드와 동일하나 항목 key가 반드시 침조 타입 이어야 한다는 점의 차이가 있다. </p>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex03_17.html" target="_blank">http://127.0.0.1:8887/ex03_17.html</a></p>
+</blockquote>
+<p class="gray">&nbsp;</p>
+
+
+<h3>7) 위크셋</h3>
+<p class="gray">- 위크셋(WeakSet)은 셋과 같이 value로만 이루어진 항목을 갖는 컬렉션이며 셋과 기능이 거의 같다. 셋은 value의 타입 제한이 없으나，위크셋 value는 참조 타입만 허가한다.<br>
+  이는 위크셋의 모든 항목이 삭제되었을 때 가비지 컬렉션의 수거 대상이 되도록 하기 위해서 이다.<br>
+  그렇기에 위크셋 항목의 value는 열거되거나 조회될 수 없다. 조회가 된다는 것은 위크셋 내부 항목에 value를 직접 저장해야만 가능하기 때문이다.  즉，위크셋은 셋 API와 모두 동일하나 열거관련 메서드와 목록 수 조회 속성이 존재하지 않는다.</p>
+<p class="gray">- 먼저, 위크셋을 선언하는 방법이다. new 연산자 뒤에 WeakSet 함수를 호출하여 위크셋을 선언한다. </p>
+<pre class="gray">&nbsp; let weakSet = new WeakSet([iterable]);</pre>
+<table width="100%" border="1">
+  <tr>
+    <th width="16%">iterable</th>
+    <td>위크셋은 이터러블 객체(참조 타입만 허용)를 인자로 하며, 중복된 항목은 저장되지 않음</td>
+  </tr>
+</table>
+<p class="gray">&nbsp;</p>
+<ul>
+  <li class="normal">위크셋 메서드</li>
+</ul>
+<p class="gray">- 다음은 위크셋 메서드를 정리한 표이다.</p>
+<table width="100%" border="1">
+  <tr>
+    <th width="16%">add(value)</th>
+    <td>위크셋에 새로운 항목을 추가하고 셋 인스턴스를 반환</td>
+  </tr>
+  <tr>
+    <th>delete(value)</th>
+    <td>인자와 같은 value를 갖는 항목을 삭제<br>
+      삭제할 항목이 존재할 경우 true 값을, 존재하지 않을 경우 false를 반환</td>
+  </tr>
+  <tr>
+    <th>has(value)</th>
+    <td>인자와 같은 value를 갖는 항목이 존재하면 true, 존재하지 않으면 false를 반환</td>
+  </tr>
+</table>
+<ul>
+  <li class="normal">add(value)</li>
+</ul>
+<p class="gray">- add 메서드는 셋의 add 메서드와 동일하나 항목 value가 반드시 참조 타입 이어야 한다는 차이점이 있다.</p>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex03_18.html" target="_blank">http://127.0.0.1:8887/ex03_18.html</a></p>
+</blockquote>
+<p class="gray">&nbsp;</p>
+
+
+<h3>8) 단원 핵심 정리</h3>
+<p class="gray">- 이번 장에서는 새로운 컬렉션인 맵, 셋, 위크맵, 위크셋에 대해서 살펴보았다. 다음은 객체와 셋의 차이점을 정리한 표이다.</p>
+<table width="100%" border="1">
+  <tr>
+    <td width="16%">&nbsp;</td>
+    <th width="42%">항목</th>
+    <th width="42%">항목 조회</th>
+  </tr>
+  <tr>
+    <th>객체(Object)</th>
+    <td>key와 value로 이루어지며,&nbsp;내장 속성이 덮어씌워 지므로 주의</td>
+    <td>별도로 제공하는 메서드가 없고, 이터러블 규약을 따르지 않으므로 for...of 문으로 열거할 수 없음</td>
+  </tr>
+  <tr>
+    <th>맵(Map)</th>
+    <td>key와 value로 이루어지며, 따로 항목을 추가할 수 있는 메서드를 제공하므로 내장 속성을 덮어씌울 염려가 없음</td>
+    <td>항목을 열거할 수 있도록 entries 메서드를 제공하며, 이터러블 규약을 따르므로 for...of&nbsp;문으로 열거할 수 있음 </td>
+  </tr>
+  <tr>
+    <th>셋(Set)</th>
+    <td>value로만 이루어지며, 별도로 항목을 추가할 수 있는 메서드를 제공하므로 내장 속성을 덮어 씌울 염려가 없음</td>
+    <td>항목을 열거할 수&nbsp;있도록 entries 메서드를 제공하며, 이터러블 규약을 따르므로 for...of 문으로 열거할 수 있음</td>
+  </tr>  
+</table>
+<p class="gray">- 다음은 컬렉션과 위크컬렉션의 차이점을 정리한 표이다. </p>
+
+
+<table width="100%" border="1">
+  <tr>
+    <td width="16%">&nbsp;</td>
+    <th width="42%">맵(Map)</th>
+    <th width="42%">셋(Set)</th>
+  </tr>
+  <tr>
+    <th>컬렉션</th>
+    <td>항목이 key와 value로 이루어지며, key의 유형으로 원시 타입과 참조 타입 모두 가능</td>
+    <td>항목이 value로 이루어지며, value의 유형으로 원시 타입과 참조 타입 모두 가능</td>
+  </tr>
+  <tr>
+    <th>위크컬렉션</th>
+    <td>항목이 key와 value로 이루어지며, key의 유형으로 참조 타입만 가능</td>
+    <td>항목이 value로 이루어지며, value의 유형으로 참조 타입만 가능</td>
+  </tr>
+</table>
+
+
+<h3>9) 문제풀면서 복습하기</h3>
+<h4>(1) 객체와 맵을 비교해 보는 예제</h4>
+<p class="gray">- a:100, b:200, c:300을 갖는 객체 리터럴로부터 속성 수를 얻는 예제를 미리 작성해두었다. 미리 작성된 객체 리터럴과 같은 key와 value를 갖는 맵을 작성하고 항목수를 출력해본다. </p>
+<blockquote>
+  <p><a href="ecma6\example\chapter3\3-2\ex01.html" target="_blank">ecma6\<span class="bold_red">example</span>\chapter3\3-2\ex01.html</a></p>
+</blockquote>	
+<pre class="gray">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;새로 추가된 컬렉션(collections)&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        <span class="green">// Object</span>
+        let obj = {a:100, b:200, c:300};  <span class="green">// 객체 리터럴에 key와 value 할당</span>
+        let size = 0;
+        for(let prop in obj){  <span class="green">// 객체 속성수는 조회할 수 있는 API가 없으므로, 반복문으로 갯수를 셈</span>
+            size++;
+        }
+        console.log(size);  <span class="green">// 갯수는 3개</span>
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<p class="gray">- 위 예제와 같은 동작을 하는 예제를 맵으로 작성해 보자. </p>
+<blockquote>
+  <p><a href="ecma6\complete\chapter3\3-2\ex01.html" target="_blank">ecma6\complete\chapter3\3-2\ex01.html</a><a href="../source/02/comment.php" target="_blank"></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://127.0.0.1:8887/chapter3/3-2/ex01.html" target="_blank">http://127.0.0.1:8887/chapter3/3-2/ex01.html</a><a href="http://localhost/02/comment.php" target="_blank"></a></p>
+</blockquote>
+<pre class="gray">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;새로 추가된 컬렉션(collections)&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        <span class="green">// Object</span>
+        let obj = {a:100, b:200, c:300};
+        let size = 0;
+        for(let prop in obj){
+            size++;
+        }
+        console.log(size);
+
+        <span class="green">// Map</span>
+        let map = new Map([['a',100],['b',200],['c',300]]);
+        <span class="green">// 다음 항목을 갖는 맵 생성 key: 'a', value: 100</span>
+        <span class="green">//                      key: 'b', value: 200</span>
+        <span class="green">//                      key: 'c', value: 300</span>
+        console.log(map.size);  <span class="green">// 갯수는 3</span>
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<p class="none">- 결론은, 객체는 갯수를 조회할 수 있는 API가 없지만 <span class="bold_blue">맵은 조회수를 size 매서드를 사용하여 간단하게 조회할 수 있다.</span></p>
+
+
+<h4>(2) 배열과 셋을 비교해 보는 예제</h4>
+<p class="gray">- 변수 str 문자열 값을 한 글자씩 배열의 원소로 하는데, 중복된 글자는 제외시키도록 미리 작성해두었다. 이와 같은 동작을 하는 셋을 작성해 보자. </p>	
+<blockquote>
+  <p><a href="ecma6\example\chapter3\3-2\ex02.html" target="_blank">ecma6\<span class="bold_red">example</span>\chapter3\3-2\ex02.html</a></p>
+</blockquote>	
+<pre class="gray">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;새로 추가된 컬렉션(collections)&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        let str = '공부합시다 ES6 ES6';
+        
+        <span class="green">// Array</span>
+        let arr = [];
+        
+        const unique = function(text){  <span class="green">// 배열에 추가된 글자인지 확인하는 함수</span>
+            let isUnique = true;
+            for(let value of arr){
+                if(value == text) isUnique = false;
+            }
+            return isUnique;  <span class="green">// 배열에 없는 글자라면 true, 있다면 false를 반환</span>
+        }
+         
+        for(let text of str){  <span class="green">// 문자열을 한글자씩 순회</span>
+            let isUnique = unique(text);
+            if(isUnique) arr.push(text);  <span class="green">// unique 함수를 통해 배열에 존재하는 문자열인지</span> 
+                                          <span class="green">// 확인 후 배열에 없을 경우 추가</span>
+        }
+        
+        for(let value of arr){
+            console.log(value);  <span class="green">// 출력 : '공', '부', '합', '시', '다', ' ', 'E', 'S', '6'</span>
+        }                        <span class="green">// 중복된 글자는 추가되지 않음</span>
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<p class="gray">- 위 예제와 같은 동작을 하는 예제를 셋으로 작성해 보자. </p>
+<blockquote>
+  <p><a href="ecma6\complete\chapter3\3-2\ex02.html" target="_blank">ecma6\complete\chapter3\3-2\ex02.html</a><a href="../source/02/comment.php" target="_blank"></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://127.0.0.1:8887/chapter3/3-2/ex02.html" target="_blank">http://127.0.0.1:8887/chapter3/3-2/ex02.html</a><a href="http://localhost/02/comment.php" target="_blank"></a></p>
+</blockquote>
+<pre class="gray">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;새로 추가된 컬렉션(collections)&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        let str = '공부합시다 ES6 ES6';
+ 
+        <span class="green">// Set</span>
+        let set = new Set(str);
+        
+        for(let value of set){
+            console.log(value);
+        }
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<p class="none">- 결론은, 셋을 사용하면 배열을 사용했을 때처럼 복잡한 로직없이 <span class="bold_blue">간단하게 항목이 중복 추가되지 않도록 할 수 있다.</span></p>
+
+
+<p class="gray">&nbsp;</p>
+<p class="gray">&nbsp;</p>
+<p class="gray">&nbsp;</p>
+
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>객체에 심볼로 추가한 속성2</title>
+	<script>
+	let arr = [1, 2, 3];
+	let prop = Symbol('prop');
+	arr[prop] = 100;
+	for(let i in arr){
+		console.log(i);  // 결과는 0, 1, 2, prop
+	}                    // 배열의 index외에 추가된 속성이 포함
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

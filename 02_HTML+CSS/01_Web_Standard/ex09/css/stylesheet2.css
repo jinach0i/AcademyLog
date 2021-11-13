@@ -1,0 +1,21 @@
+*{margin: 0; padding: 0;}
+body{}
+h2{text-align: center;}
+header{}
+#pc_view{}
+#pc_view .tab-list{border: 1px solid #bec2c8; text-align: center;}
+#pc_view .tab-list ul{}
+#pc_view .tab-list ul li:first-child{background-color: tomato; color: white;}
+#pc_view .tab-list ul li{list-style: none;}
+#pc_view .tab-list ul li a{text-decoration: none;}
+#pc view .loginArea{border: 2px grey solid; border-radius: 5px 30px 5px 30px; 
+    columns: 2; column-rule-style: solid; column-rule-color: grey;
+    width: 100%; margin: 0 auto;}
+#pc view .loginArea .first{}
+#pc view .loginArea .first h3{text-align: center;}
+#pc view .loginArea .first span{}
+#pc view .loginArea .first p{}
+#pc view .loginArea .first .btn-area{}
+#pc view .loginArea .first .btn-area>button{}
+#pc view .loginArea .first .btn-area input{}
+

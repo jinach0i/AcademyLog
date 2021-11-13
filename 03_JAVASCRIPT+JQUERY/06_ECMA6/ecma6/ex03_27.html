@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Promise 작동 원리 및 순서</title>
+	<script>
+	let promise = new Promise(function(resolve, reject){  // Promise 생성
+	// 전달인자로 executor 함수를 참조하고, 인수인 resolve와 reject 함수를 전달받음
+		setTimeout(function(){    // 지연함수를 Promise 내부에서 관리
+			resolve('success');   // 1초뒤에 이행 결정인 resolve 함수를 호출
+		},1000);
+	});
+
+	promise.then(function(value){ // 이행 결정시 then 메서드 인수를 통해 결과값을 전달받음
+		console.log(value);       // 결과는 'success'
+	});
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

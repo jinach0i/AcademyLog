@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>return 메서드</title>
+	<script>
+	function* gen(){
+		let i = 0; 
+		while(i>= 0){
+			yield i++;
+		}
+	}	
+	let generator = gen();
+	console.log(generator.next());   // {value:0, done:false}
+	console.log(generator.next());   // {value:1, done:false}
+	console.log(generator.next());   // {value:2, done:false}
+	// return 메서드 호출 후 결과값은 {value:underfined, done:true}
+	console.log(generator.return()); 
+	console.log(generator.next());   // {value:underfined, done:true}
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{margin: 100px; font-size: 20px;}
+        #div1{border: 3px solid rgb(8, 113, 121); padding: 20px;}
+        #div2{border: 3px solid rgb(230, 17, 212); padding: 20px;}
+    </style>
+    <script src="./js/jquery-1.7.1.min.js"></script>
+    <script>
+        $(function(){
+            $('#div1').empty();
+            $('#div2').remove();
+        });
+    </script>
+</head>
+<body>
+    <div id="div1">div 넣고 싶은 텍스트</div>
+    <div id="div2">div 넣고 싶은 텍스트</div>   
+</body>
+</html>

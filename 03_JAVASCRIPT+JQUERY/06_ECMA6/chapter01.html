@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>Chapter 01 ECMAScript6 실행 환경 구축</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+body { margin: 0; color: #000000; font: 14px/1.6  'Courier New', "Malgun Gothic", "맑은 고딕", DotumChe, Verdana, Arial, "Trebuchet MS"; margin: 0px; text-align: justify;}
+table th, table td{font: 14px/1.6  'Courier New', "Malgun Gothic", "맑은 고딕", DotumChe, Verdana, Arial, "Trebuchet MS"; color: #333333; text-align: justify;}
+table th{text-align: center;}
+a:link { color: rgb(0,125,255); text-decoration: none; font-weight: bold;}
+a:hover { color: rgb(255,0,0); text-decoration: none; font-weight: bold;}
+a:visited { color: rgb(0,190,190); text-decoration: none; font-weight: bold;}
+a:active { color: rgb(255,125,0); text-decoration: none; font-weight: bold;}
+.mp{margin: 0; padding: 0; text-align: center;}
+.center{text-align: center;}
+#wrap {	width: 900px; margin: auto;}
+#float{position: fixed; float: left; top: 5px; right: 100px; z-index: 100; border: 1px inset #efefef; font-size: 12px; color: #999999; padding: 5px;}
+#float > ul{margin: 0; padding: 0;}
+#float li{margin: 0; padding: 0; list-style:none; }
+.article {width: 900px; color: #333333;	line-height: 180%;	text-align: left;}
+.article h2 {background: #D0D7DF; border-bottom: 1px solid #C8CACE; border-top: 1px solid #C8CACE; font: 18px/1.6; font-weight: bold; margin: 25px 0px 25px 0px; padding: 10px 49px 10px 50px;}
+h3 {color: #009;}
+h4{font-size: 1.05em;}
+pre {margin: 10px 0px; padding: 0px 5px; border: 1px solid rgb(200, 202, 206);  width: 888px; overflow-x: auto; overflow-y: hidden; font: 16px/1.6  'Courier New', "Malgun Gothic", "맑은 고딕", DotumChe, Verdana, Arial, "Trebuchet MS"; text-align: justify;}
+p{text-align: justify;}
+.box { margin: 10px 0px; padding: 10px; border: 1px solid rgb(200, 202, 206); background-color: rgb(247, 247, 247);}
+
+.clearfix { width: 900px; padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px; background-color: rgb(34, 34, 34);}
+.clearfix:after{ content: ""; display: block; clear: both;}
+* html .clearfix {	height: 1%;}
+* + html .clearfix { display: inline-block;}
+
+.underline { text-decoration: line-through;}
+.blue { color: #000099;}
+.bold_blue { color: #000099; font-weight: bold;}
+.green { color: #227722;}
+.bold_red { font-weight: bold; color: #cc0000;}
+.red { color: #cc0000;}
+.gray { color: #888888;}
+.none { color: #000000;}
+.normal{ color: #000000; font-weight: bold;}
+hr{ color: #888888;}
+.bggray{background-color: #efefef;}
+</style>
+</head>
+<body>
+<div id="wrap">
+<h1>Chapter 01 ECMAScript6 실행 환경 구축</h1>
+    
+<h2>1. 비동기 API 사용을 위한 서버 환경 구축</h2>
+<p><a href="https://chrome.google.com/webstore/category/extensions?hl=ko&" target="_blank">크롬구글 웹스토어</a>에서 <a href="https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb" target="_blank">Web Server for Chrome</a>&nbsp;검색해서 앱을 추가(크롭에서 직접 검색이 빠름)한다.</p>
+
+<blockquote>
+  <p>설치를 완료한 뒤 해당 앱을 실행하면 아래 그림과 같은 앱이 실행되면 개발중인 프로젝트(d:\lesson\ecma6\)를 선택한 뒤 그 아래 Web Server URL(s) 타이틀 및 링크를 클릭하면 <a href="http://127.0.0.1:8887/" target="_blank">localhost 상태로 프로젝트가 브라우저에서 실행</a>된다. </p>
+  <p><img src="images/lesson01_01.png" alt="web server for chrome" width="396" height="693" border="1"></p>
+</blockquote>	
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</div>
+</body>
+</html>

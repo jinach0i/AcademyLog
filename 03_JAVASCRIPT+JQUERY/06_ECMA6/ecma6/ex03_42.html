@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Proxy</title>
+    <script type="text/javascript">
+		let obj = {a:100};
+		let proxy = new Proxy(obj, {
+			// 트랩 설정
+			deleteProperty:function(target, prop){
+				Reflect.deleteProperty(target, prop);  // 객체 속성 삭제 진행
+				return true;  // 성공적 삭제 결과를 알려줌
+			}
+		});
+		
+		let val = delete proxy.a;  // 객체 속성 삭제 시 트랩 호출
+		console.log(val);  // 결과는 true
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,997 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>Chapter 02 ECMAScript6 기본 문법</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+body { margin: 0; color: #000000; font: 14px/1.6  'Courier New', "Malgun Gothic", "맑은 고딕", DotumChe, Verdana, Arial, "Trebuchet MS"; margin: 0px; text-align: justify;}
+table th, table td{font: 14px/1.6  'Courier New', "Malgun Gothic", "맑은 고딕", DotumChe, Verdana, Arial, "Trebuchet MS"; color: #333333; text-align: justify;}
+table th{text-align: center;}
+a:link { color: rgb(0,125,255); text-decoration: none; font-weight: bold;}
+a:hover { color: rgb(255,0,0); text-decoration: none; font-weight: bold;}
+a:visited { color: rgb(0,190,190); text-decoration: none; font-weight: bold;}
+a:active { color: rgb(255,125,0); text-decoration: none; font-weight: bold;}
+.mp{margin: 0; padding: 0; text-align: center;}
+.center{text-align: center;}
+#wrap {	width: 900px; margin: auto;}
+#float{position: fixed; float: left; top: 5px; right: 100px; z-index: 100; border: 1px inset #efefef; font-size: 12px; color: #999999; padding: 5px;}
+#float > ul{margin: 0; padding: 0;}
+#float li{margin: 0; padding: 0; list-style:none; }
+.article {width: 900px; color: #333333;	line-height: 180%;	text-align: left;}
+.article h2 {background: #D0D7DF; border-bottom: 1px solid #C8CACE; border-top: 1px solid #C8CACE; font: 18px/1.6; font-weight: bold; margin: 25px 0px 25px 0px; padding: 10px 49px 10px 50px;}
+h3 {color: #009;}
+h4{font-size: 1.05em;}
+h1, h2, h3, h4{margin-top: 50px;}
+pre {margin: 10px 0px; padding: 0px 5px; border: 1px solid rgb(200, 202, 206);  width: 888px; overflow-x: auto; overflow-y: hidden; font: 16px/1.6  'Courier New', "Malgun Gothic", "맑은 고딕", DotumChe, Verdana, Arial, "Trebuchet MS"; text-align: justify;}
+p{text-align: justify;}
+.box { margin: 10px 0px; padding: 10px; border: 1px solid rgb(200, 202, 206); background-color: rgb(247, 247, 247);}
+
+.clearfix { width: 900px; padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px; background-color: rgb(34, 34, 34);}
+.clearfix:after{ content: ""; display: block; clear: both;}
+* html .clearfix {	height: 1%;}
+* + html .clearfix { display: inline-block;}
+
+.underline { text-decoration: line-through;}
+.blue { color: #000099;}
+.bold_blue { color: #000099; font-weight: bold;}
+.green { color: #227722;}
+.bold_red { font-weight: bold; color: #cc0000;}
+.red { color: #cc0000;}
+.gray { color: #888888;}
+.none { color: #000000;}
+.normal{ color: #000000; font-weight: bold;}
+hr{ color: #888888;}
+.bggray{background-color: #efefef;}
+</style>
+</head>
+<body>
+<div id="wrap">
+<div class="article">
+	<h1>Chapter 02 ECMAScript6 기본 문법</h1>
+</div>
+    
+<h2>1. let과 const</h2>
+<h3>1) let</h3>
+<h4>(1) 먼저 함수 블록에서 var의 스코프 설정</h4>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex02_01.html" target="_blank">http://127.0.0.1:8887/ex02_01.html</a></p>
+</blockquote>
+<pre class="gray">var a = 100;        <span class="green">// 변수 a를 선언 </span>
+function f(){
+    var a = 200;    <span class="green">// 함수 블록안에서 같은 변수 a를 선언</span>
+    console.log(a); <span class="green">// 여기서 a의 값은 200</span>
+}
+f();
+console.log(a);     <span class="green">// 여기서 a의 값은 100</span></pre>
+
+<h4>(2) 이번에는 함수가 아닌 블록에서 var의 스코프 설정</h4>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex02_02.html" target="_blank">http://127.0.0.1:8887/ex02_02.html</a></p>
+</blockquote>
+<pre class="gray">var a = 100;         <span class="green">// 변수 a를 선언 </span>
+if(a &gt; 0){
+    var a = 200;     <span class="green">// 함수 블록안에서 같은 변수 a를 선언</span>
+    console.log(a);  <span class="green">// 여기서 a의 값은 200</span>
+}
+console.log(a);      <span class="green">// 여기서 a의 값은 200</span></pre>
+<p>- 이처럼 var는 함수 이외 블록에서는 변수가 공유됨을 볼 수 있다. let은 이를 보완하여 블록 안쪽에서 스코프 설정이 되도록 하고 있다. 위의 예를 let으로 변경하여 살펴보자. </p>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex02_03.html" target="_blank">http://127.0.0.1:8887/ex02_03.html</a></p>
+</blockquote>
+<pre class="gray"><span class="bold_blue">let</span> a = 100;         <span class="green">// 변수 a를 선언 </span>
+if(a &gt; 0){
+    <span class="bold_blue">let</span> a = 200;     <span class="green">// 함수 블록안에서 같은 변수 a를 선언</span>
+    console.log(a);  <span class="green">// 여기서 a의 값은 200</span>
+}
+console.log(a);      <span class="green">// 여기서 a의 값은 100</span></pre>
+
+<p>- var는 반복문 안에서 변수가 공유되는 문제가 있었는데, let으로 이를 개선, 비동기 함수를 호출할 경우 문제가 될 수 있는 경우를 방지할 수 있다. </p>
+<p>- 다음 코드를 살펴보자</p>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex02_04.html" target="_blank">http://127.0.0.1:8887/ex02_04.html</a></p>
+  </blockquote>
+<p>- 이는 비동기인 setTimeout 함수 콜백이 공유되어 실행 시점이 반복문보다 늦으므로 변수의 값이 모두 10이 되었다</p>
+<pre class="gray">for(var i=0; i&lt;10; i++){
+    setTimeout(function(){    <span class="green">// 반복문이 진행되면서 setTimeout 함수를 호출</span>
+        console.log(i);       <span class="green">// 결과값은 10</span>
+    }, 100);
+}</pre>
+
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex02_05.html" target="_blank">http://127.0.0.1:8887/ex02_05.html</a></p>
+</blockquote>
+<pre class="gray">for(<span class="bold_blue">let</span> i=0; i&lt;10; i++){
+    setTimeout(function(){    <span class="green">// 반복문이 진행되면서 setTimeout 함수를 호출</span>
+        console.log(i);       <span class="green">// 결과값은 0,1,2,3,4,5,6,7,8,9</span>
+    }, 100);
+}</pre>
+
+<h4>(3) let은 같은 스코프 내에서 변수 중복 선언이 불가능하다.</h4>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex02_06.html" target="_blank">http://127.0.0.1:8887/ex02_06.html</a></p>
+  </blockquote>
+<p>- var는 같은 스코프 내에서 변수 중복 선언 시 이전에 선언된 변수가 덮어씌워지지만, let은 이를 허용하지 않도록 변경하기 때문에 변수 중복 선언 시 다음과 같은 SyntaxError가 발생한다.</p>
+<pre class="gray">function f(){
+    let a = 100;
+    let a = 200;           <span class="green">// SyntaxError 발생 </span>
+}</pre>
+
+<h4>(4) let은 함수 끌어올림(hoisting)이 되지 않는다.</h4>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex02_07.html" target="_blank">http://127.0.0.1:8887/ex02_07.html</a></p>
+  </blockquote>
+<p>- var는 함수 끌어올림(hoisting)이 되어 아래 코드와 같은 상황에서 에러가 발생하지 않는다. 이는 자바스크립트의 함수 호출 처리 방식에 의해서 발생하는 현상이다. </p>
+<p>- 함수 끌어올림(hoisting) :&nbsp; 자바스크립트가 실행될 때 변수 선언문이나 함수 선언문을 읽기 전에 선언된 변수와 함수들을 다른 무엇보다도 먼저 읽어 Scope의 최상위에 위치시킨다. </p>
+
+<pre class="gray">
+foo();
+function foo(){};  <span class="green">// 함수선언문이 끌어올려짐</span></pre>
+
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex02_08.html" target="_blank">http://127.0.0.1:8887/ex02_08.html</a> <span class="bold_red">(실제 실행 X : 의미만 이해할 것!)</span></p>
+  </blockquote>
+<pre class="gray">
+function f(){
+    console.log(a); <span class="green">// 구문상 선언 전인 변수의 값이 출력된다. 출력값은 100</span>
+    var a = 10;
+};
+</pre>
+
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex02_09.html" target="_blank">http://127.0.0.1:8887/ex02_09.html</a> <span class="bold_red">(실제 실행 X : 의미만 이해할 것!)</span></p>
+  </blockquote>
+<pre class="gray">function f(){
+    console.log(a); <span class="green">// 선언 전인 변수에 접근하자 ReferenceError 발생</span>
+    <span class="bold_blue">let</span> a = 10;
+};
+</pre>
+
+
+<h3>2) const</h3>
+<p>- 상수의 특징은 변수와는 달리 선언 시에 반드시 초기값을 할당해줘야 하며，한번 선언된 상수값은 변경할 수 없는 불변(Immutable)값이다. 즉，변경되지 않을 상수는 const로 정의하면 된다.</p>
+<pre class="gray">const MY_NAME;  <span class="green">//&nbsp;초기값을 할당하지 않아 SyntaxXrror 발생</span>
+const MY_NAME = &quot;Kim&quot;;
+MY_NAME = &quot;Lee&quot;; <span class="green">// 값을 변경하려 하면 TypeError 발생</span></pre>
+<p class="gray">- 상수명의 표기는 대체적으로 대문자만을 사용하고，단어 사이에 언더바(_)를 넣어 구분 한다. 이는 쉽게 상수를 구별할 수 있는 방법이다.</p>
+<p class="gray">- 상수는 let과 같은 스코프 설정 규칙을 갖으며，상수 또한 중복 선언과 함수 끌어올림 (hoisting)이 되지 않도록 하는 엄격한 규정을 갖는다.</p>
+
+<h3>3) 단원 핵심 정리</h3>
+<p class="gray">- var, let, const의 차이점</p>
+<table width="80%" border="1" align="center">
+  <tr>
+    <td width="40%">&nbsp;</td>
+    <th width="20%">var</th>
+    <th width="20%">let</th>
+    <th width="20%">const</th>
+  </tr>
+  <tr>
+    <th>스코프</th>
+    <td>함수</td>
+    <td>블록</td>
+    <td>블록</td>
+  </tr>
+  <tr>
+    <th>스코프내 중복 선언</th>
+    <td>가능</td>
+    <td>불가능</td>
+    <td>불가능</td>
+  </tr>
+  <tr>
+    <th>끌어올림(hoisting)</th>
+    <td>일어남</td>
+    <td>일어나지않음</td>
+    <td>일어나지않음</td>
+  </tr>
+  <tr>
+    <th>값 변경</th>
+    <td>가능</td>
+    <td>가능</td>
+    <td>불가능(immutable)</td>
+  </tr>
+</table>
+<h3>4) 문제풀면서 복습하기</h3>
+<h4>(1) let과 const로 변수와 상수를 선언해 본다.</h4>
+<blockquote>
+  <p><a href="ecma6\complete\chapter2\2-1\ex01.html" target="_blank">ecma6\complete\chapter2\2-1\ex01.html</a><a href="../source/02/comment.php" target="_blank"></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://127.0.0.1:8887/chapter2/2-1/ex01.html" target="_blank">http://127.0.0.1:8887/chapter2/2-1/ex01.html</a><a href="http://localhost/02/comment.php" target="_blank"></a></p>
+</blockquote>	
+
+<h4>(2) let과 var가 switch문에서 스코프 설정이 어떻게 다른지 테스트해 본다.</h4>
+<blockquote>
+  <p><a href="ecma6\complete\chapter2\2-1\ex02.html" target="_blank">ecma6\complete\chapter2\2-1\ex02.html</a><a href="../source/02/comment.php" target="_blank"></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://127.0.0.1:8887/chapter2/2-1/ex02.html" target="_blank">http://127.0.0.1:8887/chapter2/2-1/ex02.html</a><a href="http://localhost/02/comment.php" target="_blank"></a></p>
+</blockquote>
+<pre class="gray">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;let과 const&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        (function(){
+            <span class="bold_blue">var a = 100;</span>
+            switch(a){
+                case 100:
+                    <span class="bold_blue">var a = 200;</span>
+                    <span class="green">// switch문 블록 안에 같은 변수 a를 선언</span>
+                    break;
+            }
+            console.log(a);
+            <span class="green">// a의 값은 200, var로 변수 선언 시 switch문의 블록 안에서 스코프 설정이 일어나지 않기</span> 
+            <span class="green">// 때문에 switch문 안팎의 변수가 공유되며 밖의 변수는 안의 변수에 의해 덮어씌워져 출력된</span>
+            <span class="green">// 변수의 값은 200이 된다.</span>
+        })();
+
+        (function(){
+            <span class="bold_blue">let a = 100;</span>
+            switch(a){
+                case 100:
+                    <span class="bold_blue">let a = 200;</span>
+                    <span class="green">// switch문 블록 안에 같은 변수 a를 선언</span>
+                    break;
+            }
+            console.log(a);
+            <span class="green">// a의 값은 100, let로 변수 선언 시 switch문의 블록 안에서 스코프 설정이 일어나기 때문에</span> 
+            <span class="green">// switch문 안팎의 변수가 공유되지 않고 밖의 변수는 안의 변수에 의해 영향을 받지 않아 출력</span>
+            <span class="green">// 변수의 값은 100이 된다.</span>
+        })();
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<p class="gray">&nbsp;</p>
+<p class="gray">&nbsp;</p>
+<p class="gray">&nbsp;</p>
+
+
+
+<h2>2. 이터러블 규약과 이터레이터 규약</h2>
+<h3>1) 이터러블 규약과 이터러블 객체</h3>
+<p class="gray">- 이터러블 규약(Iterable Protocol)은 ES6에서 새로 추가된 for...of 문을 실행하여 반복 될 때(iteration) 값이 열거(enumerable)되며, 내부적으로  *@@iterator 메서드가 구현 되어 있어야 하는 규약이다. 자바스크립트 내장 객체 중 Array, String, Map, Set, 함 수의 arguments 객체(Object는 제외) 등이 이터 러블 규약을 따르며 이를 '이터 러블 객체 (Iterable Object)'라고 한다. 이들 모두 for...of 문을 통해 열거가 가능하지만, 열거되는 방식에는 차이가 있다.</p>
+<p class="gray">- 기존에 알고 있는 Array와 String을 예로 들어 보면, String의 경우 다음 그림과 같이 한  글자씩 열거가 되고, Array나 함수의 arguments 객체는 원소 하나씩 열거가 된다.</p>
+<p class="gray"><img src="images/lesson02_01.png" alt="@@iterator" width="585" height="259" border="1" style="display: block; margin: 0 auto;"></p>
+<p>- String iteration</p>
+<pre class="gray">let str = '가나다';
+for(let value of str){
+    console.log(value);  <span class="green">// 출력되는 값은 가, 나, 다 (문자열 값을 순차적으로 한글자씩 전달)</span>
+}</pre>
+<p>- Array iteration</p>
+<pre class="gray">let arr = [10, 20, 30];
+for(let value of arr){
+    console.log(value);  <span class="green">// 출력되는 값은 10, 20, 30 (배열의 원소를 순차적으로 전달)</span>
+}</pre>
+<p class="gray"><span class="bold_red">다음 단원에서 자세히 설명</span></p>
+<hr/>
+<p class="gray">- 위의 String과 Array은 열거 방식에는 차이가 있다. 이를 공통화하기 위해 내부적으로 각각 @@iterator 메서드를 구현하고 있다.</p>
+<p class="gray">  - 그러므로，이터러블 객체에는 반드시 @@iterator 메서드가 구현되어 있어야 한다. @@iterator 메서드는 객체의 속성 또는 prototype chain의 객체 중 하나가 속성으로 Symbol, iterator 키를 가져야 한다.</p>
+<p class="gray">- 다음은 내장된 @@ iterator 메서드의 예 이다.</p>
+<pre class="gray">let str = '가나다';
+let iterator = str[Symbol.iterator]();</pre>
+<p class="gray">- 이터러블 객체는 내장 객체뿐만 아니라 직접 @@iterator 메서드만 구현해주면 이터러 블 객체의 생성이 가능하다.</p>
+<pre class="gray">let iterable = {
+    [Symbol.iterator]:function(){  <span class="green">// @@iterator 메서드 추가 이터레이터 전달</span>
+    }
+}</pre>
+<p class="gray">- 여기서 등장한 Symbol과 for...of 문 등은 <span class="bold_red">다음 단원에서 자세히 설명</span>한다.</p>
+<hr/>
+
+
+
+<h3>2) 이터레이터 규약과 이터레이터 객체</h3>
+<p class="gray">- 이터레이터 규약(Itemtor Protocol)은 이터러블 규약(Iterable Protocol)과 마찬가지로 값이 열거 되지만，next 메서드를 통해서 하나씩 순차적으로 열거되어야 하는 규약이다. 이때 열거 되는 값의 형태는 객체이며 속성으로 value와 done을 갖는다. value는 실제 값이 할당되며，done은 열거의 끝임을 알려주는데，열거가 끝인 경우 값은 true를，그렇지 않을 경우 false를 전달한다. 이터레이터 규약을 따르는 객체를 모두 이터레이터 객체라고 부르며, 이터레이터 객체는 직접 구현하거나 내장된 @@iterator 메서드를 통해서 전달 받을 수 있다.</p>
+<p class="gray"><img src="images/lesson02_02.png" alt="이터레이터 규약" width="836" height="121" border="1" style="display: block; margin: 0 auto;"></p>
+<p class="gray">- 다음 코드는 배열에서 @@iterator 메서드를 호출하여 이터레이터 객체를 전달받는 예 이다.</p>
+<pre class="gray">let arr =[1, 2, 3];
+<span class="green">// 내장된 @@iterator 메서드를 호출하여 이터레이터 객체를 전달받음</span>
+let iterator = arr[Symbol.iterator]();  
+
+iterator.next();  <span class="green">// {value:1, done:false}</span>
+iterator.next();  <span class="green">// {value:2, done:false}</span>
+iterator.next();  <span class="green">// {value:3, done:false}</span>
+iterator.next();  <span class="green">// {value:undefined, done:true}</span> 
+<span class="green">// 순차적으로 열거 뒤의 value 값은 undefined, done은 true</span></pre>
+<p class="gray">- 이터레이터 객체는 직접 구현하여 사용할 수 있다. 다음은 이터레이터 객체를 구현 한 예 이다.</p>
+<pre class="gray">let iterator = {
+   i:1,
+   next:function(){
+      return (this.i &lt; 4) ? {value:this.i++, done:false} : {value:undefined, done:true};
+      <span class="green">// 1의 값이 4보다 작을때까지 1씩 증가하여 값을 전달하고 모두 전달한 뒤에 done은 true</span>
+    }
+}
+
+iterator.next();  <span class="green">// {value:1, done:false}</span>
+iterator.next();  <span class="green">// {value:2, done:false}</span>
+iterator.next();  <span class="green">// {value:3, done:false}</span>
+iterator.next();  <span class="green">// {value:undefined, done:true}</span> 
+<span class="green">// 순차적으로 열거 뒤의 value 값은 undefined, done은 true</span></pre>
+
+<h3>3) 단원 핵심 정리</h3>
+<p class="gray">- 이터러블 규약과 이터레이터 규약을 표로 정리</p>
+<table width="100%" border="1">
+  <tr>
+    <td width="16%">&nbsp;</td>
+    <th width="42%">정의</th>
+    <th width="42%">규약을 따르는 객체</th>
+  </tr>
+  <tr>
+    <th>이터러블 규약</th>
+    <td>for...of 문을 통해 열거되어야 하고, @@iterator 메서드를 구현</td>
+    <td>자바스크립트 내장 객체 중 Array, String, Map, Set, 함수의 arguments 객체(Object는 제외)등</td>
+  </tr>
+  <tr>
+    <th>이터레이터 규약</th>
+    <td>next 메서드 호출 시 순차적으로 열거되며, 열거된 값이 객체({value: 값, done: 열거 완료 여부})여야 함</td>
+    <td>이터레이터 규약을 따르도록 구현하거나, 이터러블 객체로 부터 @@iterator 메서드를 호출하여 참조 가능함</td>
+  </tr>
+</table>
+
+
+<h3>4) 문제풀면서 복습하기</h3>
+<h4>(1) 문자열에 내장된 @@iterator 메서드를 호출하여 이터레이터 객체를 얻고 next() 메서드를 호출하여 값을 모두 열거해 보도록 한다.</h4>
+<blockquote>
+  <p><a href="ecma6\complete\chapter2\2-2\ex01.html" target="_blank">ecma6\complete\chapter2\2-2\ex01.html</a><a href="../source/02/comment.php" target="_blank"></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://127.0.0.1:8887/chapter2/2-2/ex01.html" target="_blank">http://127.0.0.1:8887/chapter2/2-2/ex01.html</a><a href="http://localhost/02/comment.php" target="_blank"></a></p>
+  </blockquote>
+<p class="gray">- 문자열 “iterator”가 한글자씩 열거되어 출력되었고, 전부 열거 후 done 속성은 true가 되어 열거가 끝났음을 알려준다.</p>	
+<pre class="gray">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;이터러블 규약과 이터레이터 규약&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        let  str = &quot;iterator&quot;;
+        let  iterator = str[Symbol.iterator]();
+        let  result;
+        do{
+            <span class="green">// 이터레이터 객체에 next() 메서드를 호출하여 문자열을 순차적으로 열거</span>
+            result= iterator.next();
+            <span class="green">// 열거한 값을 출력</span>
+            console.log(result.value, result.done);
+        }
+        <span class="green">//  value 속성이 존재하면 계속 loop</span>
+        while(result.value);
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<h4>(2) 이터레이터 규약을 만족하는 객체를 작성해 보자.</h4>
+<blockquote>
+  <p><a href="ecma6\complete\chapter2\2-2\ex02.html" target="_blank">ecma6\complete\chapter2\2-2\ex02.html</a><a href="../source/02/comment.php" target="_blank"></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://127.0.0.1:8887/chapter2/2-2/ex02.html" target="_blank">http://127.0.0.1:8887/chapter2/2-2/ex02.html</a><a href="http://localhost/02/comment.php" target="_blank"></a></p>
+</blockquote>
+<pre class="gray">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;이터러블 규약과 이터레이터 규약&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        let  iterator = {
+            i:1,
+            <span class="green">// 이터레이터 규약을 따르기 위해 객체에 iterator 메서드를 선언</span>
+            [Symbol.iterator]:function(){
+                <span class="green">// iterator [Symbol. iterator]() 다음과 같이 호출이 되도록 this 를 반환</span>
+                return this;
+            },
+            <span class="green">// next 메서드 호출 시 속성으로 value와 done을 갖는 객체를 전달</span>
+            <span class="green">// 이터레이션이 진행중이라면 done은 false, 종료되었다면 done은 true</span>
+            next:function(){
+                return (this.i &lt; 4) ? {value:this.i++, done:false} : {value:undefined, done:true};
+            }
+        }
+
+        console.log(iterator.next());
+        console.log(iterator.next());
+        console.log(iterator[Symbol.iterator]().next());
+        console.log(iterator[Symbol.iterator]().next());
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<p class="gray">&nbsp;</p>
+<p class="gray">&nbsp;</p>
+<p class="gray">&nbsp;</p>
+
+
+
+<h2>3. for...of 문</h2>
+<h3>1) for...of 문</h3>
+<p class="gray">- for...of 문은 기존에 배열이나 함수의 arguments 객체와 같은 컬렉션을 순회하는 for...in 문이 나 forEach() 함수와 같은 역할을 한다. 뿐만 아니라 문자열을 한 글자씩 잘라 순회하거나 destructing 등이 가능해 졌다. 이런 많은 타입들을 순회하기 위해서 이터러블 규약을 따르도록 하고 있다. 그러므로 for...of 문으로 순회하려면 @@iterator 메서드를 내장한 객체이거나, 직접 @@iterator 메서드를 구현해 주어야 한다.</p>
+<p class="gray">-   for...of 문의 작성 법은 아래와 같다.</p>
+<pre class="gray">for(variables of iterable){
+    ...
+}</pre>
+<table width="100%" border="1">
+  <tr>
+    <th width="20%">variables</th>
+    <td>for...of 문이 순환될 때 전달되는 값<br>
+      예를 들면 배열의 경우 원소값, 문자열의 경우 한 글자씩 전달. NodeList의 경우 Node를 전달해 준다.</td>
+  </tr>
+  <tr>
+    <th>iterable</th>
+    <td>for...of 문으로 순회할 이터러블 객체<br>
+      Array, String, Map, Set, generator, DOM NodeList 등 이러터블 규약을 따르는 객체</td>
+  </tr>
+</table>
+<h4>(1) 문자열을 순회하는 예로 for...of문의 구조를 살펴보면</h4>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex02_10.html" target="_blank">http://127.0.0.1:8887/ex02_10.html</a></p>
+</blockquote>
+<pre class="gray">let str = 'for of문';  <span class="green">// 순회시킬 문자열</span></pre>
+<p class="gray">- 순회전 문자열은 이러터블 규약을 따르는지 확인해 보기 위해서 문자열이 @@interator 메서드가 구현되어 있는지 확인해 보자. @@interator 메서드 호출 시 이터레이터 객체를 반환하므로 타입은 객체여야 한다. </p>
+<pre class="gray">console.log(typeof str[Symbol.iterator]() ==='object'); <span class="green"> // 결과는 true</span></pre>
+<p class="gray">- 문자열이 이터러블 규약을 따르는 것이 확인되었으니, for...of 문으로 순회 가능하다고 볼 수 있다. 다음 코드는 for...of 문으로 문자열을 순회하도록 작성하였다.</p>
+<pre class="gray">for(let value of str){
+    console.log(value);  <span class="green">// 결과는 f, o, r,  , o, f, 문</span>
+}</pre>
+<p class="gray">- 순회 결과 문자열을 한 글자씩 순차적으로 전달함을 볼 수 있다.</p>
+<h4>(2) for...in 문은 배열 순회 시 문제점을 가지고 있다.</h4>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex02_11.html" target="_blank">http://127.0.0.1:8887/ex02_11.html</a></p>
+</blockquote>
+<p class="gray">- 기존에도 컬렉션을 순회하는 방법은 존재하였다. for...in 문도 이와 비슷한 역활을 해준다. 하지만 for...in 문의 경우 배열을 순회할 때 몇 가지 문제점이 존재한다. 예를 들어 배열에 속성을 추가하는 경우 추가된 속성도 순회하는데 포함을&nbsp;시킨다. </p>
+<pre class="gray">var arr = [10, 20, 30];
+arr.add = 100;
+for(var i in arr){
+    console.log(i);  <span class="green">// 결과는 0, 1, 2, add</span>
+}</pre>
+<p class="gray">- 배열을 순회하였을 때 얻고자 하는 결과는 배열 원소의 index일 것이다. 하지만, 실제 for...in 문은 객체를 순회하면서 속성명을 문자열로 알려주는 역할을 한다. 그렇기에 배열을 for...in 문으로 순회하는 것은 위험할 수 있다. </p>
+<p class="gray">- for...in 문은 또 한 가지 문제점을 가지고 있다. 위에서 살펴본 것처럼 for...in 문으로 배열을 순회시 배열객체의 속성명을 문자열로 알려주기 때문에 원소의 index + 1과 같은 연산시 문자열로 된다. </p>
+<p class="gray">- 예를 들어 배열을 for...in 문으로 순회하고 원소의 index를 얻어 index + 1과 같은 연산처리를 하였을 때 1 + 1 = 2 가 아닌 '1' + 1 = '11' 의 결과가 된다.</p>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex02_12.html" target="_blank">http://127.0.0.1:8887/ex02_12.html</a></p>
+</blockquote>
+<p class="gray">- for...of 문은 위의 문제점들을 개선하였으며, 배열 순회시에 직관적으로 원소의 값만 전달해 준다. 다음 예를 보면 배열에 임의의 속성을 추가하여 순회하여도 정확히 배열 원소의 값만 전달해 주고 있다. </p>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex02_13.html" target="_blank">http://127.0.0.1:8887/ex02_13.html</a></p>
+</blockquote>
+<pre class="gray"><span class="bold_blue">let</span> arr = [10, 20, 30];
+arr.add = 100;
+for(<span class="bold_blue">let</span> value of arr){
+    console.log(value);  <span class="green">// 결과는 10, 20, 30</span>
+}</pre>
+
+
+<h3>2) 단원 핵심 정리</h3>
+<p class="gray">- for...of 문과 for...in 문의 차이를 표로 정리</p>
+<table width="60%" border="1" align="center">
+  <tr>
+    <th width="20%">&nbsp;</th>
+    <th>Array 순회 시 문제점</th>
+  </tr>
+  <tr>
+    <th>for...of 문</th>
+    <td>Array 순회 시 속성을 포함하지 않고, 원소만 전달하여, for...in 문의 단점을 보완함</td>
+  </tr>
+  <tr>
+    <th>for...in 문</th>
+    <td>Array 순회 시 속성을 포함하여 명확하지 않음. <br>
+      순회 시 전달 값이 Array의 원소가 아닌 index</td>
+  </tr>
+</table>
+<h3>3) 문제풀면서 복습하기</h3>
+<h4>(1) 내장 이터러블 객체가 아닌 직접 구현한 이터러블 객체를 for...of 문으로 순회시켜 준다. 다음은 이전 과정에서 예제로 만들어 보았던 이터러블 객체다. next() 메서드를 호출하여 값을 열거하고 있는데，이를 for...of 문으로 수정하여 한 번에 순회시킨다.</h4>
+<blockquote>
+  <p><a href="ecma6\example\chapter2\2-3\ex01.html" target="_blank">ecma6\<span class="bold_red">example</span>\chapter2\2-3\ex01.html</a></p>
+</blockquote>
+<pre class="gray">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;for...of문&lt;/title&gt;
+    &lt;script&gt;
+        let iterable = {
+            i:1,
+            [Symbol.iterator]:function(){
+                return this;
+            },
+            next:function(){
+                return (this.i &lt; 4) ? {value:this.i++, done:false} 
+                                    : {value:undefined, done:true};
+            }
+        }
+  
+        console.log(iterable.next());
+        console.log(iterable.next());
+        console.log(iterable[Symbol.iterator]().next());
+        console.log(iterable[Symbol.iterator]().next());
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<p class="gray">- 위의 콘솔 부분을 다음과 같이 수정한다.</p>
+<blockquote>
+  <p><a href="ecma6\complete\chapter2\2-3\ex01.html" target="_blank">ecma6\complete\chapter2\2-3\ex01.html</a><a href="../source/02/comment.php" target="_blank"></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://127.0.0.1:8887/chapter2/2-3/ex01.html" target="_blank">http://127.0.0.1:8887/chapter2/2-3/ex01.html</a><a href="http://localhost/02/comment.php" target="_blank"></a></p>
+</blockquote>
+<pre class="gray">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;for...of문&lt;/title&gt;
+    &lt;script&gt;
+        let iterable = {
+            i:1,
+            [Symbol.iterator]:function(){
+                return this;
+            },
+            next:function(){
+                return (this.i &lt; 4) ? {value:this.i++, done:false} 
+                                    : {value:undefined, done:true};
+            }
+        }
+
+        <span class="green">// for...of문으로 이터러불 객체를 순회하고 값을 얻는다.</span>
+        <span class="normal">for(let value of iterable){</span>
+            <span class="green">// 결과값을 출력</span>
+            <span class="normal">console.log(value);</span>
+        <span class="normal">}</span>
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<p class="gray">&nbsp;</p>
+<p class="gray">&nbsp;</p>
+<p class="gray">&nbsp;</p>
+
+
+
+<h2>4. 템플릿 리터럴</h2>
+<p class="gray">- 템플릿 *리터럴(Template literals)은 문자열 안에 표현식을 포함시킬 수 있고, 여러 줄 작성을  허용하여 간편하게 문자열을 만들 수 있도록 해준다.</p>
+<p class="gray">- 템플릿 리터럴은 문자열과 다르게 따옴표 대신 역따옴표(&quot; &quot;) 문자 사이에 작성하며, 달러와 중괄호 ($ {})를 포함시킬 수 있다.</p>
+<p class="gray">- 중괄호(${}) 사이에는 표현식을 쓸 수 있으며, 표현식의 결과는 문자열에 연결된다. 또 한 템플릿 리터럴 앞에 함수명 (태그 표현식)이 있으면 앞서 설명과는 달리 앞의 함수를 호출한다. 이때 템플릿 리터럴의 값이 함수에 전달되며, 함수에서 값을 조작하여 템플릿 문자열을 출력 할 수 있다. 이를 '태그드 템플릿 리터럴 (Tagged template literals)'이라고 한다.</p>
+<table width="80%" border="1" align="center">
+  <tr>
+    <td bgcolor="#efefef"><p>&gt;&gt; 리터럴이란?<br>
+      <br>
+        간단하게 말하면 그냥 '값’을 의미한다.<br>
+      var str = &quot;A&quot;; 라는 코드에서 A라는 문자열 값이 str이라는 변수로 들어가는데 여기서 리터럴은 단지 &quot;A&quot;만을 의미한다. 즉, 여기선 문자형 리터럴이다. 문자형 리터럴은 &quot;&quot; 또는 ''로 표시할 수 있는데, 특정한 변수의 값을 가져오려고 할 때 쓰이는 것이 '템플릿 리터럴'이다.</p></td>
+  </tr>
+</table>
+
+<h3>1) 여러 줄 문자열</h3>
+<p class="gray">- 문자열을 여러 줄로 작성하려면 줄 바꿈 문자(\n)를 입력해야 가능했고, 실제 코드에서는 한 줄로 작성하거나 (+)연산자를 사용하여 줄 바꿈을 할 수 있었다.  템플릿 리터럴은 (+)연산자 없이 여러 줄 작성이 가능하고, 줄 바꿈 시 자동으로 (\n)문자를 입력해 준다.</p>
+<p class="gray">-   다음은 일반 문자열을 이용해 여러 줄 작성 시 한 줄로 작성하는 예와 코드를 줄 바꿈 하여 작성하였을 때를 비교해 보고 또한 템플릿 리터럴을 사용하여 여러 줄 작성의 예 를 살펴본다.</p>
+<ul>
+  <li>일반 문자열 여러 줄 작성</li>
+</ul>
+<pre class="gray">var str = '여러 줄\n 입력 테스트';
+console.log(str);  <span class="green">// 결과는 '여러 줄</span>
+                             <span class="green">입력 테스트'</span></pre>
+
+<ul>
+  <li>일반 문자열 여러 줄 작성 시 코드 줄 바꿈</li>
+</ul>
+<pre class="gray">var str = '여러 줄\n';
+    str += ' 입력 테스트';
+console.log(str);  <span class="green">// 결과는 '여러 줄</span>
+                             <span class="green">입력 테스트'</span></pre>
+
+<ul>
+  <li>템플릿 리터럴 여러 줄 작성</li>
+</ul>
+<pre class="gray"><span class="bold_blue">let</span> str = '여러 줄
+           입력 테스트';
+console.log(str);  <span class="green">// 결과는 '여러 줄</span>
+                             <span class="green">입력 테스트'</span></pre>
+
+<p>&nbsp;</p>
+<h3>2) 보간 표현법</h3>
+<p class="gray">- 일반 문자열에 표현식을 삽입하려면 문자열을 끝맺음하고 (+) 연산자로 표현식을 연결하여 작성해 주어야 했다, 템플릿 리터럴은 문자열 끝맺음 없이 보간 표현법을 이 용하여 보다 쉽게 작성이 가능해졌다.  일반  문자열에서  표현식  작성과  템플릿  리터럴에서의 표현식  작성이  어떻게  다른지  살펴보자.</p>
+
+<ul>
+  <li>일반 문자열에 표현식 포함</li>
+</ul>
+<pre class="gray">var a = 100;
+var b = 200;
+var str = 'a+b의 결과는 ' + (a + b) + ' 입니다.';  <span class="green">// 결과는 'a+b의 결과는 300입니다.'</span><span class="green"></span></pre>
+
+<ul>
+  <li>템플릿 리터럴에 표현식 포함</li>
+</ul>
+<pre class="gray"><span class="bold_blue">let</span> a = 100;
+<span class="bold_blue">let</span> b = 200;
+<span class="bold_blue">let</span> str = 'a+b의 결과는 ${a + b}입니다.';  <span class="green">        // 결과는 'a+b의 결과는 300입니다.'</span></pre>
+
+<h3>3) 태그드 템플릿 리터럴</h3>
+<p class="gray">- 태그드 템플릿 리터럴(Tagged template literal)은 템플릿 리터럴과 구분하여 사용한다. 둘은 전혀 다른 동작을 보여 주는데, 템플릿 리터럴의 경우 여러 줄 작성과 보간 표현법을 쓸 수 있도록 해준다면 태그드 템플릿 리터럴은 표현식(함수명) 옆에 템플릿 리터럴이 올 경우 함수를 호출한다.</p>
+<p class="gray">- 함수의 인수로 템플릿 문자열이 전달되며, 보간 표현법이 있는 경우 보간 표현법을 앞뒤로 나누어 문자열이 배열로 전달된다. 보간 표현법의 표현식의 값은 따로 인수에 전달된다.  다음 그림은 태그드 템플릿 리터럴 구문의 동작을 이해하기 쉽도록 표현해 주었다.</p>
+<p class="gray"><img src="images/lesson02_03.png" alt="태그트 템플릿" width="673" height="233" border="1" style="display: block; margin: 0 auto;"></p>
+<p class="gray">- 다음 코드는 태그드 템플릿 리터럴 구문을 활용하여 문자열 구문의 값을 비교하여 문장을 완성해 주는 예 이다. </p>
+<blockquote>
+    <p>실행 : <a href="http://127.0.0.1:8887/ex02_14.html" target="_blank">http://127.0.0.1:8887/ex02_14.html</a></p>
+</blockquote>
+<pre class="gray">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+    &lt;script&gt;
+    function tagged(str, a, b){ <span class="green">// 템플릿 리터럴 구문에 의하여 호출</span>
+                                <span class="green">// 매개변수 str의 값은 ['A와 B 둘 중']</span>
+                                <span class="green">// 매개변수 a의 값은 100</span>
+                                <span class="green">// 매개변수 b의 값은 200</span>
+        let bigger;
+        (a &gt; b) ? bigger = 'A' : bigger = 'B';
+        <span class="green">// a의 값이 클 경우 bigger의 값은 문자열 'A'를</span>
+        <span class="green">// 아닐 경우 문자열 'B'가 됨</span> 
+        return str[0] + bigger + '가 더 큽니다.' ;
+    }
+
+    let a = 100;
+    let b = 200;
+    <span class="green">// tagged 함수 호출</span>
+    let str = tagged `A와 B 둘 중 ${a}, ${b}`; <span class="green">// 홋따옴표('')가 아니라 역따옴표(``)임을 </span><span class="bold_red">주의</span>
+    console.log(str); <span class="green">// 결과는 'A와 B 둘 중 B가 더 큽니다.'</span>
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<p class="gray">&nbsp;</p>
+<h3>4) 단원 핵심 정리</h3>
+<p class="gray">- 문자열과 템플릿 리터럴의 차이점을 비교 정리한 표</p>
+<table width="100%" border="1" align="center">
+  <tr>
+    <th width="8%">&nbsp;</th>
+    <th width="21%">작성법</th>
+    <th width="21%">표현식 작성</th>
+    <th width="50%">여러 줄 작성</th>
+  </tr>
+  <tr>
+    <th>문자열</th>
+    <td>쌍따옴표 (&quot;&quot;) 또는 홑따옴표 ('') 사이에 작성</td>
+    <td>+연산자를 사용하여 작성</td>
+    <td>문자열 줄 바꿈시에는 줄 바꿈 문자(\n)을 사용하여 작성<br>
+      코드를 여러 줄로 작성 시에는 (+)연산자를 사용하여 작성</td>
+  </tr>
+  <tr>
+    <th>템플릿<br>
+      리터럴</th>
+    <td>역따옴표 (``) 사이에 작성</td>
+    <td>보간 표현법을 사용하여 작성</td>
+    <td>문자열 줄 바꿈 또는 여러 줄 작성 시 내려쓰기 하여 작성</td>
+  </tr>
+</table>
+<h3>5) 문제풀면서 복습하기</h3>
+<h4>(1) 코드의 문자열을 템플릿 리터럴로 변경해보자.</h4>
+<p class="gray">- 먼저 예제 파일을 열어 코드를 보면, user 객체의 속성값을 변수 html의 문자열에 포함하여 table에 출력하도록 작성되어 있다. 예제를 실행하여 작성된 코드의 결과를 보면 table에 작성한 값이 잘 나오고 있다. </p>
+<p class="gray"><img src="images/lesson02_04.png" width="649" height="60" alt="테이블"></p>
+<p class="gray">- 다시 소스 코드로 돌아와 16라인을 보면 html 변수에 문자열과 user객체의 값이 포함되어 있는데, 이 부분의 코드를 템플릿 리터럴로 작성해 보자. user객체의 속성값은 보간 표현법을 사용하여 작성해 주면 보다 쉽게 수정할 수 있다. </p>
+<blockquote>
+  <p><a href="ecma6\example\chapter2\2-4\ex01.html" target="_blank">ecma6\<span class="bold_red">example</span>\chapter2\2-4\ex01.html</a></p>
+</blockquote>
+<pre class="gray">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;템플릿 리터럴(Template literals)&lt;/title&gt;
+    &lt;style type=&quot;text/css&quot;&gt;
+        #user table{width:100%;}
+    &lt;/style&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var user = {
+            name: '홍길동',
+            age: 30,
+            job: 'programmer'
+        };
+        
+        window.onload = function(){
+            var html =  '&lt;table border=&quot;1&quot;&gt;';  <span class="green">// 16라인 : 문자열을 템플릿 리터럴로 변경</span>
+                html += '&lt;thead&gt;';
+                html += '&lt;tr&gt;';
+                html += '&lt;th&gt;이름&lt;/th&gt;';
+                html += '&lt;th&gt;나이&lt;/th&gt;';
+                html += '&lt;th&gt;직업&lt;/th&gt;';
+                html += '&lt;/tr&gt;';
+                html += '&lt;/thead&gt;';
+                html += '&lt;tbody&gt;';
+                html += '&lt;tr&gt;';
+                html += '&lt;td&gt;' + user.name + '&lt;/td&gt;';
+                html += '&lt;td&gt;' + user.age + '&lt;/td&gt;';
+                html += '&lt;td&gt;' + user.job + '&lt;/td&gt;';
+                html += '&lt;/tr&gt;';
+                html += '&lt;/tbody&gt;';
+                html += '&lt;/table&gt;';
+ 
+            document.getElementById('user').innerHTML = html;
+        }
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;user&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<p class="gray">- 16라인의 코드를 다음과 같이 수정한다. 수정 전보다 작성도 쉽고 가독성도 높아졌다.</p>
+<blockquote>
+  <p><a href="ecma6\complete\chapter2\2-4\ex01.html" target="_blank">ecma6\complete\chapter2\2-4\ex01.html</a><a href="../source/02/comment.php" target="_blank"></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://127.0.0.1:8887/chapter2/2-4/ex01.html" target="_blank">http://127.0.0.1:8887/chapter2/2-4/ex01.html</a><a href="http://localhost/02/comment.php" target="_blank"></a></p>
+</blockquote>
+<pre class="gray">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;템플릿 리터럴(Template literals)&lt;/title&gt;
+    &lt;style type=&quot;text/css&quot;&gt;
+        #user table{width:100%;}
+    &lt;/style&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var user = {
+            name: '홍길동',
+            age: 30,
+            job: 'programmer'
+        };
+        
+        window.onload = function(){
+            <span class="none">var html = `&lt;table border=&quot;1&quot;&gt;
+                &lt;thead&gt;
+                    &lt;tr&gt;
+                        &lt;th&gt;이름&lt;/th&gt;
+                        &lt;th&gt;나이&lt;/th&gt;
+                        &lt;th&gt;직업&lt;/th&gt;
+                    &lt;/tr&gt;
+                &lt;/thead&gt;
+                &lt;tbody&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;${user.name}&lt;/td&gt;
+                        &lt;td&gt;${user.age}&lt;/td&gt;
+                        &lt;td&gt;${user.job}&lt;/td&gt;
+                    &lt;/tr&gt;
+                &lt;/tbody&gt;
+            &lt;/table&gt;`;</span>
+            document.getElementById('user').innerHTML = html;
+        }
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;user&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+
+<h4>(2) 코드의 문자열을 태그드 템플릿 리터럴과 템플릿 리터럴로 변경해보자.</h4>
+<p class="gray">- 먼저 작성된 코드는 a가 b의 약수인지를 확인하여 결과를 출력해 주고 있다. 작성된 코드를 브라우저에서 실행시키고 개발자도구의 Console에서 확인해 보자.</p>
+<p class="gray"><img src="images/lesson02_05.png" alt="태그드 템플릿 리터럴" width="481" height="144"></p>
+<p class="gray">- 다시 소스 코드를 살펴보면, 4라인의 sum 함수는 매개변수 a가 b의 약수인지를 확인하여 결과를 반환해 주고, 12라인의 변수 value의 값인 문자열은 (+)연산자를 통해서 문자열을 이어 쓰고 있다. 12라인의 문자열을 태그드 템플릿 리터럴로 변경하고, 4라인의 sum 함수의 결과를 템플릿 리터럴 구문으로 수정해보자.</p>
+<blockquote>
+  <p><a href="ecma6\example\chapter2\2-4\ex02.html" target="_blank">ecma6\<span class="bold_red">example</span>\chapter2\2-4\ex02.html</a></p>
+</blockquote>
+<pre class="gray">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;템플릿 리터럴(Template literals)&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var a = 2;
+        var b = 8;
+        
+        function sum(a, b){  <span class="green">// 함수안의 파라메터를 템플릿 리터럴로 변경</span>
+            var value = b % a;
+            var result;
+            (value == 0) ? result = 'a는 b의 약수입니다.' : result = 'a는 b의 약수가아닙니다.';
+  
+            return result;
+        }
+        <span class="green">// value의 값을 태그드 템플릿 리터럴 구분으로 변경</span>
+        var value = 'a의값은 ' + a + '이고, b의값은 ' + b + '입니다.\n' + sum(a, b);
+        console.log(value);
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<p class="gray">- 4라인의 sum 함수의 파라미터와 12라인의 value의 값을 다음과 같이 수정해 준다. 수정 전보다 작성도 쉽고 가독성도 높아졌다.</p>
+<blockquote>
+  <p><a href="ecma6\complete\chapter2\2-4\ex02.html" target="_blank">ecma6\complete\chapter2\2-4\ex02.html</a><a href="../source/02/comment.php" target="_blank"></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://127.0.0.1:8887/chapter2/2-4/ex02.html" target="_blank">http://127.0.0.1:8887/chapter2/2-4/ex02.html</a><a href="http://localhost/02/comment.php" target="_blank"></a></p>
+</blockquote>
+<pre class="gray">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;템플릿 리터럴(Template literals)&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var a = 2;
+        var b = 8;
+        
+        <span class="green">// 매개변수 str은 10라인의 템플릿 문자열이 나누어 배열로 전달됨</span>
+        function sum<span class="normal">(str, a, b)</span>{
+            <span class="green">// result의 값을 템플릿 리터럴로 변경하여 보다 간결하게 변경됨</span>
+            var <span class="normal">result = `${str[0]}${a}${str[1]}${b}${str[2]}</span>
+            ${(b%a==0)? 'a는 b의 약수입니다.':'a는 b의 약수가아닙니다.'}`;
+            return result;
+        }
+
+        <span class="green">// value의 값을 태그드 템플릿 리터럴로 변경하여 가독성을 높임</span>
+        var value = <span class="normal">sum`a의값은 ${a}이고, b의값은 ${b}입니다.`;</span>
+        console.log(value);
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<p class="gray">&nbsp;</p>
+<p class="gray">&nbsp;</p>
+<p class="gray">&nbsp;</p>
+
+
+
+<h2>5. 타입 배열</h2>
+<p class="gray">- 타입 배열 (Typed Array)은 배열과 매우 유사한 객체이지만，이진 데이터(Binary Data)를 보다 빨리 접근하고 조작하도록 하기 위해 추가되었다. 최근 자바스크립트 에서 파일을 불러와 처리하거나, 오디오나 비디오 처리를 위해 이진데이터 접근이 많 아짐에 따라 유용하게 사용되고 있다.</p>
+<p class="gray">-   배열은 원소의 개수가 가변적이며, 모든 값을 허용하는 반면, 타입 배열은 이진 데이 터만 값으로 허용하며, 원하는 비트를 선택할 수 있다. 또한 타입 배열은 대부분의 배 열 API를 동일하게 제공하지만, push나 pop 등의 API는 제공되지 않는다.<br>
+  타입 배열은 버퍼와 뷰로 나뉘는데，버퍼(ArrayBuffer)는 단순히 데이터 청크를 나타내는 객체이며, 스스로 읽고 쓸 수 없고，뷰를 통해서 저장된 데이터를 조작할 수 있다. 다음 단락에서 버퍼와 뷰에 대해 좀 더 자세히 살펴본다.</p>
+<h3>1) 버퍼</h3>
+<p class="gray">- 버퍼(AirayBuffer)는 ArrayBuffer 클래스의 생성자 객체이며 클래스 호출 시 지정한 바이트 크기의 버퍼가 생성된다. 버퍼는 직접적으로 데이터의 조작이 불가능하지만 특정 타입의 뷰 생성자 객체를 통해서 데이터를 읽거나 쓰기가 가능하다.</p>
+<p class="gray">-   다음 코드는 ArrayBuffer 클래스를 호출하여 16바이트 버퍼를 생성하는 예 이다.</p>
+<blockquote>
+  <p class="gray">실행 : <a href="http://127.0.0.1:8887/ex02_15.html" target="_blank">http://127.0.0.1:8887/ex02_15.html</a></p>
+</blockquote>
+<pre class="gray">const buffer = new ArrayBuffer(16);  <span class="green">// 16바이트 버퍼 생성</span>
+console.log(buffer.byteLength);      <span class="green">// 결과는 16  : byteLength 속성으로 버퍼의 바이트 조회</span></pre>
+
+
+<h3>2) 뷰</h3>
+<p class="gray">- 뷰(Typed array views)는  유형 별로  여러 클래스를 제공하는데 Inti6, Uint32, Float64 등  대부분  숫자형이며，UintClamedArray는  별도로  0~255사이의  숫자를  허용하는 형 이다.</p>
+<p class="gray">-   뷰는 클래스 호출 시 지정한 버퍼의 바이트만큼 담을 수 있는 배열형태의 생성자를 만들며，클래스 이름의 비트에 따라 원소의 수가 결정되고, 초기값으로 0을 지정한다.</p>
+<table width="100%" border="1">
+  <tr>
+    <th>&nbsp;</th>
+    <th>바이트</th>
+    <th>값의 범위</th>
+    <th>설명</th>
+  </tr>
+  <tr>
+    <th>Int8Array</th>
+    <td class="mp">1</td>
+    <td class="mp">-128 ~ 127</td>
+    <td>8비트 정수형</td>
+  </tr>
+  <tr>
+    <th>Uint8Array</th>
+    <td class="mp">1</td>
+    <td class="mp">0 ~ 255</td>
+    <td>8비트 양의 정수형</td>
+  </tr>
+  <tr>
+    <th>Uint8ClampedArray</th>
+    <td class="mp">1</td>
+    <td class="mp">0 ~ 255</td>
+    <td>8비트 양의 정수형(0~255사이의 숫자만 허용)</td>
+  </tr>
+  <tr>
+    <th>Int16Array</th>
+    <td class="mp">2</td>
+    <td class="mp">-32768 ~ 32767</td>
+    <td>16비트 정수형</td>
+  </tr>
+  <tr>
+    <th>Uint16Array</th>
+    <td class="mp">2</td>
+    <td class="mp">0 ~ 65535</td>
+    <td>16비트 양의 정수형</td>
+  </tr>
+  <tr>
+    <th>Int32Array</th>
+    <td class="mp">4</td>
+    <td class="mp">-2147483648 ~ 2147483647</td>
+    <td>32비트 정수형</td>
+  </tr>
+  <tr>
+    <th>Uint32Array</th>
+    <td class="mp">4</td>
+    <td class="mp">0 ~ 4294967295</td>
+    <td>32비트 양의 정수형</td>
+  </tr>
+  <tr>
+    <th>Float32Array</th>
+    <td class="mp">4</td>
+    <td class="mp">1.2 X 10-38 ~ 3.4 x 10+38</td>
+    <td>32비트 부동소수점형</td>
+  </tr>
+  <tr>
+    <th>Float64Array</th>
+    <td class="mp">8</td>
+    <td class="mp">5.0 x 10-324 ~ 1.8 x 10+308</td>
+    <td>64비트 부동소수점형</td>
+  </tr>
+</table>
+<p class="gray">- 다음 코드는 16바이트 버퍼를 생성하여, 32비트 정수형 뷰를 선언하고 버퍼를 지정한다. 16바이트를 비트로 바꾸면 <span class="normal">128비트(16 X 8)이므로, 32비트 뷰에서는 4개로 나뉘어(128 / 32 = 4)</span> 원소 4개의 초기값이 0인 32비트 양의 정수형 배열이 된다. </p>
+<blockquote>
+  <p class="gray">실행 : <a href="http://127.0.0.1:8887/ex02_16.html" target="_blank">http://127.0.0.1:8887/ex02_16.html</a></p>
+</blockquote>
+<pre class="gray">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ko&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+    &lt;script&gt;
+        const buffer = new ArrayBuffer(16);    <span class="green">// 16바이트 버퍼 생성</span>
+        const view = new Uint32Array(buffer);  <span class="green">// 양의 정수형 32비트 뷰를 선언하고 버퍼를 지정</span>
+        console.log(view);                     <span class="green">// 결과는 Unit32Array(4) [0,0,0,0]가 출력</span>
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<p class="gray">- 다음 그림은 16바이트 버퍼를 여러 유형의 뷰에 대입하였을 때의 예 이다.</p>
+<p class="gray"><img src="images/lesson02_06.png" alt="16바이트 버퍼를 뷰에 대입" width="610" height="211" border="1"></p>
+<p class="gray">&nbsp;</p>
+<h3>3) 단원 핵심 정리</h3>
+<p class="gray">- 타입  배열은  배열과  유사한  객체이며, 이진 데이터(Binary Data)를 보다 빨리 접근하고 조작할 수 있다.<br>
+  타입 배열은 버퍼와 뷰로 나뉘는데 버퍼(ArrayBuffer)는 단순히 데이터 청크를 나타내는 객체이며, 스스로 읽고 쓸 수 없고, 뷰를 통해서 저장된 데이터를 조작할 수 있다.</p>
+
+
+<h3>4) 문제풀면서 복습하기</h3>
+<h4>(1) RGB 컬러 코드만 입력 가능한 타입 배열을 만들어 보자.</h4>
+<p class="gray">- RGB 코드는 0 ~ 255 사이의 값이 세 개로 연결된 리스트이다. 버퍼와 뷰를 생성하여 RGB 코드를 입력받는 타입 배열을 만들어 보자. 다음 코드는 0 ~ 255 사이의 값만 입력 받도록 Uint8ClampedArray을 생성하고, 3바이트 버퍼를 지정하였다. </p>
+<p class="gray">- 3바이트 버퍼는 24비트이므로 8비트 정수형 배열에서 3개의 원소를 갖는다. 타입 배열에 각각 0 ~ 255 사이의 랜덤값을 입력하여 생성한 RGB 값을 body 태그에 backgroundColor style을 지정해 주었다. </p>
+<blockquote>
+  <p><a href="ecma6\example\chapter2\2-5\ex01.html" target="_blank">ecma6\<span class="bold_red">example</span>\chapter2\2-5\ex01.html</a></p>
+</blockquote>
+
+<blockquote>
+  <p><a href="ecma6\complete\chapter2\2-5\ex01.html" target="_blank">ecma6\complete\chapter2\2-5\ex01.html</a><a href="../source/02/comment.php" target="_blank"></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://127.0.0.1:8887/chapter2/2-5/ex01.html" target="_blank">http://127.0.0.1:8887/chapter2/2-5/ex01.html</a><a href="http://localhost/02/comment.php" target="_blank"></a></p>
+</blockquote>
+<pre class="gray">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;타입배열(Typed Array)&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;script&gt;
+        const buffer = new ArrayBuffer(3);
+        const rgb = new Uint8ClampedArray(buffer);
+
+        rgb[0] = parseInt(Math.random(255) * 100);
+        rgb[1] = parseInt(Math.random(255) * 100);
+        rgb[2] = parseInt(Math.random(255) * 100);
+  
+        document.body.style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+
+<h4>(2) 타입 배열로 이진 데이터인 Blob(블랍)을 생성해 보자.</h4>
+<blockquote>
+  <p><a href="ecma6\example\chapter2\2-5\ex02.html" target="_blank">ecma6\<span class="bold_red">example</span>\chapter2\2-5\ex02.html</a></p>
+</blockquote>
+
+<p class="gray">- 다음 코드는 16바이트 버퍼를 지정한 16비트 양의 정수형 배열로 Blob을 생성하였다.</p>
+<blockquote>
+  <p><a href="ecma6\complete\chapter2\2-5\ex02.html" target="_blank">ecma6\complete\chapter2\2-5\ex02.html</a><a href="../source/02/comment.php" target="_blank"></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://127.0.0.1:8887/chapter2/2-5/ex02.html" target="_blank">http://127.0.0.1:8887/chapter2/2-5/ex02.html</a><a href="http://localhost/02/comment.php" target="_blank"></a></p>
+</blockquote>
+
+<pre class="gray">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;타입배열(Typed Array)&lt;/title&gt;
+    &lt;script&gt;
+        var buffer = new ArrayBuffer(16);
+        var view = new Int16Array(buffer);
+        var blob = new Blob([view], {type: 'application/octet-binary'});
+        var url = URL.createObjectURL(blob);
+        console.log(url);
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<p class="gray">- 브라우저의 콘솔을 확인해 보면 생성한 Blob의 url은 다음과 같이 출력된다.</p>
+<p class="gray"><img src="images/lesson02_07.png" alt="생성된 블랍 주소" width="625" height="136" border="1"></p>
+<h4>(3) 참고 : createObjectURL</h4>
+<p class="gray">- URL.createObjectURL()은 Blob 객체를 나타내는 URL를 포함한 다음과 같은 DOMString를 생성한다. (blob:URL)</p>
+<p class="gray">- 
+  이 Blob URL은 생성된 window의 document에서만(브라우저) 유효하다.</p>
+<p class="gray">- 
+  다른 window에서 재활용할 수 없으며, URL의 수명이 한정되어 있기 때문에 file:URL과 다르게 보안 이슈에서 벗어날 수 있다.</p>
+<pre class="gray">blob:http://localhost:1234/28ff8746-94eb-4dbe-9d6c-2443b581dd30</pre>
+<pre class="gray">&lt;img src=&quot;blob:http://localhost:1234/28ff8746-94eb-4dbe-9d6c-2443b581dd30&quot; alt=&quot;Blob&quot; /&gt;</pre>
+<p class="gray">&nbsp;</p>
+<p class="gray">&nbsp;</p>
+<p class="gray">&nbsp;</p>
+
+
+
+</div>
+</body>
+</html>

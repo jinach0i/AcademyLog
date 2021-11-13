@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>심볼은 객체에 속성 추가 시 내장 속성과의 충돌을 피할 수 있음1</title>
+	<script>
+	let arr = [1, 2, 3];
+	console.log(arr.length);  // 결과는 3, length 배열의 원소 수를 조회할 수 있는 내장 속성
+	arr.length = 100;         // 배열에 length 속성을 정의 
+	console.log(arr.length);  // 결과는 100, 배열의 내장 속성이 덮어씌워 졌음
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Proxy</title>
+    <script type="text/javascript">
+        let obj = {};
+		// 객체에 설명자(descriptor)가 있는 속성 추가
+		Object.defineProperty(obj, 'key',{
+			configurable: true,
+			enumerable: true,
+			value: 10
+		});
+		
+		let proxy = new Proxy(obj, {
+			// 트랩 설정
+			getOwnPropertyDescriptor:function(target, prop){
+				// 속성 설명자 반환
+				return Reflect.getOwnPropertyDescriptor(target, prop);
+			}
+		});		
+		
+		//객체에 설명자가 있는 속성 얻기
+		let descriptor = Object.getOwnPropertyDescriptor(proxy, 'key');
+		// 결과는 트랩에서 전달받은 객체에 추가된 속성 설명자
+		// {configurable: true, enumerable: true, value: 10}
+		console.log(descriptor);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

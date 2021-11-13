@@ -1,0 +1,15 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+	const buffer = new ArrayBuffer(16);  // 16바이트 버퍼 생성
+	const view = new Uint32Array(buffer);  // 양의 정수형 32비트 뷰를 선언하고 버퍼를 지정
+	console.log(view);      // 결과는 Unit32Array(4) [0,0,0,0]가 출력
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

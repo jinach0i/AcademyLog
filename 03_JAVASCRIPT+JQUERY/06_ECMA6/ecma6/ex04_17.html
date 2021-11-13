@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>디스트럭쳐링</title>
+    <script>
+		// 객체 디스트럭쳐링 변수 a, b, c에 각각 기본값을 할당하고, 
+		// 객체 리터럴 속성 a, c의 값을 전달
+		let {a=1, b=2, c=3} = {a:100, c:undefined};
+		console.log(a, b, c);  // 결과는 100, 2, 3 
+		// 변수 a는 객체 리터럴의 값이 할당, 
+		// 변수 b는 전달된 값이 없으므로, 기본값 2,
+		// 변수 c는 undefined가 전달되었으므로 기본값
+    </script>
+</head>
+<body>
+
+</body>
+</html>

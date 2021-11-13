@@ -1,0 +1,16 @@
+*{margin: 0; padding: 0;}
+:root{font-size: 18px;}
+/* html{height: 100%;} */
+body{font-size: 12px; }
+    /* height: 100%;}
+ㄴ주면 em부분만 크기가 작아짐 */
+.clearfix{background-color: tomato; }
+.clearfix::after{content: ''; display: block; clear: both;} 
+.box{float: left; margin-right: 20px; background-color: turquoise; color: white; text-align: center;}
+.box_px{width: 160px; height: 160px;}
+.wrap{font-size: 10px;}
+.box_em{width: 10em; height: 10em;}
+ㄴem만 넓이높이를 부모에게서 상속가능
+.box_rem{width: 10rem; height: 10rem;}
+ㄴ상속기준이 최상위root에게서만 상속가능
+p{width: 100%; height: 100vh; font-size: 1.5rem; background-color: yellowgreen;}

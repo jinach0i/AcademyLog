@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>화살표 함수</title>
+    <script>
+		let add = ({a=100, b=200}) => {
+			// 매개변수 a의 값이 전달인자값으로 변경되어 a=200, b=200이 됨
+			console.log(a, b);
+			return a + b;
+		}
+		console.log(add({a:200}));  // 결과는 400
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>keys(), values(), [@@iterator]() 메서드</title>
+	<script>
+	let set = new Set('abab');
+	
+	// keys
+	let keys = set.keys();
+	for(let value of keys){
+		console.log(value); // 결과는 'a', 'b'
+	}
+	
+	// values
+	let values = set.values();
+	for(let value of values){
+		console.log(value); // 결과는 'a', 'b'
+	}
+
+	// @@Iteratro
+	let setIter = set[Symbol.iterator]();
+	for(let value of setIter){
+		console.log(value); // 결과는 'a', 'b'
+	}
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

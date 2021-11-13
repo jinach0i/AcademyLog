@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+	<head>
+		<title>링크 관련 가상 클래스 선택자</title>
+		<meta charset="UTF-8" />
+		<style type="text/css">
+		/* a 요소의 상태에 따른 선택자를 정의합니다. */
+			a:hover{
+			/* 마우스 대면 나타날 스타일들 */
+				background-color: orange;
+				color: orange;
+			}
+			a:visited{
+			/* 브라우저에서 검색기록을 삭제하거나 타브라우저를 이용 */
+				text-decoration: none;
+			}
+			a:active{
+			/* 해당 부분을 누르고 있을때만 아래 스타일 적용  */	
+				background-color: tomato;
+				color: black;
+			}
+			a:link{
+				text-decoration: none;
+			}	
+		</style>
+	</head>
+
+	<body>
+		<h1>링크 관련 가상 클래스 선택자</h1>
+		<hr />
+		<h2>나라별 요리법 분류 메뉴</h2> 
+		<ul>
+			<li><a href="#" title="한식 요리법">한식</a></li>
+			<li><a href="#" title="중식 요리법">중식</a></li>
+			<li><a href="#" title="양식 요리법">양식</a></li>
+			<li><a href="#" title="일식 요리법">일식</a></li>
+			<li><a href="#" title="베트남식 요리법">베트남식</a></li>
+			<li><a href="#" title="이탈리아식 요리법">이탈리아식</a></li>
+		</ul>
+	</body>
+</html>

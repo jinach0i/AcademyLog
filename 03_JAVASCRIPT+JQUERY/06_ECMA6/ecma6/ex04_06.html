@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>펼침 연산자</title>
+    <script type="text/javascript">
+		let obj = {p1:1, p2:2};
+		// ...(펼침 연산자)로 obj 객체 속성을 한 번에 펼쳐 리터럴 객체에 추가
+		let obj2 = {p2:20, p3:30, ...obj};
+		// p2 속성의 값이 펼침 연산자에 의해 덮어 씌워지고, p1 속성이 추가됨
+		console.log(obj2);  // 결과는 {p1:1, p2:2, p3:30}
+    </script>
+</head>
+<body>
+
+</body>
+</html>

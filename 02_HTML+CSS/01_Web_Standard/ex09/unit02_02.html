@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+	<head>
+		<title> 가로, 세로로 애니메이션되어 커지는 롤오버 이미지 만들기 </title>
+		<meta charset="UTF-8" />
+		<style type="text/css">
+			*{margin: 0; padding: 0;}
+			body {
+				font:0.95em Arial,sans-serif;
+				margin:50px 0px;
+				}
+			header h1 {
+				text-shadow:0px 0px 5px #666;
+				text-align:center;
+				font-size:3em;
+				letter-spacing:5px;
+				color:#d81b21;
+				text-transform:uppercase;
+				}
+
+			nav {
+				width:100%;
+				margin:0 auto;
+				display: inline-block; top: 50%; left: 50%; text-align: center;
+				
+				}
+			a {
+				text-decoration:none;
+				}
+			img {
+				
+				width: 100px; height: 100px;
+				transition: all 3s ease;
+				position:relative; z-index: 2;
+				border: black 3px solid;
+				}
+			
+			ul{margin: 0 auto;}
+			li {
+				display: inline-block;
+				top: 0; left: 0;
+				text-align: center;
+				width: 100px; height: 100px;
+				list-style: none;
+				margin:10px auto;
+				padding:0px;
+			}
+			li:hover img{
+				width: 300px; height: 300px; z-index: 10;
+			}
+			/* Rollover Design */
+	
+		
+			
+			
+		</style>
+	</head>
+
+	<body>
+		<header>
+			<h1>C/S/S/   s/h/o/e/s -  s/h/o/p</h1>
+		</header>
+		<nav>
+			<ul id="gallery">
+				<li><a href=""><img src="images/bag_hotpink.png" alt="hotPink" /></a></li> 
+				<li><a href=""><img src="images/bag_navy.png" alt="Navy" /></a></li>  
+				<li><a href=""><img src="images/bag_white.png" alt="white" /></a></li> 
+			</ul>
+		</nav>
+	</body>
+</html>

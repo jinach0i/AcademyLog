@@ -1,0 +1,4 @@
+ul{overflow: hidden; margin-left: 1000px;}
+li{float: left; list-style: none;}
+.container{width: 1280px; margin: 0 auto;}
+#content img{display: block; margin: 0 auto;}

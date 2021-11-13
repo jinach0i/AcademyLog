@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>entries 메서드</title>
+	<script>
+	let set = new Set('abca');
+	let setIter = set.entries();    // 셋 항목을 열거할 수 있는 이터레이터 객체를 반환
+
+	for(let value of setIter){
+		console.log(value);         // 결과는 ['a', 'a'], ['b', 'b'], ['c', 'c']
+	}                               // 셋 항목의 value를 첫번째와 두번째 원소로 하는 배열
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

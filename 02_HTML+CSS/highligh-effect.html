@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .highlight{
+            display: inline-table;
+            position: relative;
+            overflow: hidden;
+        }
+        .highlight::before{
+            content: '';
+            display: block;
+            width: 100%; height: 100%;
+            background-color:rgba(90, 250, 199, 0.336);
+            color: black;
+            position: absolute;
+            top: 0; left: -100%;
+            transition: all .35s;
+        }
+        .content:hover .highlight::before{
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        자기객관화가 되는 <span class="highlight">사람</span>과 어울리자
+    </div>
+</body>
+</html>

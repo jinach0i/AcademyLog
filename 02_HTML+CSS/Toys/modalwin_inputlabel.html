@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input[id="popup"]{
+            display: none;
+        }
+        input[id="popup"] + label{
+            display: inline-block;
+            padding: 20px;
+            background-color: yellow;
+            color: white;
+        }
+        /* ㄴ버튼 
+           ㄴ+=[인접요소 선택자]=같은 위치 기준 다음에 오는 요소 선택자 */
+
+        input[id="popup"] + label + div{
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 100;
+        }
+        /* ㄴ팝업창최상위요소 */
+        input[id="popup"] + label + div > div{
+            position: absolute; top: 50%; left: 50%; 
+            /* ㄴ상위 중 fixed한 애를 기준으로 배치 */
+            transform: translate(-50%,-50%);
+            width: 500px; height: 300px;
+            background-color: white;
+            z-index: 2;
+        }
+
+        input[id="popup"] + label + div > div > label{
+            position: absolute; top: 0; right: 0; transform: translate(40%,-40%);
+            padding: 20px;
+            background-color: tomato;
+            border-radius: 100%;
+            z-index: 1;
+        }
+        /* ㄴ닫기버튼 */
+        input[id="popup"] + label + div > label{
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            /* ㄴfixed영역을 가득 채움 */
+            background-color: rgba(0, 0, 0, .9);
+            z-index: 1;
+        }
+        input[id="popup"]:checked + label + div{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="popup">
+    <label for="popup"></label>
+    <!-- ㄴ이하 둘 중 뭘 눌러도 첵박기능 
+        ㄴ클릭하면 팝업뜰 체크박스 버튼-->
+    <div>
+        <div>
+            <label for="popup"></label>
+        </div>
+        <!-- ㄴ누르고 뜬 창에서의 닫기 버튼 만드려고 -->
+        <label for="popup"></label>
+        <!-- ㄴ누르고 창이 떴을때 닫기버튼 말고도 창 외의 아무 영역을 눌러도 닫히게 편하게 만드려고! -->
+    </div>
+</body>
+</html>

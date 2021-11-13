@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Proxy</title>
+    <script type="text/javascript">
+        function foo(){}
+		foo.prototype.a = 100;  // 함수 foo에 프로토타입 속성 a 추가
+		foo.prototype.b = 200;  // 함수 foo에 프로토타입 속성 b 추가
+		
+		let obj = new foo();    // new 연산자를 수행하여 프로토타입 속성을 참조한 객체를 생성
+		
+		let proxy = new Proxy(obj, {
+			getPrototypeOf:function(target){  // 트랩 설정
+				console.log(' 트랩 호출 ');
+				// 타겟의 프로토타입 속성을 반환
+				return Reflect.getPrototypeOf(target);  // 타겟의 트로토타입 속성을 반환
+			}
+		});
+		
+		let proto = proxy.__proto__;  // 객체의 프로토타입 속성을 얻기
+		console.log(proto);           // 결과는 객체의 프로토타입 {a:100, b:200}
+    </script>
+</head>
+<body>
+
+</body>
+</html>

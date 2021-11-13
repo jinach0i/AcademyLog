@@ -1,0 +1,608 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>Chapter 07 실전 프로젝트</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+body { margin: 0; color: #000000; font: 14px/1.6  'Courier New', "Malgun Gothic", "맑은 고딕", DotumChe, Verdana, Arial, "Trebuchet MS"; margin: 0px; text-align: justify;}
+table th, table td{font: 14px/1.6  'Courier New', "Malgun Gothic", "맑은 고딕", DotumChe, Verdana, Arial, "Trebuchet MS"; color: #333333; text-align: justify;}
+table th{text-align: center;}
+a:link { color: rgb(0,125,255); text-decoration: none; font-weight: bold;}
+a:hover { color: rgb(255,0,0); text-decoration: none; font-weight: bold;}
+a:visited { color: rgb(0,190,190); text-decoration: none; font-weight: bold;}
+a:active { color: rgb(255,125,0); text-decoration: none; font-weight: bold;}
+.mp{margin: 0; padding: 0; text-align: center;}
+.center{text-align: center;}
+#wrap {	width: 900px; margin: auto;}
+#float{position: fixed; float: left; top: 5px; right: 100px; z-index: 100; border: 1px inset #efefef; font-size: 12px; color: #999999; padding: 5px;}
+#float > ul{margin: 0; padding: 0;}
+#float li{margin: 0; padding: 0; list-style:none; }
+.article {width: 900px; color: #333333;	line-height: 180%;	text-align: left;}
+.article h2 {background: #D0D7DF; border-bottom: 1px solid #C8CACE; border-top: 1px solid #C8CACE; font: 18px/1.6; font-weight: bold; margin: 25px 0px 25px 0px; padding: 10px 49px 10px 50px;}
+h3 {color: #009;}
+h4{font-size: 1.05em;}
+h1, h2, h3, h4{margin-top: 50px;}
+pre {margin: 10px 0px; padding: 0px 5px; border: 1px solid rgb(200, 202, 206);  width: 888px; overflow-x: auto; overflow-y: hidden; font: 16px/1.6  'Courier New', "Malgun Gothic", "맑은 고딕", DotumChe, Verdana, Arial, "Trebuchet MS"; text-align: justify;}
+p{text-align: justify;}
+.box { margin: 10px 0px; padding: 10px; border: 1px solid rgb(200, 202, 206); background-color: rgb(247, 247, 247);}
+
+.clearfix { width: 900px; padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px; background-color: rgb(34, 34, 34);}
+.clearfix:after{ content: ""; display: block; clear: both;}
+* html .clearfix {	height: 1%;}
+* + html .clearfix { display: inline-block;}
+
+.underline { text-decoration: line-through;}
+.blue { color: #000099;}
+.bold_blue { color: #000099; font-weight: bold;}
+.green {
+	color: #558800;
+}
+.bold_red { font-weight: bold; color: #cc0000;}
+.red { color: #cc0000;}
+.gray { color: #888888;}
+.none { color: #000000;}
+.normal{ color: #000000; font-weight: bold;}
+hr{ color: #888888;}
+.bggray{background-color: #efefef;}
+</style>
+</head>
+<body>
+<div id="wrap">
+<div class="article">
+	<h1>Chapter 07 실전 프로젝트</h1>
+</div>
+    
+<h2>1. TODO List 앱 살펴보기</h2>
+<p class="gray">지금까지 공부한 내용을 활용할 수 있는 실젠에제 TODO List 앱을 만들어보자. 이 장에서 만들어 볼 TODO List 앱의 기능은 매우 간단하다. 입력 폼을 통해 해야 할 일을 입력하면 아래 목록에 할 일이 추가되고 목록의 수정을 클릭하여 해당 목록의 내용을 수정, 삭제 클릭하여 목록을 삭제하는 기능이 동작하면 된다. </p>
+<p class="gray">먼저 완성된 예제를 실행하여 동작해 본다.</p>
+<blockquote>
+  <p><a href="ecma6\complete\chapter7\app.html" target="_blank">ecma6\complete\chapter7\app.html</a><a href="../source/02/comment.php" target="_blank"></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://127.0.0.1:8887/chapter7\app.html" target="_blank">http://127.0.0.1:8887\chapter7\app.html</a><a href="http://localhost/02/comment.php" target="_blank"></a></p>
+</blockquote>
+<p class="gray">예제에서는 모듈을 사용하고 있어 서버 환경에서 실행하거나, localhost 등을 설정하여 실행해야 한다. </p>
+<p class="gray">실행된 화면을 보면 할일을 입력할 폼이 보이고 그 아래 입력된 할일 목록이 출력된다. 그리고 각 목록에는 수정, 삭제 버튼이 있어 작성된 할 일을 수정하거나 삭제가 가능하다.</p>
+<p class="gray">&nbsp;</p>
+
+    
+<h2>2. TODO List 구조 잡기</h2>
+<p class="gray">이제 TODO List 앱을 직접 개발해 보도록 하는데 그 전에 앱의 구조를 살펴보도록 한다. </p>
+<p class="gray">TODO List 앱의 예제 파일은 아래와 같은 구조로 되어 있으며, html, css, js 파일 등 세 가지 역할을 하는 모듈 파일로 구성되어 있다. </p>
+<p class="gray"><img src="images/lesson07_01.png" alt="앱의 구조도" width="522" height="380" border="1"></p>
+<p class="gray">app.html에는 DOM 조작의 편의를 위해 다음과 같이 id를 지정해 주었다. 간단하게 상황을 살펴보면 #value 입력 폼에 값을 입력한 후 #btn을 클릭하여 저장하면 #list에 목록 하나가 추가된다고 보면 된다. </p>
+<p class="gray"><img src="images/lesson07_02.png" alt="id 설정부분" width="509" height="212" border="1"></p>
+<p class="gray">다음은 모듈간의 상호 작용을 그림으로 나타내 보았다. 모든 모듈은 app 모듈을 통해 서로 상호 작용을 하도록 설계하였다. </p>
+<p class="gray"><img src="images/lesson07_03.png" alt="모듈간의 상호작용" width="622" height="379" border="1"></p>
+<p class="gray">&nbsp;</p>
+<h2>3. 코드 작성하기</h2>
+<h3>1) 할 일을 입력하여 저장</h3>
+<p class="gray">ToDo List 앱 개발에 필요한 예제 파일을 하나씩 만들어 보도록 한다. 먼저 data 모듈을 작성해 보도록 한다. 모듈과 클래스를 선언하고 데이터를 저장할 배열과 전달받은 입력값을 저장할 api를 추가해준다. </p>
+<p class="gray">다음과 같이 작성해 본다.</p>
+<blockquote>
+  <p><a href="ecma6\example\chapter7\js\data.js" target="_blank">ecma6\<span class="bold_red">example</span>\chapter7\js\data.js</a></p>
+</blockquote>	
+<pre><span class="bold_blue">export default class{</span>  <span class="green">// 모듈과 클래스 선언</span>
+    constructor(){
+        <span class="bold_blue">this._list = [];</span> <span class="green">// 데이터를 저장할 배열 선언</span>
+    }
+  
+    <span class="bold_blue">add(value){</span>  <span class="green">// 입력된 값을 전달받아 저장하는 함수</span>
+        if(!value) return;
+
+        <span class="green">// 배열에 저장할 항목의 타입은 객체이며, 할일은 작성한 글과 작성 날짜를 저장</span>
+        <span class="bold_blue">const obj = {</span>
+            content:value,
+            date:<span class="bold_red">new Date()</span>  <span class="green">// 책에는 오타</span>
+        <span class="bold_blue">};</span>
+        this._list.push(obj);
+    <span class="bold_blue">}</span>
+<span class="bold_blue">}</span></pre>
+
+<p class="gray">이제 app 모듈에서 작성된 data 모듈을 불러와 instance를 생성해 준다. </p>
+<blockquote>
+  <p><a href="ecma6\example\chapter7\app.js" target="_blank">ecma6\<span class="bold_red">example</span>\chapter7\app.js</a></p>
+</blockquote>	
+<pre>
+<span class="green">// data 모듈을 불러옴</span>
+<span class="bold_blue">import Data from './js/data.js';</span>
+
+<span class="green">// 모듈에 선언된 클래스의 인스턴스를 생성</span>
+<span class="bold_blue">const data = new Data();</span></pre>
+
+<p class="gray">다음은 입력한 값을 전달할 input 모듈을 작성해 보도록 한다. </p>
+<p class="gray">모듈과 클래스를 선언해 주고 입력 폼에 값을 입력 후 저장 버튼을 클릭하면 입력된 값을 전달하도록 작성해 준다. </p>
+<blockquote>
+  <p><a href="ecma6\example\chapter7\js\input.js" target="_blank">ecma6\<span class="bold_red">example</span>\chapter7\js\input.js</a></p>
+</blockquote>
+<pre><span class="bold_blue">export default class{</span>  <span class="green">// 모듈과 클래스 선언</span>
+    <span class="bold_blue">constructor({save}){</span> <span class="green">// 저장된 값을 전달하기 위해 콜백함수를 전달받음</span>
+        this.$value = $('#value');
+        this.$btn = $('#btn');
+        this.save = save;
+  
+        <span class="bold_blue">this.$btn.on('click', ()=&gt;{</span>  <span class="green">// 저장버튼을 클릭시 입력된 값을 콜백함수에 전달</span>
+            let value = this.$value.val();
+            this.$value.val('');
+            this.save.call(this, value);
+        <span class="bold_blue">});</span>
+    <span class="bold_blue">}</span>
+<span class="bold_blue">}</span></pre>
+
+<p class="gray">이제 app 모듈에서 input 모듈을 불러와 인스턴스 생성 후 입력된 값을 전달 받고 이를 data 모듈에 전달하여 저장한다.</p>
+<blockquote>
+  <p><a href="ecma6\example\chapter7\app.js" target="_blank">ecma6\<span class="bold_red">example</span>\chapter7\app.js</a></p>
+</blockquote>	
+<pre class="gray">
+import Data from './js/data.js';
+<span class="bold_blue">import Input from './js/input.js';</span>  <span class="green">// input 모듈을 불러옴</span>
+
+const data = new Data();
+
+<span class="bold_blue">const input = new Input({  </span><span class="green">// input 모듈에 선언된 클래스의 인스턴스를 생성</span><span class="none">
+    </span><span class="bold_blue">save:function(value){</span><span class="none">  </span><span class="green">// 입력된 값을 전달받기 위해 콜백함수를 생성자에 전달</span><span class="none">
+        data.add(value);
+    </span><span class="bold_blue">}</span><span class="bold_blue">
+});</span></pre>
+
+<p>&nbsp;</p>
+<h3>2) 리스트를 화면에 출력</h3>
+<p class="gray">할 일을 입력하여 저장하는 과정까지 완료되었다면 이제 저장된 할 일 목록을 출력해 줘어야 한다. list 모듈을 선언하고 data 모듈로 부터 전달받은 데이터가 출력되도록 작성한다.</p>
+<blockquote>
+  <p><a href="ecma6\example\chapter7\js\list.js" target="_blank">ecma6\<span class="bold_red">example</span>\chapter7\js\list.js</a></p>
+</blockquote>
+<pre><span class="bold_blue">export default class{</span>  <span class="green">// 모듈과 클래스 선언</span>
+    constructor(<span class="underline red">{modify, del}</span>){
+        this.$list = $('#list');
+  
+        this.render([]);
+    }
+  
+    <span class="bold_blue">render(list){</span>  <span class="green">// 전달 받은 데이터를 출력해 줄 함수</span>
+        this.$list = $('#list').empty();  <span class="green">// 목록을 그려줄 때 기존 목록은 삭제</span>
+  
+        if(list.length &gt; 0){  <span class="green">// 데이터의 수가 0보다 클 경우</span>
+            for(let row of list){
+                let self = this;
+                let template = `&lt;tr&gt;  <span class="green">// 템플릿 문자열로 목록 html 작성</span>
+                    &lt;td&gt;&lt;span&gt;${row.content}&lt;/span&gt;&lt;/td&gt;
+                    &lt;td class=&quot;text-center&quot;&gt;&lt;span&gt;${row.date}&lt;/span&gt;&lt;/td&gt;
+                    &lt;td class=&quot;text-right&quot;&gt;
+                    &lt;input class=&quot;btn btn-default btn-modify&quot; type=&quot;button&quot; value=&quot;수정&quot;/&gt;
+                    &lt;input class=&quot;btn btn-default btn-delete&quot; type=&quot;button&quot; value=&quot;삭제&quot;/&gt;
+                    &lt;/td&gt;
+                    &lt;/tr&gt;`;
+  
+                let $template = $(template);
+                this.$list.append($template);  <span class="green">// 작성된 목록 html을 차례로 붙여넣는다</span>
+            }
+        } else {  <span class="green">// 데이터가 없을 경우 처리</span>
+            let template = `&lt;tr&gt;
+                &lt;td colspan=&quot;3&quot; class=&quot;no-list&quot;&gt;&lt;span&gt;등록된 할 일이 없습니다.&lt;/span&gt;&lt;/td&gt;
+                &lt;/tr&gt;`;
+            let $template = $(template);
+            this.$list.append($template);
+        }
+    <span class="bold_blue">}</span>
+<span class="bold_blue">}</span></pre>
+
+<p class="gray">이제 app 모듈에서 list 모듈을 불러와 인스턴스 생성 후 data 모듈로 부터 데이터를 전달받아 list 모듈에 전달하여 목록을 출력해 본다. data 모듈로 부터 데이터를 전달받으려면 메서드를 추가해 주어야 한다.</p>
+<blockquote>
+  <p><a href="ecma6\example\chapter7\js\data.js" target="_blank">ecma6\<span class="bold_red">example</span>\chapter7\js\data.js</a> <span class="red">(책에는 파일명이 잘못 기술)</span></p>
+</blockquote>	
+<pre class="gray">export default class{
+    constructor(){
+        this._list = [];
+    }
+
+    <span class="bold_blue">get list(){</span>  <span class="green">// 저장된 데이터를 전달하는 메서드 추가</span>
+        <span class="none">return this._list;</span>
+    <span class="bold_blue">}</span>
+
+    add(value){
+        if(!value) return;
+
+        const obj = {
+            content:value,
+            date:new Date()
+        };
+        this._list.push(obj);
+
+        <span class="none">console.log(this._list);</span>
+    }
+}</pre>
+
+<blockquote>
+  <p><a href="ecma6\example\chapter7\app.js" target="_blank">ecma6\<span class="bold_red">example</span>\chapter7\app.js</a></p>
+</blockquote>	
+<pre class="gray">
+import Data from './js/data.js';
+import Input from './js/input.js';
+<span class="bold_blue">import List from './js/list.js';</span>
+
+const data = new Data();
+
+const input = new Input({
+    save:function(value){
+        data.add(value);
+        <span class="bold_blue">list.render(data.list);</span>  <span class="green">// data 모듈에서 데이터를 얻어 list 모듈에 전달</span>
+    }
+});
+
+<span class="bold_blue">const list = new List();</span></pre>
+
+<p class="gray">여기까지 작성하였다면 입력 품에 할 일 입력하면 목록에 출력되는 것으 확인할 수 있다. 작성한 예제를 실행하여 확인해 보도록 한다. 입력 폼에 할 일 입력시 다음 그림처럼 출력되는 것을 볼 수 있다. </p>
+<p class="gray"><img src="images/lesson07_04.png" alt="출력결과" width="449" height="245" border="1"></p>
+<p class="gray">&nbsp;</p>
+<h3>3) 날짜 표시 유형 수정</h3>
+<p class="gray">입력은 어느 정도 완성되었다. 그런데 시간 출력을 조금 다음을 필요가 있어 보이고, 수정,&nbsp;삭제 기능을 추가해 주어야 한다. 먼저 보기에 불편한 시간 표시 유형을 YYYY-MM-DD 형태로 보여주도록 수정해보자.</p>
+<blockquote>
+  <p><a href="ecma6\example\chapter7\js\data.js" target="_blank">ecma6\<span class="bold_red">example</span>\chapter7\js\data.js</a></p>
+</blockquote>	
+<pre class="gray">export default class{
+    constructor(){
+        this._list = [];
+    }
+
+    get list(){
+        return this._list;
+    }
+
+    add(value){
+        if(!value) return;
+
+        const obj = {
+            content:value,
+            date:<span class="bold_blue">this.formatDate()</span>  <span class="green">// 시간 format을 변경하여 저장</span>
+        };
+        this._list.push(obj);
+
+        <span class="underline">console.log(this._list);</span>
+    }
+
+    <span class="bold_blue">formatDate() {</span><span class="none">  </span><span class="green">// date format을 변경해 주는 함수 추가</span><span class="none">
+        let date = new Date();
+        let month = '' + (date.getMonth() + 1);
+        let day = '' + date.getDate();
+        let year = date.getFullYear();
+</span><span class="none">        if (month.length &lt; 2) month = '0' + month;
+        if (day.length &lt; 2) day = '0' + day;
+  
+        return [year, month, day].join('-');</span>
+    <span class="bold_blue">}</span>
+}</pre>
+
+<p class="gray">다시 예제를 실행하면 시간이 원하는 형태로 보인다.</p>
+<p class="gray"><img src="images/lesson07_05.png" alt="TODOList 실행결과" width="499" height="255" border="1"></p>
+
+
+<p class="gray">&nbsp;</p>
+<h3>4) 삭제 기능 추가</h3>
+<p class="gray">이제 목록의 [삭제] 버튼을 누르면 목록이 삭제될 수 있도록 추가해 보자. 우선 list 모듈의 목록 중 하나의 [삭제] 버튼을 클릭하면 해당 목록의 index를 data 모듈에 전달하여 선택적으로 데이터를 삭제할 수 있도록 해준다. 데이터 삭제가 완료되면 다시 목록을 출력하도록 처리한다. </p>
+<p class="gray">먼저 [삭제] 버튼을 클릭하면 해당 목록의 index를 app에서 전달받을 수 있도록 콜백 함수를 list에 전달한다.</p>
+
+<blockquote>
+  <p><a href="ecma6\example\chapter7\app.js" target="_blank">ecma6\<span class="bold_red">example</span>\chapter7\app.js</a></p>
+</blockquote>	
+<pre class="gray">
+import Data from './js/data.js';
+import Input from './js/input.js';
+import List from './js/list.js';
+
+const data = new Data();
+
+const input = new Input({
+    save:function(value){
+        data.add(value);
+        list.render(data.list);
+    }
+});
+
+<span class="bold_blue">const list = new List({
+    del:function(index){
+        
+    }
+});</span></pre>
+
+<p class="gray">이제 list 모듈에 [삭제] 버튼을 클릭하면 목록의 index를 전달하도록 추가한다. [삭제] 버튼에 클릭 이벤트를 생성하고, 클릭이 발생하면 해당 엘리먼트의 index를 얻어 app 모듈에 전달한다.</p>
+<blockquote>
+  <p><a href="ecma6\example\chapter7\js\list.js" target="_blank">ecma6\<span class="bold_red">example</span>\chapter7\js\list.js</a></p>
+</blockquote>
+<pre class="gray">export default class{
+    constructor(<span class="bold_blue">{del}</span>){  <span class="green">// app 모듈로 부터 콜백함수를 전달받음</span>
+        <span class="bold_blue">this.del = del;</span>  <span class="green">// this에 참조함</span>
+        this.$list = $('#list');
+  
+        this.render([]);
+    }
+  
+    render(list){
+        this.$list = $('#list').empty();
+  
+        if(list.length &gt; 0){
+            for(let row of list){
+                let self = this;
+                let template = `&lt;tr&gt;
+                    &lt;td&gt;&lt;span&gt;${row.content}&lt;/span&gt;&lt;/td&gt;
+                    &lt;td class=&quot;text-center&quot;&gt;&lt;span&gt;${row.date}&lt;/span&gt;&lt;/td&gt;
+                    &lt;td class=&quot;text-right&quot;&gt;
+                    &lt;input class=&quot;btn btn-default btn-modify&quot; type=&quot;button&quot; value=&quot;수정&quot;/&gt;
+                    &lt;input class=&quot;btn btn-default btn-delete&quot; type=&quot;button&quot; value=&quot;삭제&quot;/&gt;
+                    &lt;/td&gt;
+                    &lt;/tr&gt;`;
+  
+                let $template = $(template);
+                this.$list.append($template);
+
+                <span class="green">// 삭제 버튼에 클릭 이벤트 생성</span>
+                <span class="bold_blue">$template.find('.btn-delete').bind('click', function(){</span>
+                    <span class="green">// app 모둘에 index를 전달</span>
+                    <span class="bold_blue">self.del.call(this, $(this).parents('tr').index());</span>
+                <span class="bold_blue">});</span>
+            }
+        } else {
+            let template = `&lt;tr&gt;
+                &lt;td colspan=&quot;3&quot; class=&quot;no-list&quot;&gt;&lt;span&gt;등록된 할 일이 없습니다.&lt;/span&gt;&lt;/td&gt;
+                &lt;/tr&gt;`;
+            let $template = $(template);
+            this.$list.append($template);
+        }
+    }
+}</pre>
+
+<p class="gray">app 모듈에서 삭제할 목록의 index를 전달 받았으면, data 모듈에서 해당 index를 전달 받아 데이터를 삭제해주어야 하므로, 함수를 추가하여 index를 전달받고 해당 index의 데이터를 삭제해주도록 한다. </p>
+<blockquote>
+  <p><a href="ecma6\example\chapter7\js\data.js" target="_blank">ecma6\<span class="bold_red">example</span>\chapter7\js\data.js</a></p>
+</blockquote>	
+<pre class="gray">export default class{
+    constructor(){
+        this._list = [];
+    }
+
+    get list(){
+        return this._list;
+    }
+
+    add(value){
+        if(!value) return;
+
+        const obj = {
+            content:value,
+            date:this.formatDate()
+        };
+        this._list.push(obj);
+    }
+
+    <span class="bold_blue">remove(index){</span>  <span class="green">// index를 전달받아 해당 index 데이터 삭제해주는 메서드 추가</span>
+        <span class="green">// 배열의 기존 요소를 삭제 또는 교체하거나 새 요소를 추가하여 배열의 내용을 변경</span>
+        <span class="green">// splice() : 스플라이스, 잇다 는 원본 배열 자체를 수정. 이 부분이 slice() 메소드와 다른점</span>
+        <span class="none">this._list.splice(index, 1);</span>
+    <span class="bold_blue">}</span>
+
+    formatDate() {
+        let date = new Date();
+        let month = '' + (date.getMonth() + 1);
+        let day = '' + date.getDate();
+        let year = date.getFullYear();
+        
+        if (month.length &lt; 2) month = '0' + month;
+        if (day.length &lt; 2) day = '0' + day;
+  
+        return [year, month, day].join('-');
+    }
+}</pre>
+
+<blockquote>
+  <p><a href="ecma6\example\chapter7\app.js" target="_blank">ecma6\<span class="bold_red">example</span>\chapter7\app.js</a></p>
+</blockquote>	
+<pre class="gray">
+import Data from './js/data.js';
+import Input from './js/input.js';
+import List from './js/list.js';
+
+const data = new Data();
+
+const input = new Input({
+    save:function(value){
+        data.add(value);
+        list.render(data.list);
+    }
+});
+
+const list = new List({<span class="bold_blue">
+    </span>del:function(index){
+        <span class="bold_blue">data.remove(index);</span>  <span class="green">// 데이터 모듈에 index를 전달하여 데이터를 삭제 처리</span>
+        <span class="bold_blue">list.render(data.list);</span>  <span class="green">// 목록의 데이터가 삭제 되었으므로, 목록을 리셋함</span>
+    }
+});</pre>
+
+<p class="gray">여기까지 잘 작성하였다면, 목록을 추가 후 [삭제] 버튼을 클릭하면 클릭된 목록이 삭제되는 것을 볼 수 있다. </p>
+<p class="gray">이제 마지막 남은 수정&nbsp;기능은 <span class="bold_red">각자 고민하여 기능을 추가</span>해 보자.</p>
+
+
+<p class="gray">&nbsp;</p>
+<h3>4) 수정 기능 추가</h3>
+
+<p class="gray">먼저 [수정] 버튼을 클릭하면 해당 목록의 index를 app에서 전달받을 수 있도록 콜백 함수를 list에 전달한다.</p>
+
+<blockquote>
+  <p><a href="ecma6\example\chapter7\app.js" target="_blank">ecma6\<span class="bold_red">example</span>\chapter7\app.js</a></p>
+</blockquote>	
+<pre class="gray">
+import Data from './js/data.js';
+import Input from './js/input.js';
+import List from './js/list.js';
+
+<span class="normal">const MODE = {
+    WRITE:'write',
+    MODIFY:'modify'
+};
+  
+let currentMode = MODE.WRITE;
+let modifyIndex;</span>
+
+const data = new Data();
+
+const list = new List({
+    <span class="normal">modify:function(index){
+        currentMode = MODE.MODIFY;
+        modifyIndex = index;  <span class="green">// 데이터 모듈에 index를 전달하여 데이터를 수정 처리</span>
+        <span class="green">// 목록의 데이터가 수정 되었으므로, 목록을 리셋함</span>
+        input.value = data.getIndexValue(index).content;
+    },</span>
+    del:function(index){
+        data.remove(index);
+        list.render(data.list);
+    }
+});
+
+const input = new Input({
+    save:function(value){
+        <span class="normal">switch(currentMode){
+            case MODE.WRITE:</span>
+                data.add(value);
+                list.render(data.list);
+                <span class="normal">break;
+            case MODE.MODIFY:
+                data.modify({value:value, index:modifyIndex});
+                list.render(data.list);
+                currentMode = MODE.WRITE;
+                break;
+        }</span>
+    }
+});</pre>
+
+<p class="gray">이제 list 모듈에 [수정] 버튼을 클릭하면 목록의 index를 전달하도록 추가한다. [수정] 버튼에 클릭 이벤트를 생성하고, 클릭이 발생하면 해당 엘리먼트의 index를 얻어 app 모듈에 전달한다.</p>
+<blockquote>
+  <p><a href="ecma6\example\chapter7\js\list.js" target="_blank">ecma6\<span class="bold_red">example</span>\chapter7\js\list.js</a></p>
+</blockquote>
+<pre class="gray">export default class{
+    constructor(<span class="normal">{modify, del}</span>){  <span class="green">// app 모듈로 부터 콜백함수를 전달받음</span>
+        <span class="normal">this.modify = modify;</span>  <span class="green">  // this에 참조함</span>    
+        this.del = del;
+        this.$list = $('#list');
+  
+        this.render([]);
+    }
+  
+    render(list){
+        this.$list = $('#list').empty();
+  
+        if(list.length &gt; 0){
+            for(let row of list){
+                let self = this;
+                let template = `&lt;tr&gt;
+                    &lt;td&gt;&lt;span&gt;${row.content}&lt;/span&gt;&lt;/td&gt;
+                    &lt;td class=&quot;text-center&quot;&gt;&lt;span&gt;${row.date}&lt;/span&gt;&lt;/td&gt;
+                    &lt;td class=&quot;text-right&quot;&gt;
+                    &lt;input class=&quot;btn btn-default btn-modify&quot; type=&quot;button&quot; value=&quot;수정&quot;/&gt;
+                    &lt;input class=&quot;btn btn-default btn-delete&quot; type=&quot;button&quot; value=&quot;삭제&quot;/&gt;
+                    &lt;/td&gt;
+                    &lt;/tr&gt;`;
+  
+                let $template = $(template);
+                this.$list.append($template);
+
+                <span class="green">// 수정 버튼에 클릭 이벤트 생성</span>
+                <span class="normal">$template.find('.btn-modify').bind('click', function(){</span>
+                    <span class="green">// app 모둘에 index를 전달</span>
+                    <span class="normal">self.modify.call(this, $(this).parents('tr').index());</span>
+                <span class="normal">});</span>
+                
+                $template.find('.btn-delete').bind('click', function(){
+                    self.del.call(this, $(this).parents('tr').index());
+                });
+            }
+        } else {
+            let template = `&lt;tr&gt;
+                &lt;td colspan=&quot;3&quot; class=&quot;no-list&quot;&gt;&lt;span&gt;등록된 할 일이 없습니다.&lt;/span&gt;&lt;/td&gt;
+                &lt;/tr&gt;`;
+            let $template = $(template);
+            this.$list.append($template);
+        }
+    }
+}</pre>
+
+<p class="gray">app 모듈에서 수정할 목록의 index를 전달 받았으면, data 모듈에서 해당 index를 전달 받아 데이터를 수정해주어야 하므로, 함수를 추가하여 index를 전달받고 해당 index의 데이터를 수정해주도록 한다. </p>
+<blockquote>
+  <p><a href="ecma6\example\chapter7\js\data.js" target="_blank">ecma6\<span class="bold_red">example</span>\chapter7\js\data.js</a></p>
+</blockquote>	
+<pre class="gray">export default class{
+    constructor(){
+        this._list = [];
+    }
+
+    get list(){
+        return this._list;
+    }
+
+    <span class="normal">getIndexValue(index){</span>
+        <span class="normal">return this._list[index];</span>
+    <span class="normal">}</span>
+
+    add(value){
+        if(!value) return;
+
+        const obj = {
+            content:value,
+            date:this.formatDate()
+        };
+        this._list.push(obj);
+    }
+
+    <span class="normal">modify({value, index}){</span>  <span class="green">// index를 전달받아 해당 index 데이터 수정해주는 메서드 추가</span>
+        <span class="normal">if(!value) return;</span>
+		
+        <span class="normal">const obj = {</span>
+            <span class="normal">content:value,</span>
+            <span class="normal">date:this.formatDate()</span>
+        <span class="normal">};</span>
+        <span class="normal">this._list[index] = obj;</span>
+    <span class="normal">}</span>
+
+    remove(index){
+        this._list.splice(index, 1);
+    }
+
+    formatDate() {
+        let date = new Date();
+        let month = '' + (date.getMonth() + 1);
+        let day = '' + date.getDate();
+        let year = date.getFullYear();
+        
+        if (month.length &lt; 2) month = '0' + month;
+        if (day.length &lt; 2) day = '0' + day;
+  
+        return [year, month, day].join('-');
+    }
+}</pre>
+
+<p class="gray">수정 버튼을 클릭 시 수정할 수 있도록 수정할 내용이 &lt;input&gt;에 위치한다.</p>
+<blockquote>
+  <p><a href="ecma6\example\chapter7\js\input.js" target="_blank">ecma6\<span class="bold_red">example</span>\chapter7\js\input.js</a></p>
+</blockquote>
+<pre class="gray">export default class{
+    constructor({save}){
+        this.$value = $('#value');
+        this.$btn = $('#btn');
+        this.save = save;
+  
+        this.$btn.on('click', ()=&gt;{
+            let value = this.$value.val();
+            this.$value.val('');
+            this.save.call(this, value);
+        });
+    }
+    <span class="normal">set value(value){</span>
+        <span class="normal">this.$value.val(value);</span>
+    <span class="normal">}</span>
+}</pre>
+<p class="gray">여기까지 잘 작성하였다면, 목록을 추가 후 [수정] 버튼을 클릭하면 클릭된 목록이 수정되는 것을 볼 수 있다. </p>
+
+
+<p class="gray">&nbsp;</p>
+<p class="gray">&nbsp;</p>
+<p class="gray">&nbsp;</p>
+
+
+
+</div>
+</body>
+</html>

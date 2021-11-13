@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Proxy</title>
+    <script type="text/javascript">
+        let obj = {};
+		let proxy = new Proxy(obj, {
+			// 트랩 설정
+			setPrototypeOf:function(target, proto){
+				// 전달된 프로토타입 객체를 타겟 객체에 설정
+				let bool = Reflect.setPrototypeOf(target, proto);
+				// 결과는 true (프로토타입 속성이 설정됨)
+				console.log(bool);
+				
+				// 설정 여부를 반환
+				return bool;
+			}
+		});
+		
+		// 객체 프로토타입에 속성을 설정
+		let p = Object.setPrototypeOf(proxy, {a:100, b:200});
+		// 반횐된 설정 여부가 true이므로 결과는 {a:100, b:200}
+		console.log(p.__proto__);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

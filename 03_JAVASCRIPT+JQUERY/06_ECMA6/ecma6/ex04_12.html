@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>디스트럭쳐링</title>
+    <script>
+		// 배열 디스트럭쳐링 구문에 배열원소 undefined, 빈값, 1000을 할당
+		let [a=100, b=200, c=300] = [undefined, , 1000];
+		console.log(a, b, c);  // 결과는 100, 200, 1000
+		// 배열 디스트럭쳐링 구문에 의해 선언된 변수 a에 undefined가 할당되었으므로
+		// 변수 a의 값은 기본값인 100,
+		// 변수 b의 값은 생략되었으므로 기본값인 200,
+		// 변수 c는 1000이 할당됨
+    </script>
+</head>
+<body>
+
+</body>
+</html>

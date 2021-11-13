@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>나머지 매개변수</title>
+    <script>
+		function foo(p1=100, p2){
+			console.log(p1, p2);  // 결과는 100, 200
+			// 기본 매개변수 p1에는 undefined가 할당되었으나, 초기값 100이 할당된다.
+		}
+		foo(undefined, 200);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

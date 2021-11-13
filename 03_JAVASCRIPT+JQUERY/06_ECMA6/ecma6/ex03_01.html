@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>직접 두 규약을 따르는 객체로 작성한 코드</title>
+	<script>
+	let iterator = {
+		i:0,
+		[Symbol.iterator]:function(){
+			return this;
+		},
+		next:function(){
+			return (this.i < 3) ? {value:this.i++, done:false} : {value:undefined, done:true}
+		}
+	}
+	for(let value of iterator){
+		console.log(value);  // 결과는 0, 1, 2
+	}	
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

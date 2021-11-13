@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>나머지 매개변수</title>
+    <script>
+		function myFunction(p1){
+			if(arguments[1]){  // 두 번째 전달 인자가 있는 경우
+				return p1 + arguments[1];
+			}else{
+				return p1;
+			}
+		}
+		console.log(myFunction(100, 200));
+    </script>
+</head>
+<body>
+
+</body>
+</html>

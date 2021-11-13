@@ -1,0 +1,63 @@
+@charset "utf-8";
+/*레이아웃*/
+#header{height: 400px; background:url('../img/header_bg.jpg') repeat-x center top;}
+/* ㄴ배경을 위한+높이 */
+#contents{width: 100%;}
+
+/*공통속성*/
+.container{width: 990px; height: inherit; margin: 0 auto; background-color: rgba(255, 255, 255, .3);}
+/*ㄴ정렬용+가운데흐리게*/
+/* header */
+.header .menu{float: right;}
+/*ㄴ=첫ul*/
+.header .menu li{float: left;}
+/*우측상단부메뉴*/
+.header .menu li a::after{content: '    /    '; white-space:pre-wrap;}
+/* ㄴfloat썼으니까 위에 overflow:hidden을 준다 */
+.header .menu li a{color: white; padding: 10px 0 10px 13px; display: block; font-size: 14px;}
+/*우측상단부메뉴a*/
+.header .header-title{clear: both; text-align: center;}
+/*ㄴ조상 중 float을 끊음*/
+.header .header-title h1{background-color: white; font-size: 28px; letter-spacing: 5px; word-spacing: 20px; text-transform: uppercase; padding: 5px 20px 6px 20px; margin-top: 60px; display: inline-block; color: black;  box-shadow: 5px 5px 10px black;}
+/*ㄴ메뉴 정가운데 줄 꾸미기*/
+.header .header-title a{display: block; position: relative; top: -5px; background-color: white; box-shadow: 5px 5px 10px black; padding: 5px 20px 6px 20px; width: 100px; margin: 0 auto;}
+/*ㄴblock줘서 밑으로 떨어뜨리기*/
+/* 이하 본문 */
+.content_nav{width: 100%; background-color: gainsboro; }
+.nav{padding: 30px 0;}
+/*ㄴ메뉴+상하adding*/
+.nav>div{float: left; width: 40%;}
+/*ㄴcf줌+부분float*/
+.nav>div:last-child{width: 20%;}
+/*ㄴ마지막메뉴*/
+.nav>div.last{width: 20%;}
+/*ㄴ의미는상위와같되,9미만하위브라우저에*/
+.nav>div>h3{color: #18bacb; margin-bottom: 4px; font-size: 18px; font-weight: bold;} 
+/*ㄴ메뉴 안 부제목들*/
+.nav>div>ol{}
+.nav>div>ol>li{float: left; width: 50%;}
+.nav>div.last>ol>li{width: 100%;}
+/*같이 내용이 반쪽으로 나오는 맨 마지막 메뉴 너비 원상복귀*/
+.nav>div>ol>li>a:hover{text-decoration: underline;}
+
+.cont_title{background-color: white;}
+/*ㄴ메뉴대문의 화면 가로줄*/
+.title{text-align: center; position: relative;}
+/*ㄴ가운데정렬*/
+.title h2{font-family: 'Nanum Pen Script', cursive; font-size: 40px; padding: 5px 0; letter-spacing: 2px; color: #8a8a7b;}
+/*메뉴대문*/
+.title a.btn{position: absolute; width: 60px; height: 60px; top: 0; right: 0; background: url('../img/icon.png') no-repeat 0 -600px;}
+/*메뉴대문의 아이콘*/
+.title a.btn:hover{background-position: 0 -660px;}
+/*메뉴대문의 아이콘*/
+
+/*배너:*/
+.content_banner{width: 100%; background-color: gainsboro;}
+.banner{position: relative;}
+.banner a.prev{position: absolute; background: url('../img/icon.png') no-repeat -150px 0; width: 43px; height: 43px; top: 50%; left: -80px; transform: translatey(-50%);}
+.banner a.prev:hover{background-position: -193px 0;}
+.banner a.next{position: absolute; background: url('../img/icon.png') no-repeat -150px -43px; width: 43px; height: 43px; top: 50%; right: -80px; transform:translateX(-50%)}
+.banner a.next:hover{background-position: -193px -43px;}
+.banner ul li{width: 330px; box-sizing: border-box; float: left;}
+.banner ul li a{}
+.banner ul li a img{border: 4px solid #dcdcdc; vertical-align: bottom;}

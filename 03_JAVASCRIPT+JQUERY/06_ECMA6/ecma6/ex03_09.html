@@ -1,0 +1,15 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>셋은 중복된 값을 저장하지 않는다</title>
+	<script>
+	let set = new Set([1,2,3,1,2,3]);  // [1,2,3,1,2,3] 중복된 원소를 갖는 배열을 인자로 할당
+	console.log(set);  // Set{1,2,3} 중복된 value는 저장되지 않음
+	set.add(2);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

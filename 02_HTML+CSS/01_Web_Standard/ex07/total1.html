@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+	<head>
+		<title> FAQ </title>
+		<meta charset="UTF-8" />
+		<style type="text/css">
+			*{margin: 0; padding: 0;}
+			body{
+				background: url('./images/pattern_gray.png') repeat;
+			}
+			h1{	text-align: center;
+				/* ㄴ이미지의 부모요소에 이미지가운데정렬 */
+				border-top: 1px solid black;
+				border-bottom: 5px solid black;
+				/* h1에 윗선 아랫선 그어주기 */
+				margin: 50px auto;
+				/* h1의 위아래 여백 */
+				height: 45px;
+				/* 자체 높이(넓이는 무조건 100%) */
+				background-color: white;
+				/* 착시현상 */
+			}
+			div{
+				width: 600px;
+				margin: 0 auto;
+				background-color: grey;
+				color: rgba(255, 255, 255, 1);
+				border: white 3px solid;
+				border-radius: 10px;
+				box-shadow: -5px -5px 40px black;
+				padding: 10px;
+			}
+			h2{
+				border-bottom: 1px dashed white;
+				padding: 0 10px 20px 10px;
+				width: 80%
+				
+			}
+			dt{
+				
+				padding-top: 40px;
+				background-color: turquoise;
+			border-radius: 5px;
+			padding: 10px;
+			font-weight: bold;
+			
+		}
+			dd{
+				padding: 15px;
+				margin: 0 auto;
+				
+			}
+			dt:before{
+				content: "Q...";
+				color: yellow;
+			}
+			dd:before{
+				content: "A...";
+				color: yellow;
+				font-weight: bold;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1><img src="images/faq_topimg.jpg" width="687" height="44" alt="faq" /></h1>
+		<div id="faqBox">	
+		 <h2>3DS MAX에서 에러 메시지</h2>
+		 <dl>
+			<dt>Missing Map Files 의 에러 메시지가 나옵니다</dt>
+			<dd>
+					 위와 같은 에러 메시지는 맥스 3.1 풀버전을 설치하시지 않으셨기 때문입니다.
+					맥스 3.1 setup 시에 custom 옵션에서 모든 항목을 체크하시면 door 와 windows라는 플러그인이 설치가 됩니다.
+			</dd>
+		 </dl>
+		</div>
+	</body>
+</html>

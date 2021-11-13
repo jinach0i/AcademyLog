@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>values 메서드</title>
+	<script>
+	let map = new Map();
+	map.set('a', 100).set('b', 200);
+
+	let mapIter = map.values();  // 맵 항목 key 전체를 항목으로 하는 이터레이터 객체를 반환
+	console.log(mapIter.next());  // {value: 100, done:false}
+	console.log(mapIter.next());  // {value: 200, done:false}
+	console.log(mapIter.next());  // {value: underfined, done:true}
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

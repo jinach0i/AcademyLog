@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title> 그라데이션 상자와 회원 가입 버튼 만들기 </title>
+		<meta charset="UTF-8">
+		<style type="text/css">
+			body{
+				height: 100vh;
+				background: turquoise;
+				background: -webkit-linear-gradient(top,turquoise, orange,pink);
+				background: -moz-linear-gradient(top,turquoise, orange,pink);
+				background: -o-linear-gradient(top,turquoise, orange,pink);
+				background: linear-gradient(top,turquoise, orange,pink);
+				}
+			body, button { 
+				font-family: "맑은 고딕", 돋움, sans-serif; 
+				}
+			#memberBox{
+				width: 400px; background: white;
+				background: linear-gradient(45deg, red, hotpink);
+				margin: 50px auto; text-align: center;
+				padding: 50px;
+			}
+			.btnOrange{
+				padding: 5px 10px; 
+				cursor:pointer;
+				border: none;
+				background: linear-gradient(top left,coral,yellow;) 
+			}
+			.radial1{
+				width: 500px; height: 500px;
+				background: green;
+				
+				background: -webkit-radial-gradient(30% 40%,circle closest-side,green, skyblue,white);
+				background: -o-radial-gradient(30% 40%,circle closest-side,green, skyblue,white);
+				background: -moz-radial-gradient(30% 40%,circle closest-side,green, skyblue,white);
+				background: radial-gradient(30% 40%,circle closest-side,green, skyblue,white);
+			}
+			.radial2{
+				width: 500px; height: 500px;
+				background: green;
+				background: radial-gradient(30% 40%,circle farthest-side,green, skyblue,white);
+				background: -webkit-radial-gradient(30% 40%,circle farthest-side,green, skyblue,white);
+				background: -o-radial-gradient(30% 40%,circle farthest-side,green, skyblue,white);
+				background: -moz-radial-gradient(30% 40%,circle farthest-side,green, skyblue,white);}
+			.radial3{
+				width: 500px; height: 500px;	
+				background: green;
+				background: radial-gradient(30% 40%,circle farthest-corner,green, skyblue,white);
+				background: -webkit-radial-gradient(30% 40%,circle farthest-corner,green, skyblue,white);
+				background: -o-radial-gradient(30% 40%,circle farthest-corner,green, skyblue,white);
+				background: -moz-radial-gradient(30% 40%,circle farthest-corner,green, skyblue,white);}
+
+		</style>
+	</head>
+
+	<body>
+		<div id="memberBox">
+			<p>아직 infoPub 회원이 아니세요? </p>
+			<button class="btnOrange">회원 가입 하기</button>
+		</div>
+		<div class="radial1"></div>
+		<div class="radial2"></div>
+		<div class="radial3"></div>
+	</body>
+</html>

@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Promise 작동 원리 및 순서</title>
+	<script>
+	let promise = new Promise(function(resolve, reject){  // Promise 생성
+		setTimeout(function(){
+			reject('failed');   // 1초뒤에 이행 거절인 reject 함수를 호출
+		},1000);
+	});
+
+	promise.then(function(value){ // 이행이 거절되었으므로 호출되지 않음
+		console.log(value);
+	});
+	
+	promise.catch(function(reason){ // 이행 거절시 catch 메서드 인수를 통해 거절 이유를 전달받음
+		console.log(reason);        // 결과는 'failed'
+	});	
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

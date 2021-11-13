@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>나머지 매개변수</title>
+    <script>
+		function foo(p1){
+			// p1이 undefined일 경우 0을 할당
+			p1 = (typeof p1 != 'undefined') ? p1 : 0;
+			console.log(p1);  // 결과는 0;
+		}
+		foo();  // 전달 인자없이 함수 호출
+    </script>
+</head>
+<body>
+
+</body>
+</html>

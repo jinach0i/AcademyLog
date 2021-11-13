@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Proxy</title>
+    <script type="text/javascript">
+        const arr = new Proxy([1,2,3],{
+			get(target, prop, receiver){
+				if(prop in target){
+					return target[prop]
+				}else{
+					console.log(`${prop}은 존재하지 않습니다.`)
+					return 0
+				}
+			}
+		});
+
+		console.log(arr[0]) // 1
+		console.log(arr[1]) // 2
+		// 100은 존재하지 않습니다.
+		console.log(arr[100]) // 0
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+	<title>예약 문의(input 속성 연습)</title>
+	<meta charset="UTF-8" />
+
+</head>
+
+<body>
+	<h1>예약 문의</h1>
+	<!-- 내용을 입력합니다. -->
+	<form action="서버url.php" name="폼1" target="_blank" method="POST">
+		<p>작성자
+			<input type="text" name="userName" id="" placeholder="작성자" required autofocus> 
+			<!-- required=필수사항 -->
+			<!-- autofocus=자동커서시작 -->
+		</p>
+		<p>비밀번호
+			<input type="password" name="userPassword">
+			<!-- type="password" :친 글자 안보임 -->
+		</p>
+		<p>E-mail
+			<input type="email" name="userEmail">
+		</p>
+		<p>연락처
+			<input type="tel" name="userPhone">
+		</p>
+		<p>날짜
+			<input type="date" name="userDate">
+		</p>
+		<p>시분
+			<input type="datetime" name="userDateTime">
+		</p>
+		<p>연월
+			<input type="month" name="userMonth">
+		</p>
+		<p>주
+			<input type="week" name="userWeek">
+		</p>
+		<p>색깔
+			<input type="color" name="userColor">
+		</p>
+		<p>투숙 인원
+			<input type="number" name="userNumber">
+		</p>
+		<p>제목
+			<input type="text" name="userTitle">
+		</p>
+		<p>검색
+			<input type="search" name="userSearch">
+		</p>
+		<p>url
+			<input type="url" name="userURL">
+		</p>
+		<p>range숫자범위
+			<input type="range" name="userRange">
+		</p>
+		<p>사진 첨부
+			<input type="file" name="userFile">
+		</p>
+		<p>disabled비활성화&readonly</p>
+		<ul>
+			<li>
+				<label for="serialNum">시리얼 번호 입력:</label>
+				<input type="text" id="serialNum">
+				<input type="button" value="이전">
+				<input type="button" value="다음" disabled>
+				<!-- 글자를 클릭해도 체크되게 -->
+			</li>
+			<li>
+				<label for="book">선택한 책:</label>
+				<input type="text" id="book" value="반응형 웹" readonly>
+				<label for="number">수량</label>
+				<input type="number" id="number" value="1">
+				
+			</li>
+		</ul>
+	</form>
+</body>
+</html>

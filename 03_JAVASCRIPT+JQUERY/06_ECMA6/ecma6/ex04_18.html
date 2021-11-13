@@ -1,0 +1,15 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>디스트럭쳐링</title>
+    <script>
+		function foo([a,b,c=300]=[100,200], {d=400,e}={d:undefined, e:500}){
+			console.log(a,b,c,d,e); // 결과는 100, 200, 300, 400, 500
+		}
+		foo();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

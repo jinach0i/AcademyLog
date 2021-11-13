@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Proxy</title>
+    <script type="text/javascript">
+        let obj = {};
+		let proxy = new Proxy(obj, {
+			// 트랩 설정
+			defineProperty:function(target, prop, descriptor){
+				// 속성 추가를 진행
+				Reflect.defineProperty(target, prop, descriptor);
+				// 속성 추가 여부를 반환
+				return true;
+			}
+		});
+		
+		// 객체에 설명자(descriptor)가 있는 속성 추가
+		Object.defineProperty(proxy, 'key',{
+			enumerable: false,
+			configurable: false,
+			writable: false,
+			value: 'static'
+		});
+		
+		// 속성 추가 여부에 따라 속성이 추가됨, 결과는 {key: 'static'}
+		console.log(proxy);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

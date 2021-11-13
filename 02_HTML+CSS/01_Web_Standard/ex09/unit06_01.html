@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+	<title>세로바가 있는 테이블 헤더 만들기</title>
+	<meta charset="UTF-8" />
+	<style type="text/css">
+		*{margin: 0; padding: 0;}
+		h1{text-align: center; margin: 30px auto;}
+		#tableDesign{
+			text-align: center; margin: 50px auto; border-top: solid 3px grey; border-bottom: solid 3px white;
+			border-collapse: collapse;
+		}
+		caption{display: none;}
+		span{display: block; border-right: solid 1px grey;}
+		#tableDesign th{border-bottom: solid 3px grey; padding: 10px; text-align: center; background-color: tomato; }
+		#tableDesign th:first-child{width: 50px;}
+		#tableDesign th:nth-child(2){width: 340px;}
+		#tableDesign th:nth-child(3){width: 200;}
+		#tableDesign th:nth-child(4){width: 180px;}
+		#tableDesign th:nth-child(5){width: 100px;}
+		#tableDesign td{border-bottom: 1px solid black; text-align: center;}
+		#tableDesign td:nth-child(2){font-size: 14px;}
+		#tableDesign td .leftStyle{text-align: center;}
+		input{background-color: tomato; color: white; font-size: 16px; margin: 5px; padding: 5px 10px; border-radius: 5px; border: none;}
+	</style>
+</head>
+
+<body>
+	<h1><img src="images/title_event.png" width="151" height="28" alt="이벤트 당첨자 게시판" /></h1>
+	<table id="tableDesign">
+		<caption>이벤트 당첨자 게시판</caption>
+		<tr>
+			<th><span>번호</span></th>
+			<th><span>이벤트 명</span></th>
+			<th><span>이벤트 기간</span></th>
+			<th><span>당첨자 발표일</span></th>
+			<th>당첨자 보기</th>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td class="leftStyle">그랜드 리뉴얼 오픈 기념 추천 프로모션</td>
+			<td>2012/03/05~2012/03/08</td>
+			<td>2012/03/15</td>
+			<td><input type="button" value="확인" class="btnView" /></td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td class="leftStyle">졸업,입학 프로모션! 내 맘대로 골라 1+1</td>
+			<td>2012/02/25~2012/03/01</td>
+			<td>2012/03/10</td>
+			<td><input type="button" value="확인" class="btnView" /></td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td class="leftStyle">트위터와 페이스북 SNS 이벤트 나눔 프로모션</td>
+			<td>2012/02/10~2012/02/13</td>
+			<td>2012/02/26</td>
+			<td><input type="button" value="확인" class="btnView" /></td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td class="leftStyle">대학생 스마트 서포터즈를 모집합니다.</td>
+			<td>2012/01/15~2012/01/18</td>
+			<td>2012/01/30</td>
+			<td><input type="button" value="확인" class="btnView" /></td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td class="leftStyle">전국이 즐기는 신년 맞이 이벤트!</td>
+			<td>2012/01/01~2012/01/03</td>
+			<td>2012/01/05</td>
+			<td><input type="button" value="확인" class="btnView" /></td>
+		</tr>
+		<tr>
+			<td>6</td>
+			<td class="leftStyle">크리스마스 가족+연인+친구 2배 사랑 이벤트</td>
+			<td>2011/12/23~2011/12/25</td>
+			<td>2011/12/27</td>
+			<td><input type="button" value="확인" class="btnView" /></td>
+		</tr>
+		<tr>
+			<td>7</td>
+			<td class="leftStyle">어플 이벤트. 다운로드 받고 기프트콘 받자.</td>
+			<td>2011/12/11~2011/12/20</td>
+			<td>2011/12/22</td>
+			<td><input type="button" value="확인" class="btnView" /></td>
+		</tr>
+	</table>
+</body>
+</html>

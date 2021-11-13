@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title> 
+    <style>
+        *{margin: 0; padding: 0;}
+        body{box-sizing: border-box;}
+        input{display: none;}
+        .slidebox{
+            max-width: 1000px; width: 100%;
+        margin: 0 auto;
+        }
+        ul li{list-style: none;}
+        .slidebox img{max-width: 100%;}
+        .slidebox .slidelist{
+            white-space: nowrap;
+            font-size: 0;
+            overflow: hidden;
+        }
+        /* nowrap=자식들 줄바꿈 없앰 */
+        .slidebox .slideitem{
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+            width: 100%;
+            transition: all .35s;
+        }
+        /* ㄴli1개가 슬라이드1페이지가 되게함*/
+        .slidebox .slideitem label{
+            position: absolute; top: 50%;
+            padding: 20px;
+            border-radius: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            z-index: 1;
+        }
+        .slidebox .slideitem label .left{
+            left: 20px;
+            background: #5f5f5f url('D:\Studio\국비1_프론트\02_HTML+CSS\Toys\slide1\img\left-arrow.png') no-repeat center center 50% 50%;
+            
+        }
+        .slidebox .slideitem label .right{
+            right: 20px;
+            background: #5f5f5f url('slide1/img/right-arrow.png') center center/50% no-repeat ;
+            
+        }
+        #slide1:checked ~ .slidelist .slideitem{
+            transform: translateX(0);
+        }
+        #slide2:checked ~ .slidelist .slideitem{
+            transform: translateX(-100%);
+        }
+        #slide3:checked ~ .slidelist .slideitem{
+            transform: translateX(-200%);
+        }
+        #slide4:checked ~ .slidelist .slideitem{
+            transform: translateX(-300%);
+        }
+    </style>
+</head>
+<body>
+    <div class="slidebox">
+        <input type="radio" name="slide" id="slide1" checked>
+        <input type="radio" name="slide" id="slide2">
+        <input type="radio" name="slide" id="slide3">
+        <input type="radio" name="slide" id="slide4">
+    </div>
+    <ul class="slidelist">
+        <li class="slideitem">
+            <div>
+                <label for="slide4" class="left"></label>
+                <label for="slide2" class="right"></label>
+                <a><img src="slide1/img/slideimg01.jpg" alt="slide1 highway"></a>
+            </div>
+        </li>
+        <li class="slideitem">
+            <div>
+                <label for="slide1" class="left"></label>
+                <label for="slide3" class="right"></label>
+                <a><img src="slide1/img/slideimg02.jpg" alt="slide2 boat is anchored"></a>
+            </div>
+        </li>
+        <li class="slideitem">
+            <div>
+                <label for="slide2" class="left"></label>
+                <label for="slide4" class="right"></label>
+                <a><img src="slide1/img/slideimg03.jpg" alt="slide3 city's in mysterious fog"></a>
+            </div>
+        </li>
+        <li class="slideitem">
+            <div>
+                <label for="slide3" class="left"></label>
+                <label for="slide1" class="right"></label>
+                <a><img src="slide1/img/slideimg04.jpg" alt="slide1 awesome autumn"></a>
+            </div>
+        </li>
+    </ul>
+    <label for="slide1"></label>
+</body>
+</html>

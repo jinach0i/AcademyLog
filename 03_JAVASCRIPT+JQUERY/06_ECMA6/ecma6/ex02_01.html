@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+	var a = 100;        // 변수 a를 선언 
+	function f(){
+		var a = 200;    // 함수 블록안에서 같은 변수 a를 선언
+		console.log(a); // 여기서 a의 값은 200
+	}
+	f();
+	console.log(a);     // 여기서 a의 값은 100	
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

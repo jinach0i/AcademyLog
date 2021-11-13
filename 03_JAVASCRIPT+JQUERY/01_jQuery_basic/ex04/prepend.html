@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{margin: 0; padding: 0;}
+        body{line-height: 200%; width: 1000px; margin: 100px auto;}
+       #basket{background-color: rgb(20, 239, 255); padding: 10px;}
+       #apple{background-color: rgb(255, 20, 20); margin: 5px;}
+       #banana{background-color: rgb(255, 231, 20); margin: 5px;;}
+       #orange{background-color: rgb(255, 145, 20); margin: 5px;}
+    </style>
+    <script src="./js/jquery-2.2.4.min.js"></script>
+    <script>
+        $(function(){
+            const basket=$('#basket');
+            const apple=$('#apple');
+            const banana=$('#banana');
+            const orange=$('#orange');
+            basket.prepend(apple);
+            basket.prepend(banana);
+            basket.prepend(orange);
+        });
+    </script>
+</head>
+<body>
+    <div id="basket">basket</div>
+    <div id="apple">apple</div>
+    <div id="banana">banana</div>
+    <div id="orange">orange</div>
+</body>
+</html>

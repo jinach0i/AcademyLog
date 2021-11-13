@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visible</title>
+    <style>
+        #box span{background-color: chartreuse; visibility: hidden;}
+        #box:hover span{visibility: visible;}
+        #box1 span{background-color: cornflowerblue; opacity: 0;}
+        #box1:hover span{background-color: cornflowerblue; opacity: 1;}
+        #box2 span{background-color: gold; display: none;}
+        #box2:hover span{background-color: gold; display: block;}
+    </style>
+   
+</head>
+<body>
+    <span>진짜 한시간</span>
+    <div id="box"><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque at accusantium laborum possimus similique praesentium sint, perspiciatis obcaecati iusto ipsum, id, deserunt consequuntur consectetur magni totam aliquid! Sequi, aut inventore!</span></div>
+    <span>남았네</span>
+    <br>
+    <span>진짜 한시간</span>
+    <div id="box1"><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque at accusantium laborum possimus similique praesentium sint, perspiciatis obcaecati iusto ipsum, id, deserunt consequuntur consectetur magni totam aliquid! Sequi, aut inventore!</span></div>
+    <span>남았네</span>
+    <br>
+    <span>진짜 한시간</span>
+    <div id="box2"><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque at accusantium laborum possimus similique praesentium sint, perspiciatis obcaecati iusto ipsum, id, deserunt consequuntur consectetur magni totam aliquid! Sequi, aut inventore!</span></div>
+    <span>남았네</span>
+</body>
+</html>

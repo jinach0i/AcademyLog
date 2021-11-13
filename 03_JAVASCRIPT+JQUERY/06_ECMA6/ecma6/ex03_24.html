@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>지연 함수의 결과값이 반영되지 않는 경우</title>
+	<script>
+	var cnt = 0;
+	
+	setTimeout(function(){
+		cnt++;  // cnt를 1증가
+	},1000);
+	
+	console.log(cnt);  // 결과는 0 (지연 함수안의 구문보다 먼저 실행됨)
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

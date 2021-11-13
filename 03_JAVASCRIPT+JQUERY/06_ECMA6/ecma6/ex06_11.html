@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>클래스</title>
+    <script>
+	class Display {  // Display 클래스 선언
+		constructor(x, y) {
+			this.x = x;
+			this.y = y;
+		}
+		
+		logPosition(){
+			console.log(this.x, this.y);
+		}
+	}
+	
+	class Rect extends Display {  // Display 클래스 상속
+		constructor(x, y, width, height) {
+			super(x, y);
+			this.width = width;
+			this.height = height;
+		}
+		
+		logPosition(){  // 메서드 오버라이딩
+			console.log('메서드 오버라이딩');
+			super.logPosition();  // 부모 클래스 logPosition 메서드 호출
+		}
+	}
+	
+	const rect = new Rect(10, 20, 100, 200);  // Rect 클래스 인스턴스 생성
+	// logPosition 메서드 호출 
+	// 결과는 자식클래스의 메서드가 호출 '메서드 오버라이딩' 출력
+	// 자식 클래스에서 부모 클래스 메서드 호출 10, 20 출력
+	rect.logPosition(); 
+    </script>
+</head>
+<body>
+
+</body>
+</html>
+
+
+
+
+
+
+
+

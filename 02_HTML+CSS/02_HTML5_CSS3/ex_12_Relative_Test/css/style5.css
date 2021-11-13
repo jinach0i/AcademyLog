@@ -1,0 +1,7 @@
+@charset "utf-8";
+*{margin: 0; padding: 0;}
+.border-tip{background-color: lawngreen; width: 400px; padding: 20px; margin: 50px auto; position: relative;}
+.top{border-bottom: 10px green solid; border-left: 10px solid transparent; border-right: 10px solid transparent; position: absolute; top: -10px; left: 50%; transform: translateX(-50%);}
+.bottom{border-left: 10px transparent solid; border-top: 10px solid green; border-right: 10px solid transparent; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);}
+.left{border-bottom: 10px transparent solid; border-top: 10px solid transparent; border-right: 10px solid green; position: absolute; top: 50%; left: -5px; transform: translate(-50%,-50%);}
+.right{border-bottom: 10px transparent solid; border-top: 10px solid transparent; border-left: 10px solid green; position: absolute; top: 50%; right: -5px; transform: translate(50%,-50%);}

@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>제너레이터 함수를 사용한 코드</title>
+	<script>
+	function* gen(){
+		for(let i=0; i<3; i++){
+			yield i;
+		}
+	}
+	
+    let generator = gen();  // 제너레이터 함수를 호출 시 제너레이터 객체가 반환하고 동작을 멈춘다.
+    console.log(iteratorResult); // 결과는 {value: 0, done:false}
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

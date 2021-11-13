@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .ball{
+            width: 150px; height: 150px;
+            margin: 100px;
+            background-color: tomato;
+            animation: rotate 1.5s infinite, backgrounds 1.5s infinite alternate;
+        }
+        @keyframes rotate{
+            from{
+                transform: perspective(200px) rotate(0deg);
+            }
+            50%{
+                transform: perspective(200px) rotateX(-180deg) rotateY(0); 
+            }
+            to{
+                transform: perspective(200px) rotate(-180deg);
+            }
+        }
+        @keyframes backgrounds{
+            from{background-color: yellow;}
+            50%{background-color: orange;}
+            to{background-color: red;}
+        }
+    </style>
+</head>
+<body>
+    <div class="ball"></div>
+</body>
+</html>

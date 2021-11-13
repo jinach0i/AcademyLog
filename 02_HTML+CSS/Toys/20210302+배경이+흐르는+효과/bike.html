@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<title>자동차</title>
+
+	<style>
+	* {margin:0;padding:0;font-size:0;}
+	/* 중앙에 배치되는 소스(삭제 후 사용하세요) */
+	.movewrap {position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);}
+	
+	/* 16대9 비율 반응형 */
+	.movewrap {max-width:1200px;width:100%;}
+	.movewrap > div {padding-bottom:40%;width:100%;}
+
+	.moving {
+		position:absolute;top:0;left:0;
+		width:100%;height:100%;
+		background:url('./img/bikebg.png') 0 center / 120% repeat-x;
+		animation: moveright 5s linear infinite;
+	}
+
+	@keyframes moveright {
+		0% {background-position:0% center;}
+		100% {background-position:600% center;}
+	}
+
+	/* 오토바이에 관련된 소스 */
+	.bikeicon {position:absolute;top:70%;left:50%;transform:translate(-50%,-50%);transition:all 5s;width:20%;}
+	.bikeicon img {width:100%;}
+	.bikeicon .tire01 {position:absolute;bottom:3%;left:10%;width:26%;z-index:-1;}
+	.bikeicon .tire02 {position:absolute;bottom:3%;right:.2%;width:26%;z-index:-1;}
+	.tire-rotate {animation: tire-rotate 1s linear infinite;}
+	@keyframes tire-rotate {
+	  0% {transform: rotate(0);}
+	  100% {transform: rotate(360deg);}
+	}
+
+
+	</style>
+</head>
+<body>
+
+																		<div class="movewrap">
+																			<div>
+																				<div class="moving">
+																					<!-- 오토바이/시작/ -->
+																					<div class="bikeicon">
+																						<img src="./img/bike.png">
+																						<img src="./img/tire.png" class="tire01 tire-rotate">
+																						<img src="./img/tire.png" class="tire02 tire-rotate">
+																					</div>
+																					<!-- /끝/오토바이 -->
+																				</div>
+																			</div>
+																		</div>
+
+
+
+</body>
+</html>

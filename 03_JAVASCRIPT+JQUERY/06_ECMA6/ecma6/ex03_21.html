@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>심볼은 객체에 속성 추가 시 내장 속성과의 충돌을 피할 수 있음2</title>
+	<script>
+	let arr = [1, 2, 3];
+	const length = Symbol('length');  // 심볼을 선언
+	arr[length] = 100;                // 배열에 심볼을 속성으로 추가
+	console.log(arr[length]);  // 결과는 100
+	console.log(arr.length);   // 결과는 3, 내장 속성이 그대로임
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>지연 함수의 결과값이 반영되고 가독성도 살리는 Promise</title>
+	<script>
+	let cnt = 0;
+
+	let promise = new Promise(function(resolve, reject){  // Promise 생성
+		setTimeout(function(){    // 지연함수를 Promise 내부에서 관리
+			cnt++;
+			resolve(cnt);  // 결과값을 전달
+		},1000);
+	});
+
+	promise.then(function($cnt){
+		cnt = $cnt;
+		console.log(cnt);
+	});
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

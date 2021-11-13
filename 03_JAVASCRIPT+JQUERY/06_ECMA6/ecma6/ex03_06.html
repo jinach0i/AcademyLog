@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>throw 메서드</title>
+	<script>
+    function* gen(){
+        let i = 0; 
+        while(i>= 0){
+            try{
+                yield i++;
+            } catch(e) {
+
+            }
+        }
+    }	
+    let generator = gen();
+    console.log(generator.next());   // {value:0, done:false}
+    console.log(generator.next());   // {value:1, done:false}
+    console.log(generator.next());   // {value:2, done:false}
+    // throw 메서드 호출 후 결과값은 'throw errow'
+    generator.throw();               // 'throw errow'
+                                     // {value:3, done:false}
+    console.log(generator.next());   // {value:4, done:false}
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

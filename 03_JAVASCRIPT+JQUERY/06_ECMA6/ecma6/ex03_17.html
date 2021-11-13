@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>워크맵 set(key, value) 메서드</title>
+	<script>
+	let obj = {};
+	let weakMap = new WeakMap();
+	
+	weakMap.set(obj, 100);  		// key로 참조 타입을 사용
+	console.log(weakMap.get(obj));  // 결과는 100
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>forEach 메서드</title>
+	<script>
+	let set = new Set('abab');
+	//let set = new Set('ababcd');
+
+	set.forEach(function(value, key){
+		console.log(value, key);  // 결과는 'a', 'a'
+								  //       'b', 'b'
+								  //       value, key 모두 셋 항목의 value와 같다  
+	});                           // 셋 항목의 value를 첫번째와 두번째 원소로 하는 배열
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

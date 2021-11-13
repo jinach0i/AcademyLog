@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Proxy</title>
+    <script type="text/javascript">
+        let target = {};
+		let handler = {
+			// set trap(target 객체의 속성이 추가되면 호출)
+			set:function(target, key, value, receiver){
+				// 추가한 속성인 'name', 'my proxy' 가 출력됨
+				console.log(key, value);
+				return Reflect.set(target, key, value, receiver);
+			}
+		};
+		
+		let proxy = new Proxy(target, handler);
+		proxy.name = 'my porxy';
+		
+		// 결과는 {name: 'my proxy'}
+		console.log(target);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

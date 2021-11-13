@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>float에 overflow로 대응법</title>
+    <style>
+        *{margin: 0; padding: 0;}
+        body{margin: 100px;}
+        h1{font: 26px "돋움","Dotum","Sans-serif"; margin: 0 0 20px;}
+        #header{clear:both; padding: 10px; border: 10px solid whitesmoke; margin-bottom: 10px;}
+        #container{overflow:hidden; padding: 10px; border: 10px solid whitesmoke; margin-bottom: 10px;}
+        #container #lnb{width: 25%; padding: 10px; border: 10px solid whitesmoke; margin-bottom: 10px; background-color: tomato; float: left;}
+        #container #content{width: 55%; padding: 10px; border: 10px solid whitesmoke; margin-bottom: 10px; background-color: turquoise; float: right;}
+        #footer{clear:both; padding: 10px; border: 10px solid whitesmoke;}
+    </style>
+</head> 
+<body>
+    <h1>float에 아무런 행동을 하지 않은 상태</h1>
+    <div id="header">
+        <p>#header{clear:both;}쓸 예정</p>
+    </div>
+    <div id="container">
+        <p>#container{overflow:hidden;}쓸 예정</p>
+        <div id="lnb">
+            <p><strong>#lnb{float:left;}쓸 예정</strong></p>
+        </div>
+        <div id="content">
+            <p><strong>#content{float:right;}쓸 예정</strong></p>
+        </div>
+    </div>
+    <div id="footer">
+        <p><strong>#footer{clear:both;}쓸 예정</strong></p>
+    </div>
+</body>
+</html>

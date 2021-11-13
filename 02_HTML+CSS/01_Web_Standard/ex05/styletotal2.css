@@ -1,0 +1,33 @@
+body{
+    text-align: center;
+}
+h1{
+    background-color: violet;
+    color: white;
+    padding: 10px 0;
+}
+a{
+    background-color: black;
+    color: white;
+}
+li{
+    line-height: 200%;
+    list-style: none;
+}
+h2{
+    background-color: red;
+    color: white;
+    font-size: 14px;
+    padding: 5px 0;
+}
+#Toy{
+    color: white;
+    background-color: red;
+   
+}
+#Toy2{
+   
+}
+#Toy3{
+
+}

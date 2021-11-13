@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+	<title> 히트 레시피 </title>
+	<meta charset="UTF-8" />
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			text-decoration: none;
+		}
+		
+		div{
+			width: 150px;
+			margin: 30px 30px 50px 30px;
+		}
+		ul{
+			padding: 10px;
+		}
+		li{list-style: none;
+			line-height: 160%;
+		}
+		a:hover{
+			color: black;
+		}
+		
+		#categoryBox{
+			border: 4px solid darkcyan;
+		}
+		#categoryBox h1{
+			border-bottom: 1px solid grey;
+		}
+		.cookMenu a{
+			color: grey;
+		}
+		#categoryBox li:first-child a{
+			font-weight: bold;
+			color: black;
+		}
+
+		#bbsBox{
+			margin-top: 80px;
+			border: 4px solid hotpink;
+			
+		}
+		.bbsMenu a{
+			color: white;
+			padding: 2px;
+		}
+		.bbsMenu li:first-child a{
+			background-color: red;
+			
+		}
+		.bbsMenu li:nth-child(2) a{
+			background-color: blue;
+			
+		}
+		.bbsMenu li:nth-child(3) a{
+			background-color: olivedrab;
+		}
+		.bbsMenu li:last-child a{
+			background-color: olivedrab;
+		}
+		
+		
+		 
+	</style>
+</head>
+
+<body>
+	<div id="categoryBox">
+		<h1><img src="images/title_category.jpg" width="54" height="13" alt="카테고리" /></h1>
+		<ul class="cookMenu"> 
+			<li><a href="#">밥/죽/면</a></li>
+			<li><a href="#">매일 반찬</a></li>
+			<li><a href="#">국/찌게/전골</a></li>
+			<li><a href="#">가족/초대요리</a></li>
+			<li><a href="#">소스/양념장</a></li>
+			<li><a href="#">간식/음료</a></li>
+			<li><a href="#">기타</a></li>
+		</ul>
+	</div>
+	<div id="bbsBox">
+		<h1><img src="images/title_bbs.jpg" width="54" height="13" alt="게시판" /></h1>
+		<ul class="bbsMenu">
+			<li><a href="#" title="자유게시판">자유 게시판</a></li>
+			<li><a href="#" title="회원장터">회원 장터</a></li>
+			<li><a href="#" title="나만의 레시피">나만의 레시피</a></li>
+			<li><a href="#" title="불후의 레시피">불후의 레시피</a></li>
+		</ul>
+	</div>
+</body>
+</html>

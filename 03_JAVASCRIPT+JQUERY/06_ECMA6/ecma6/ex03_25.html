@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>지연 함수의 결과값이 반영되만 가독성이 떨어짐</title>
+	<script>
+	var cnt = 0;
+
+	setTimeout(function(){
+		receiveCount(++cnt);  // cnt를 1증가하고, receiveCount 함수 호출
+	},1000);
+
+	function receiveCount($cnt){
+		cnt = $cnt;
+		console.log(cnt);  // 결과는 1
+	}
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>클래스</title>
+    <script>
+	class Display{  // Display 클래스 선언
+		static foo(){      // static foo 메서드 선언
+			console.log(this);  // this출력
+		}
+	}
+	
+	Display.foo();  // static foo 메서드 호출, 출력된 this는 undefined
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>delete 메서드</title>
+	<script>
+	let obj = {};
+	let set = new Set();
+	set.add(obj);
+	set.add(100);
+	console.log(set.size);   // 셋 항목수는 2
+
+	set.delete(obj);         // 변수 obj와 일치하는 셋 항목 삭제 
+	console.log(set.size);   // 셋 항목수는 1
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

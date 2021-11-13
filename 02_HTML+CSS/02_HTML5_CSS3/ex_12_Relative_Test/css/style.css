@@ -1,0 +1,21 @@
+@charset "utf-8"
+*{margin: 0; padding: 0;}
+#mainHeader{background-color: deepskyblue; width: 800px; height: 200px; margin: 100px auto; color: white; position: relative;}
+li{list-style:none;}
+a{text-decoration: none; color: black;}
+body{}
+#mainHeader{width: 960px; height: 200px; margin: 0 auto; background-color: lightskyblue; position: relative;}
+#mainHeader .title{}
+#mainHeader .title .heading{position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);}
+#mainHeader .title .heading h1{}
+#mainHeader .gnb{position: absolute; top: 0; right: 0;}
+#mainHeader .gnb ul{overflow: hidden;}
+#mainHeader .gnb ul li{float: left; padding-right: 5px;}
+#mainHeader .gnb ul li a{display: block; padding: 4px 10px;}
+#mainHeader .gnb ul li a:hover{background-color: cornflowerblue;}
+#mainHeader .gnb ul li a img{}
+#mainHeader .gnb ul li a strong{}
+#mainHeader .nav{}
+#mainHeader .nav ul{position: relative; top: 120px; left: 50%; float: left;}
+#mainHeader .nav ul li{position: relative; float: left; left: -50%;}
+#mainHeader .nav ul li a{display: block; padding: 0 30px;} 

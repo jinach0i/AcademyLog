@@ -1,0 +1,27 @@
+@charset "utf-8";
+*{margin: 0; padding: 0;}
+h2{font-size: 1.5em; margin: 19px; text-align: center;}
+h3{font-size: 1em; display: inline;}
+#wrap{width: 800px; height: auto; margin: 0 auto;}
+header{width: 100%; height: 150px; background: url('../images/nav2.png') no-repeat right center #f46075;}
+nav{width: 70%; float: left; margin-top: 50px; padding-left: 50px;}
+nav>ul{list-style: none;}
+nav>ul li{display: inline-block; margin: 15px; font-weight: bold;}
+nav>ul li a{text-decoration: none; color: black;}
+section{width: 580px; margin-top: 5px; float: left;}
+article{width: 250px; height: 200px; padding: 10px; float:left; margin: 5px; overflow: scroll; border: 2px solid lightblue;}
+.article1{transition: background-color,border 2s; }
+.article1:hover{background-color: lightcyan; border: 2px solid lightpink;}
+.article2{transition: background-color,border 2s;}
+.article2:hover{background-color: lightcyan; border: 2px solid lightpink;}
+.article3{transition: background-color,border 2s;}
+.article3:hover{background-color: lightcyan; border: 2px solid lightpink;}
+.article4{transition: background-color,border 2s;}
+.article4:hover{background-color: lightcyan; border: 2px solid lightpink;}
+input[type="checkbox"]:checked ~div.check{height: 0;}
+.check{height: 200px; width: 250px; transition: 1s; overflow: hidden;}
+ㄴinput중 type이 checkbox인것이 checked가 되면 동일 형제인 div의 check라는 이름 갖고 있는 애에게
+aside{width: 200px; float: right; background-color: lightyellow; margin-top: 80px; border: 2px solid burlywood; }
+aside img{display: block; margin: 0 auto;}
+footer{width: 100%;background-color: limegreen; clear: both;}
+footer p{padding: 20px; text-align: center; }

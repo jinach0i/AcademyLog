@@ -1,0 +1,24 @@
+*{margin: 0; padding: 0;}
+body{
+    font: 1.2em verdana, sans-serif;
+    margin-top: 40px;
+    background-color: turquoise;
+}
+h1{text-align: center; padding-bottom: 30px; font-size: 2em; color: white;font-style: italic; text-shadow: 8px 8px 8px grey;}
+#photoBox{width: 330px; margin: 0 auto;}
+#tabNavi{overflow: hidden; list-style: none; padding-left: 100px; }
+#tabNavi li{float: left;}
+#tabNavi li.activeS a{background-color: hotpink; color: black;}
+#tabNavi li:hover a{background-color: pink; color: white;}
+#tabNavi li a{
+    display: block; 
+    text-align: center; text-decoration: none; 
+    color: black; background-color: white; padding: 4px 10px; 
+    border-top-left-radius: 10px; border-top-right-radius: 10px;
+    
+}
+
+#photo{border: 5px solid hotpink; border-radius: 15px;
+background-color: white; text-align: center;}
+#photo img{}
+

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>border종류</title>
+    <style>
+        table{width: 590px; margin: 50px auto;}
+        table td div{padding: 10px; text-align: center;}
+        .tbox1{border: 5px rgb(167, 163, 163) none;}
+        .tbox2{
+            border-top-color: linen;
+            border-top-width: 5px;
+            border-top-style: solid;
+            border-bottom-color: rgb(255, 191, 72);
+            border-bottom-width: 5px;
+            border-bottom-style: solid;
+            border-left-color: rgb(41, 255, 191);
+            border-left-width: 5px;
+            border-left-style: solid;
+            border-right-color: rgb(255, 86, 156);
+            border-right-width: 5px;
+            border-right-style: solid;
+        }
+        .tbox3{
+            border: dotted 1px red;
+        }
+        .tbox4{border: dashed 4px orange;}
+        .tbox5{border: double 4px orange;}
+        .tbox6{border: groove 4px orange;}
+        .tbox7{border: ridge 4px orange;}
+        .tbox8{border: inset 4px orange;}
+        .tbox9{border: outset 4px orange;}
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td><div class="tbox1">none</div></td>
+            <td><div class="tbox2">solid</div></td>
+            <td><div class="tbox3">dotted</div></td>
+            
+        </tr>
+        <tr>
+            <td><div class="tbox4">dashed</div></td>
+            <td><div class="tbox5">double</div></td>
+            <td><div class="tbox6">groove</div></td>
+        </tr>
+        <tr>
+            <td><div class="tbox7">ridge</div></td>
+            <td><div class="tbox8">inset</div></td>
+            <td><div class="tbox9">outset</div></td>
+        </tr>
+    </table>
+</body>
+</html>
